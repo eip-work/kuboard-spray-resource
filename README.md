@@ -1,0 +1,2 @@
+# kuboard-spray-resource
+
