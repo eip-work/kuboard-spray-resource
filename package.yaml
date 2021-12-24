@@ -1,6 +1,6 @@
 kuboardspray:
   kubespray_version: master
-  min_kuboard_spray_version: 1.0.0
+  min_kuboard_spray_version: 'v1.0.0'
 kubernetes:
   kube_version: 'v1.22.4'
   image_arch: amd64
@@ -100,14 +100,6 @@ download_always_pull: false
 # calico_version: "v3.20.3"
 
 # containerd_version: '1.5.8'
-
-# kuboardspray_kata_container_enabled: false
-# kuboardspray_docker_enabled: true
-# kuboardspray_gvisor_enabled: false
-# kuboardspray_containerd_enabled: true
-# kuboardspray_calico_enabled: true
-
-
 
 # helm_enabled: false
 
