@@ -1,0 +1,18 @@
+---
+- name: configuring apt sources
+  template:
+    src: etc/apt/sources.list.j2
+    dest: /etc/apt/sources.list
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  become: true
+  register: kuboardspray_apt_source_configured
+  when: kuboardspray_ubuntu_repo is defined
+
+- name: updating apt-cache
+  apt:
+    update_cache: yes
+  become: true
+  when: kuboardspray_apt_source_configured['changed']

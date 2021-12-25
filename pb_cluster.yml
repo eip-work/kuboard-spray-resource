@@ -5,16 +5,23 @@
 # - name: Ensure compatibility with old groups
 #   import_playbook: legacy_groups.yml
 
-# add os_service task to disable firewalld
-- name: Disable firewalld
-  import_playbook: 3rd/kubespray/contrib/os-services/os-services.yml
-
 - hosts: bastion[0]
   gather_facts: False
   environment: "{{ proxy_disable_env }}"
   roles:
     - { role: kubespray-defaults }
     - { role: bastion-ssh-config, tags: ["localhost", "bastion"] }
+
+# add os_service task to disable firewalld
+- name: Disable firewalld
+  import_playbook: 3rd/kubespray/contrib/os-services/os-services.yml
+
+- hosts: target
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  roles:
+    - role: config-apt-sources
+      vars:
+        kuboardspray_ubuntu_repo: http://10.99.1.9/ubuntu/
 
 - hosts: k8s_cluster:etcd
   strategy: linear
