@@ -1,3 +1,16 @@
+metadata:
+  version: spray-v2.17.1_k8s-v1.22.5_v1.0
+  kubespray_version: v2.17.1
+  kuboard_spray_version:
+    min: v1.0.0
+  available_at:
+    - docker.io/eip-work/kuboard-spray-resource:spray-v2.17.1_k8s-v1.22.5_v1.1
+    - swr.huaweicloud.com/eip-work/kuboard-spray-resource:spray-v2.17.1_k8s-v1.22.5_v1.1
+  issue_date: '2021-12-25'
+  owner: 'shaohq@foxmail.com'
+  can_upgrade_from:
+    - spray-v2.17.1_k8s-v1.22.5_v1.0
+
 kuboardspray:
   kubespray_version: master
   min_kuboard_spray_version: 'v1.0.0'
@@ -7,9 +20,10 @@ kubernetes:
   gcr_image_repo: 'gcr.io'
   kube_image_repo: 'k8s.gcr.io'
 container_engine:
-  container_manager: 'containerd'
-  version: '1.5.8'
-  target: containerd_version
+  - container_manager: 'containerd'
+    version: '1.5.8'
+    target: containerd_version
+  - container_manager: 'docker'
 
 supported_os:
   - distribution: Ubuntu
