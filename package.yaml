@@ -32,7 +32,9 @@ supported_os:
 
 etcd:
   etcd_version: 'v3.5.0'
-  etcd_deployment_type: 'host'
+  etcd_deployment_type: 
+    - 'host'
+    - 'docker'
 dependency:
   - name: crun
     version: 1.3
