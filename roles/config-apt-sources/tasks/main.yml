@@ -9,7 +9,7 @@
     backup: yes
   become: true
   register: kuboardspray_apt_source_configured
-  when: kuboardspray_ubuntu_repo is defined
+  when: ansible_distribution == "Ubuntu"
 
 - name: updating apt-cache
   apt:
