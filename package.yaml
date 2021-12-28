@@ -21,9 +21,12 @@ kubernetes:
   kube_image_repo: 'k8s.gcr.io'
 container_engine:
   - container_manager: 'containerd'
-    version: '1.5.8'
-    target: containerd_version
+    params:
+      containerd_version: 1.5.8
   - container_manager: 'docker'
+    params:
+      docker_version: '20.10'
+      docker_containerd_version: 1.4.12
 
 supported_os:
   - distribution: Ubuntu
