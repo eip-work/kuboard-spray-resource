@@ -11,9 +11,6 @@ metadata:
   can_upgrade_from:
     - spray-v2.17.1_k8s-v1.22.5_v1.0
 
-kuboardspray:
-  kubespray_version: master
-  min_kuboard_spray_version: 'v1.0.0'
 kubernetes:
   kube_version: 'v1.22.4'
   image_arch: amd64
@@ -30,8 +27,11 @@ container_engine:
 
 supported_os:
   - distribution: Ubuntu
-    major_version: 20
     version: 20.04
+  - distribution: CentOS
+    version: 7.8
+  - distribution: CentOS
+    version: 7.9
 
 etcd:
   etcd_version: 'v3.5.0'
