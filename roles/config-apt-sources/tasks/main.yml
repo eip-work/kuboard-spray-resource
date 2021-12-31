@@ -1,5 +1,5 @@
 ---
-- name: configuring apt sources
+- name: configuring ubuntu /etc/apt/sources.list
   template:
     src: etc/apt/sources.list.j2
     dest: /etc/apt/sources.list
@@ -9,7 +9,7 @@
     backup: yes
   become: true
   register: kuboardspray_apt_source_configured
-  when: ansible_distribution == "Ubuntu"
+  when: ansible_distribution == "Ubuntu" and kuboardspray_repo_ubuntu != "AS_IS"
 
 - name: updating apt-cache
   apt:

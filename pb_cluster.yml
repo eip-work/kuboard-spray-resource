@@ -19,9 +19,8 @@
 - hosts: target
   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
   roles:
-    - role: config-apt-sources
-      vars:
-        kuboardspray_ubuntu_repo: http://10.99.1.9/ubuntu/
+    - { role: config-apt-sources }
+    - { role: config-centos-repo }
 
 - hosts: k8s_cluster:etcd
   strategy: linear
