@@ -1,11 +1,11 @@
 metadata:
-  version: spray-v2.17.1_k8s-v1.22.5_v1.0
+  version: spray-v2.17.1_k8s-v1.22.5_v1.0-amd64
   kubespray_version: v2.17.1
   kuboard_spray_version:
     min: v1.0.0
   available_at:
-    - docker.io/eip-work/kuboard-spray-resource:spray-v2.17.1_k8s-v1.22.5_v1.1
-    - swr.huaweicloud.com/eip-work/kuboard-spray-resource:spray-v2.17.1_k8s-v1.22.5_v1.1
+    - ccr.ccs.tencentyun.com/kuboard/kuboard-spray-resource
+    - swr.huaweicloud.com/eip-work/kuboard-spray-resource
   issue_date: '2021-12-25'
   owner: 'shaohq@foxmail.com'
   can_upgrade_from:
@@ -16,6 +16,7 @@ kubernetes:
   image_arch: amd64
   gcr_image_repo: 'gcr.io'
   kube_image_repo: 'k8s.gcr.io'
+
 container_engine:
   - container_manager: 'containerd'
     params:
@@ -27,11 +28,12 @@ container_engine:
 
 supported_os:
   - distribution: Ubuntu
-    version: 20.04
+    versions:
+      - '20.04'
   - distribution: CentOS
-    version: 7.8
-  - distribution: CentOS
-    version: 7.9
+    versions:
+      - '7.8'
+      - '7.9'
 
 etcd:
   etcd_version: 'v3.5.0'
@@ -119,8 +121,3 @@ addons:
     params:
       local_path_provisioner_image_tag: "v0.0.19"
 
-
-download_keep_remote_cache: true
-download_run_once: true
-download_localhost: true
-download_always_pull: false
