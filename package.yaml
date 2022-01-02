@@ -1,14 +1,16 @@
 metadata:
-  version: spray-master-20220102_k8s-v1.23.1_v1.0-amd64
-  kubespray_version: master-20220102
+  version: spray-master-8d9ed01_k8s-v1.23.1_v1.0-amd64
+  kubespray_version: master-8d9ed01
   kuboard_spray_version:
     min: v1.0.0
   available_at:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: '2021-12-25'
+  issue_date: '2021-01-03'
   owner: 'shaohq@foxmail.com'
   can_upgrade_from:
+  supported_playbooks:
+    install_cluster: pb_cluster.yaml
 
 kubernetes:
   kube_version: 'v1.23.1'
