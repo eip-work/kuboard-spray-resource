@@ -25,11 +25,11 @@ git pull
 rm kubespray_cache
 ln -s "/root/kuboard-spray-resource-cache/${version}" kubespray_cache
 
-# docker build -f Dockerfile -t $tag:$version .
+docker build -f Dockerfile -t $tag:$version .
 
 
-# docker push $tag:$version
+docker push $tag:$version
 
-# docker tag $tag:$version $tag_backup:$version
+docker tag $tag:$version $tag_backup:$version
 
-# docker push $tag_backup:$version
+docker push $tag_backup:$version
