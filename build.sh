@@ -17,17 +17,25 @@ git pull
 
 cd ../..
 
-echo
-echo "checkout eip-work/kuboard-spray-resource:${version}"
-git checkout ${version}
-git pull
+# echo
+# echo "checkout eip-work/kuboard-spray-resource:${version}"
+# git checkout ${version}
+# git pull
 
-rm kubespray_cache
-ln -s "/root/kuboard-spray-resource-cache/${version}" kubespray_cache
+echo
+echo "链接到 /cache/${version}"
+mkdir "./cache/${version}" || true
+ln -s "./cache/${version}" kubespray_cache
+ls -lh kubespray_cache
+
+echo
+echo "构建镜像"
 
 docker build -f Dockerfile -t $tag:$version .
 
 
+echo
+echo "推送镜像"
 docker push $tag:$version
 
 docker tag $tag:$version $tag_backup:$version
