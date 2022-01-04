@@ -4,14 +4,14 @@
 tag=$(cat package.yaml | shyaml get-value metadata.available_at.0)
 
 version=$(cat package.yaml | shyaml get-value metadata.version)
-kuboardspray_version="${version#*spray-}"
-kuboardspray_version="${kuboardspray_version%%_k8s*}"
+kubespray_version="${version#*spray-}"
+kubespray_version="${kubespray_version%%_k8s*}"
 
 
-echo "checkout eip-work/kubespray:${kuboardspray_version}"
+echo "checkout eip-work/kubespray:${kubespray_version}"
 
 cd ./3rd/kubespray
-git checkout ${kuboardspray_version}
+git checkout ${kubespray_version}
 git pull
 
 cd ../..
@@ -37,6 +37,8 @@ echo "构建镜像"
 
 docker build -f Dockerfile -t $tag:$version .
 
+echo
+echo "恢复到 /cache/${version}"
 # 将文件恢复到原来的位置
 mv kubespray_cache ./cache/${version}
 mv image_cache ./cache/${version}/images

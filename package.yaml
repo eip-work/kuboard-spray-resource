@@ -1,6 +1,6 @@
 metadata:
-  version: spray-master-8d9ed01_k8s-v1.23.1_v1.0-amd64
-  kubespray_version: master-8d9ed01
+  version: spray-master-8d9ed01_k8s-v1.23.1_v1.1-amd64
+  type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.0.0
   available_at:
@@ -9,116 +9,118 @@ metadata:
   issue_date: '2021-01-03'
   owner: 'shaohq@foxmail.com'
   can_upgrade_from:
+  supported_os:
+    - distribution: Ubuntu
+      versions:
+        - '20.04'
+    - distribution: CentOS
+      versions:
+        - '7.8'
+        - '7.9'
+
+data:
+  kubespray_version: master-8d9ed01
   supported_playbooks:
     install_cluster: pb_cluster.yaml
 
-kubernetes:
-  kube_version: 'v1.23.1'
-  image_arch: amd64
-  gcr_image_repo: 'gcr.io'
-  kube_image_repo: 'k8s.gcr.io'
+  kubernetes:
+    kube_version: 'v1.23.1'
+    image_arch: amd64
+    gcr_image_repo: 'gcr.io'
+    kube_image_repo: 'k8s.gcr.io'
 
-container_engine:
-  - container_manager: 'containerd'
-    params:
-      containerd_version: 1.5.8
-  - container_manager: 'docker'
-    params:
-      docker_version: '20.10'
-      docker_containerd_version: 1.4.12
+  container_engine:
+    - container_manager: 'containerd'
+      params:
+        containerd_version: 1.5.8
+    - container_manager: 'docker'
+      params:
+        docker_version: '20.10'
+        docker_containerd_version: 1.4.12
 
-supported_os:
-  - distribution: Ubuntu
-    versions:
-      - '20.04'
-  - distribution: CentOS
-    versions:
-      - '7.8'
-      - '7.9'
-
-etcd:
-  etcd_version: 'v3.5.0'
-  etcd_deployment_type: 
-    - 'host'
-    - 'docker'
-dependency:
-  - name: crun
-    version: 1.3
-    target: crun_version
-  - name: runc
-    version: v1.0.3
-    target: runc_version
-  - name: cni-plugins
-    version: "v1.0.1"
-    target: cni_version
-  - name: crictl
-    version: 'v1.22.0'
-    target: crictl_version
-  - name: nerdctl
-    version: '0.15.0'
-    target: nerdctl_version
-  - name: nginx_image
-    version: 1.21.4
-    target: nginx_image_tag
-  - name: node_local_dns
-    version: '1.21.1'
-    target: nodelocaldns_version
-  - name: coredns
-    target: coredns_version
-    version: 'v1.8.0'
-  - name: cluster-proportional-autoscaler
-    target: dnsautoscaler_version
-    version: 1.8.5
-  - name: pause
-    target: pod_infra_version
-    version: '3.3'
-cni:
-  - name: calico
-    version: 'v3.20.3'
-    target: calico_version
-  - name: flannel
-    version: "v0.15.1"
-    target: flannel_version
-addons:
-  - name: netchecker
-    included: true
-    target: deploy_netchecker
-    params:
-      netcheck_version: "v1.2.2"
-      netcheck_agent_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-agent"
-      netcheck_agent_image_tag: "{{ netcheck_version }}"
-      netcheck_server_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-server"
-      netcheck_server_image_tag: "{{ netcheck_version }}"
-      netcheck_etcd_image_tag: "v3.4.17"
-  # - name: helm
-  #   included: false
-  #   target: helm_enabled
-  #   params:
-  #     helm_version: "v3.7.1"
-  - name: metrics_server
-    included: true
-    target: metrics_server_enabled
-    params:
-      metrics_server_version: "v0.5.0"
-  # - name: cephfs_provisioner
-  #   included: false
-  #   target: cephfs_provisioner_enabled
-  #   params:
-  #     csi_attacher_image_repo: "{{ kube_image_repo }}/sig-storage/csi-attacher"
-  #     csi_attacher_image_tag: "v3.3.0"
-  #     csi_provisioner_image_repo: "{{ kube_image_repo }}/sig-storage/csi-provisioner"
-  #     csi_provisioner_image_tag: "v3.0.0"
-  #     csi_snapshotter_image_repo: "{{ kube_image_repo }}/sig-storage/csi-snapshotter"
-  #     csi_snapshotter_image_tag: "v4.2.1"
-  #     csi_resizer_image_repo: "{{ kube_image_repo }}/sig-storage/csi-resizer"
-  #     csi_resizer_image_tag: "v1.3.0"
-  #     csi_node_driver_registrar_image_repo: "{{ kube_image_repo }}/sig-storage/csi-node-driver-registrar"
-  #     csi_node_driver_registrar_image_tag: "v2.4.0"
-  #     csi_livenessprobe_image_repo: "{{ kube_image_repo }}/sig-storage/livenessprobe"
-  #     csi_livenessprobe_image_tag: "v2.5.0"
-  # - name: local_path_provisioner
-  #   included: false
-  #   target: local_path_provisioner_enabled
-  #   params:
-  #     local_path_provisioner_image_tag: "v0.0.19"
+  etcd:
+    etcd_version: 'v3.5.0'
+    etcd_deployment_type: 
+      - 'host'
+      - 'docker'
+  dependency:
+    - name: crun
+      version: 1.3
+      target: crun_version
+    - name: runc
+      version: v1.0.3
+      target: runc_version
+    - name: cni-plugins
+      version: "v1.0.1"
+      target: cni_version
+    - name: crictl
+      version: 'v1.22.0'
+      target: crictl_version
+    - name: nerdctl
+      version: '0.15.0'
+      target: nerdctl_version
+    - name: nginx_image
+      version: 1.21.4
+      target: nginx_image_tag
+    - name: node_local_dns
+      version: '1.21.1'
+      target: nodelocaldns_version
+    - name: coredns
+      target: coredns_version
+      version: 'v1.8.0'
+    - name: cluster-proportional-autoscaler
+      target: dnsautoscaler_version
+      version: 1.8.5
+    - name: pause
+      target: pod_infra_version
+      version: '3.3'
+  network_plugin:
+    - name: calico
+      params:
+        calico_version: 'v3.20.3'
+    - name: flannel
+      params:
+        flannel_version: "v0.15.1"
+  addon:
+    - name: netchecker
+      included: true
+      target: deploy_netchecker
+      params:
+        netcheck_version: "v1.2.2"
+        netcheck_agent_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-agent"
+        netcheck_agent_image_tag: "{{ netcheck_version }}"
+        netcheck_server_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-server"
+        netcheck_server_image_tag: "{{ netcheck_version }}"
+        netcheck_etcd_image_tag: "v3.4.17"
+    # - name: helm
+    #   included: false
+    #   target: helm_enabled
+    #   params:
+    #     helm_version: "v3.7.1"
+    - name: metrics_server
+      included: true
+      target: metrics_server_enabled
+      params:
+        metrics_server_version: "v0.5.0"
+    # - name: cephfs_provisioner
+    #   included: false
+    #   target: cephfs_provisioner_enabled
+    #   params:
+    #     csi_attacher_image_repo: "{{ kube_image_repo }}/sig-storage/csi-attacher"
+    #     csi_attacher_image_tag: "v3.3.0"
+    #     csi_provisioner_image_repo: "{{ kube_image_repo }}/sig-storage/csi-provisioner"
+    #     csi_provisioner_image_tag: "v3.0.0"
+    #     csi_snapshotter_image_repo: "{{ kube_image_repo }}/sig-storage/csi-snapshotter"
+    #     csi_snapshotter_image_tag: "v4.2.1"
+    #     csi_resizer_image_repo: "{{ kube_image_repo }}/sig-storage/csi-resizer"
+    #     csi_resizer_image_tag: "v1.3.0"
+    #     csi_node_driver_registrar_image_repo: "{{ kube_image_repo }}/sig-storage/csi-node-driver-registrar"
+    #     csi_node_driver_registrar_image_tag: "v2.4.0"
+    #     csi_livenessprobe_image_repo: "{{ kube_image_repo }}/sig-storage/livenessprobe"
+    #     csi_livenessprobe_image_tag: "v2.5.0"
+    # - name: local_path_provisioner
+    #   included: false
+    #   target: local_path_provisioner_enabled
+    #   params:
+    #     local_path_provisioner_image_tag: "v0.0.19"
 
