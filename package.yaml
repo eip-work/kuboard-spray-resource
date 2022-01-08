@@ -22,6 +22,8 @@ data:
   kubespray_version: v2.18.0-1
   supported_playbooks:
     install_cluster: pb_cluster.yaml
+    remove_node: pb_remove_node.yaml
+    add_node: pb_scale.yaml
 
   kubernetes:
     kube_version: 'v1.23.1'
