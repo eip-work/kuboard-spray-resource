@@ -2,29 +2,70 @@
 - name: Check ansible version
   import_playbook: 3rd/kubespray/ansible_version.yml
 
-# - name: Ensure compatibility with old groups
-#   import_playbook: legacy_groups.yml
+# content from 3rd/kubespray/facts.yml
+- name: Gather facts
+  hosts: kube_control_plane[0]:etcd[0]
+  gather_facts: False
+  tags: always
+  tasks:
+    - name: Gather minimal facts
+      setup:
+        gather_subset: '!all'
 
-# - hosts: "{{ node | default('etcd:k8s_cluster:calico_rr') }}"
-#   gather_facts: no
-#   tasks:
-#     - name: Confirm Execution
-#       pause:
-#         prompt: "Are you sure you want to delete nodes state? Type 'yes' to delete nodes."
-#       register: pause_result
-#       run_once: True
-#       when:
-#         - not (skip_confirmation | default(false) | bool)
+    # filter match the following variables:
+    # ansible_default_ipv4
+    # ansible_default_ipv6
+    # ansible_all_ipv4_addresses
+    # ansible_all_ipv6_addresses
+    - name: Gather necessary facts (network)
+      setup:
+        gather_subset: '!all,!min,network'
+        filter: "ansible_*_ipv[46]*"
 
-#     - name: Fail if user does not confirm deletion
-#       fail:
-#         msg: "Delete nodes confirmation failed"
-#       when: pause_result.user_input | default('yes') != 'yes'
+    # filter match the following variables:
+    # ansible_memtotal_mb
+    # ansible_swaptotal_mb
+    - name: Gather necessary facts (hardware)
+      setup:
+        gather_subset: '!all,!min,hardware'
+        filter: "ansible_*total_mb"
 
 - name: Gather facts
-  import_playbook: 3rd/kubespray/facts.yml
+  hosts: "{{ node }}"
+  gather_facts: False
+  tags: always
+  tasks:
+    - name: Gather minimal facts
+      setup:
+        gather_subset: '!all'
+      when:
+        - reset_nodes|default(True)|bool
 
-- hosts: k8s_cluster:etcd:calico_rr
+    # filter match the following variables:
+    # ansible_default_ipv4
+    # ansible_default_ipv6
+    # ansible_all_ipv4_addresses
+    # ansible_all_ipv6_addresses
+    - name: Gather necessary facts (network)
+      setup:
+        gather_subset: '!all,!min,network'
+        filter: "ansible_*_ipv[46]*"
+      when:
+        - reset_nodes|default(True)|bool
+
+    # filter match the following variables:
+    # ansible_memtotal_mb
+    # ansible_swaptotal_mb
+    - name: Gather necessary facts (hardware)
+      setup:
+        gather_subset: '!all,!min,hardware'
+        filter: "ansible_*total_mb"
+      when:
+        - reset_nodes|default(True)|bool
+
+
+# content from 3rd/kubespray/remove_node.yml
+- hosts: kube_control_plane[0]:etcd[0]
   gather_facts: no
   roles:
     - { role: kubespray-defaults }
