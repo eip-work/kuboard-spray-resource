@@ -12,8 +12,21 @@
     - { role: kubespray-defaults }
     - { role: bastion-ssh-config, tags: ["localhost", "bastion"] }
 
+- name: Disable firewalld
+  hosts: "{{ node }}"
+  roles:
+    - { role: os-services/roles/prepare }
+
+- name: Config apt-sources / yum-repo
+  hosts: "{{ node }}"
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  roles:
+    - { role: config-apt-sources }
+    - { role: config-centos-repo }
+
+
 - name: Bootstrap any new workers
-  hosts: kube_node
+  hosts: "{{ node }}"
   strategy: linear
   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
   gather_facts: false
@@ -23,8 +36,10 @@
     - { role: bootstrap-os, tags: bootstrap-os }
 
 - name: Gather facts
-  tags: always
-  import_playbook: 3rd/kubespray/facts.yml
+  hosts: kube_control_plane,{{node}}
+  roles:
+    - { role: kuboard-spray-facts }
+    - { role: kubespray-defaults }
 
 - name: Generate the etcd certificates beforehand
   hosts: etcd
@@ -35,18 +50,18 @@
     - { role: kubespray-defaults }
     - { role: etcd, tags: etcd, etcd_cluster_setup: false }
 
-- name: Download images to ansible host cache via first kube_control_plane node
-  hosts: kube_control_plane[0]
-  gather_facts: False
-  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
-  environment: "{{ proxy_disable_env }}"
-  roles:
-    - { role: kubespray-defaults, when: "not skip_downloads and download_run_once and not download_localhost" }
-    - { role: kubernetes/preinstall, tags: preinstall, when: "not skip_downloads and download_run_once and not download_localhost" }
-    - { role: download, tags: download, when: "not skip_downloads and download_run_once and not download_localhost" }
+# - name: Download images to ansible host cache via first kube_control_plane node
+#   hosts: kube_control_plane[0]
+#   gather_facts: False
+#   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+#   environment: "{{ proxy_disable_env }}"
+#   roles:
+#     - { role: kubespray-defaults, when: "not skip_downloads and download_run_once and not download_localhost" }
+#     - { role: kubernetes/preinstall, tags: preinstall, when: "not skip_downloads and download_run_once and not download_localhost" }
+#     - { role: download, tags: download, when: "not skip_downloads and download_run_once and not download_localhost" }
 
 - name: Target only workers to get kubelet installed and checking in on any new nodes(engine)
-  hosts: kube_node
+  hosts: "{{ node }}"
   gather_facts: False
   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
   environment: "{{ proxy_disable_env }}"
@@ -58,7 +73,7 @@
     - { role: etcd, tags: etcd, etcd_cluster_setup: false, when: "not etcd_kubeadm_enabled|default(false)" }
 
 - name: Target only workers to get kubelet installed and checking in on any new nodes(node)
-  hosts: kube_node
+  hosts: "{{ node }}"
   gather_facts: False
   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
   environment: "{{ proxy_disable_env }}"
@@ -89,7 +104,7 @@
       when: kubeadm_certificate_key is not defined
 
 - name: Target only workers to get kubelet installed and checking in on any new nodes(network)
-  hosts: kube_node
+  hosts: "{{ node }}"
   gather_facts: False
   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
   environment: "{{ proxy_disable_env }}"

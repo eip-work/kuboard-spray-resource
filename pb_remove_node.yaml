@@ -4,71 +4,17 @@
 
 # content from 3rd/kubespray/facts.yml
 - name: Gather facts
-  hosts: kube_control_plane[0]:etcd[0]
-  gather_facts: False
-  tags: always
-  tasks:
-    - name: Gather minimal facts
-      setup:
-        gather_subset: '!all'
-
-    # filter match the following variables:
-    # ansible_default_ipv4
-    # ansible_default_ipv6
-    # ansible_all_ipv4_addresses
-    # ansible_all_ipv6_addresses
-    - name: Gather necessary facts (network)
-      setup:
-        gather_subset: '!all,!min,network'
-        filter: "ansible_*_ipv[46]*"
-
-    # filter match the following variables:
-    # ansible_memtotal_mb
-    # ansible_swaptotal_mb
-    - name: Gather necessary facts (hardware)
-      setup:
-        gather_subset: '!all,!min,hardware'
-        filter: "ansible_*total_mb"
-
-- name: Gather facts
-  hosts: "{{ node }}"
-  gather_facts: False
-  tags: always
-  tasks:
-    - name: Gather minimal facts
-      setup:
-        gather_subset: '!all'
-      when:
-        - reset_nodes|default(True)|bool
-
-    # filter match the following variables:
-    # ansible_default_ipv4
-    # ansible_default_ipv6
-    # ansible_all_ipv4_addresses
-    # ansible_all_ipv6_addresses
-    - name: Gather necessary facts (network)
-      setup:
-        gather_subset: '!all,!min,network'
-        filter: "ansible_*_ipv[46]*"
-      when:
-        - reset_nodes|default(True)|bool
-
-    # filter match the following variables:
-    # ansible_memtotal_mb
-    # ansible_swaptotal_mb
-    - name: Gather necessary facts (hardware)
-      setup:
-        gather_subset: '!all,!min,hardware'
-        filter: "ansible_*total_mb"
-      when:
-        - reset_nodes|default(True)|bool
-
+  gather_facts: no
+  hosts: kube_control_plane[0],etcd[0],{{node}}
+  roles:
+    - { role: kuboard-spray-facts, when: reset_nodes|default(True)|bool }
+    - { role: kubespray-defaults, when: reset_nodes|default(True)|bool }
 
 # content from 3rd/kubespray/remove_node.yml
-- hosts: kube_control_plane[0]:etcd[0]
-  gather_facts: no
-  roles:
-    - { role: kubespray-defaults }
+# - hosts: kube_control_plane[0]:etcd[0]
+#   gather_facts: no
+#   roles:
+#     - { role: kubespray-defaults }
 
 - hosts: "{{ node | default('kube_node') }}"
   gather_facts: no
@@ -76,7 +22,7 @@
   roles:
     - { role: kubespray-defaults, when: reset_nodes|default(True)|bool }
     - { role: remove-node/pre-remove, tags: pre-remove }
-    - { role: remove-node/remove-etcd-node }
+    - { role: remove-node/remove-etcd-node, when: inventory_hostname in groups.etcd }
     - { role: reset, tags: reset, when: reset_nodes|default(True)|bool }
 
 # Currently cannot remove first master or etcd

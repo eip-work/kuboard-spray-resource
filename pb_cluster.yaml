@@ -14,26 +14,35 @@
 
 # add os_service task to disable firewalld
 - name: Disable firewalld
-  import_playbook: 3rd/kubespray/contrib/os-services/os-services.yml
+  gather_facts: False
+  hosts: target
+  roles:
+    - { role: os-services/roles/prepare }
 
 - hosts: target
+  gather_facts: False
   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
   roles:
     - { role: config-apt-sources }
     - { role: config-centos-repo }
 
 - hosts: k8s_cluster:etcd
+  gather_facts: False
   strategy: linear
   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
-  gather_facts: false
   environment: "{{ proxy_disable_env }}"
   roles:
     - { role: kubespray-defaults }
     - { role: bootstrap-os, tags: bootstrap-os}
 
+# - name: Gather facts
+#   tags: always
+#   import_playbook: 3rd/kubespray/facts.yml
 - name: Gather facts
-  tags: always
-  import_playbook: 3rd/kubespray/facts.yml
+  gather_facts: False
+  hosts: k8s_cluster:etcd:calico_rr
+  roles:
+    - { role: kuboard-spray-facts }
 
 - hosts: k8s_cluster:etcd
   gather_facts: False
