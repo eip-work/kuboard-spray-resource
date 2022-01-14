@@ -12,6 +12,15 @@
     - { role: kubespray-defaults }
     - { role: bastion-ssh-config, tags: ["localhost", "bastion"] }
 
+# - name: Gather facts
+#   tags: always
+#   import_playbook: 3rd/kubespray/facts.yml
+- name: Gather facts
+  gather_facts: False
+  hosts: k8s_cluster:etcd:calico_rr
+  roles:
+    - { role: kuboard-spray-facts }
+
 # add os_service task to disable firewalld
 - name: Disable firewalld
   gather_facts: False
@@ -34,15 +43,6 @@
   roles:
     - { role: kubespray-defaults }
     - { role: bootstrap-os, tags: bootstrap-os}
-
-# - name: Gather facts
-#   tags: always
-#   import_playbook: 3rd/kubespray/facts.yml
-- name: Gather facts
-  gather_facts: False
-  hosts: k8s_cluster:etcd:calico_rr
-  roles:
-    - { role: kuboard-spray-facts }
 
 - hosts: k8s_cluster:etcd
   gather_facts: False
