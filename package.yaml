@@ -27,7 +27,7 @@ data:
     remove_node: pb_remove_node.yaml
     add_node: pb_scale.yaml
     sync_nginx_config: pb_sync_nginx_config.yaml
-    sync_etcd_config: pb_cluster.yaml
+    sync_etcd_address: pb_sync_etcd_address.yaml
 
   kubernetes:
     kube_version: 'v1.23.1'

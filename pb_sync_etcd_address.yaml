@@ -1,0 +1,37 @@
+---
+- name: Check ansible version
+  import_playbook: 3rd/kubespray/ansible_version.yml
+
+- hosts: bastion[0]
+  gather_facts: False
+  environment: "{{ proxy_disable_env }}"
+  roles:
+    - { role: kubespray-defaults }
+    - { role: bastion-ssh-config, tags: ["localhost", "bastion"] }
+
+- name: Gather facts
+  gather_facts: False
+  hosts: kube_control_plane:etcd
+  roles:
+    - { role: kuboard-spray-facts }
+    - { role: kubespray-defaults }
+
+- name: fix kube-apiserver.yaml
+  hosts: kube_control_plane
+  vars:
+    etcd_hosts: "{{ groups['etcd'] | default(groups['kube_control_plane']) }}"
+    etcd_access_addresses: |-
+      {% for item in etcd_hosts -%}
+        https://{{ hostvars[item]['etcd_access_address'] | default(hostvars[item]['ip'] | default(fallback_ips[item])) }}:2379{% if not loop.last %},{% endif %}
+      {%- endfor %}
+  tasks:
+    - name: Update etcd-servers for apiserver
+      lineinfile:
+        dest: "{{ kube_config_dir }}/manifests/kube-apiserver.yaml"
+        regexp: '^    - --etcd-servers='
+        line: '    - --etcd-servers={{ etcd_access_addresses }}'
+      when: not etcd_kubeadm_enabled | default(false)
+    - name: print etcd-servers for apiserver
+      debug:
+        msg:
+          - "文件 /etc/kubernetes/manifests/kube-apiserver.yaml 中的 --etcd-servers 参数被替换为: {{ etcd_access_addresses }}"
