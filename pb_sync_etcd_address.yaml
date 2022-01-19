@@ -31,10 +31,12 @@
         regexp: '^    - --etcd-servers='
         line: '    - --etcd-servers={{ etcd_access_addresses }}'
       when: not etcd_kubeadm_enabled | default(false)
+
     - name: print etcd-servers for apiserver
       debug:
         msg:
           - "文件 /etc/kubernetes/manifests/kube-apiserver.yaml 中的 --etcd-servers 参数被替换为: {{ etcd_access_addresses }}"
+
     - name: Configure | Wait for apiserver to be healthy
       shell: "set -o pipefail && kubectl get pods | grep -v 'did you specify the right host or port' > /dev/null"
       args:
@@ -45,4 +47,3 @@
       delay: "5"
       changed_when: false
       check_mode: no
-      run_once: yes
