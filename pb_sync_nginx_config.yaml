@@ -2,9 +2,6 @@
 - name: Check ansible version
   import_playbook: 3rd/kubespray/ansible_version.yml
 
-# - name: Ensure compatibility with old groups
-#   import_playbook: legacy_groups.yml
-
 - hosts: bastion[0]
   gather_facts: False
   environment: "{{ proxy_disable_env }}"
@@ -12,18 +9,26 @@
     - { role: kubespray-defaults }
     - { role: bastion-ssh-config, tags: ["localhost", "bastion"] }
 
-# - name: Gather facts
-#   tags: always
-#   import_playbook: 3rd/kubespray/facts.yml
-- name: Gather facts
-  gather_facts: False
-  hosts: k8s_cluster:etcd:calico_rr
-  roles:
-    - { role: kuboard-spray-facts }
-
 - name: Config nginx proxy for apiserver
   gather_facts: False
-  hosts: kube_node
+  hosts: k8s_cluster
   roles:
     - { role: kubespray-defaults }
     - { role: kubernetes/node }
+
+- name: Configure | Wait for nginx to restart
+  gather_facts: False
+  hosts: kube_node,!kube_control_plane
+  tags: nginx
+  tasks:
+
+    - name: Configure | Wait for nginx to restart
+      shell: "set -o pipefail && curl -ik https://localhost:6443/healthz | grep -v '\"apiVersion\":' > /dev/null"
+      args:
+        executable: /bin/bash
+      register: nginx_is_healthy
+      until: nginx_is_healthy.rc == 0
+      retries: "25"
+      delay: "5"
+      changed_when: false
+      check_mode: no
