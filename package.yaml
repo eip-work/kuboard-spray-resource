@@ -44,6 +44,10 @@ data:
         docker_version: '20.10'
         docker_containerd_version: 1.4.12
 
+  vars:
+    k8s_cluster:
+      dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
+
   etcd:
     etcd_version: 'v3.5.1'
     etcd_params:
@@ -75,9 +79,6 @@ data:
     - name: nginx_image
       version: 1.21.4
       target: nginx_image_tag
-    - name: node_local_dns
-      version: '1.21.1'
-      target: nodelocaldns_version
     - name: coredns
       target: coredns_version
       version: 'v1.8.0'
@@ -95,9 +96,20 @@ data:
       params:
         flannel_version: "v0.15.1"
   addon:
+    - name: nodelocaldns
+      included: true
+      target: enable_nodelocaldns
+      check:
+        shell: "kubectl get daemonset -n kube-system nodelocaldns -o json"
+        keyword: "\"k8s-app\": \"kube-dns\""
+      params:
+        nodelocaldns_version: '1.21.1'
     - name: netchecker
       included: true
       target: deploy_netchecker
+      check:
+        shell: "kubectl get deployment -n {{ netcheck_namespace | default('default') }} netchecker-server -o json"
+        keyword: "k8s-netchecker-server"
       params:
         netcheck_version: "v1.2.2"
         netcheck_agent_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-agent"
