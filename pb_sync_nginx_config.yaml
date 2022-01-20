@@ -13,6 +13,7 @@
   gather_facts: False
   hosts: k8s_cluster
   roles:
+    - { role: kuboard-spray-facts, tags: ['nginx'] }
     - { role: kubespray-defaults }
     - { role: kubernetes/node }
 
