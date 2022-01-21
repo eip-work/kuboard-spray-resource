@@ -41,14 +41,14 @@
     - { role: kuboard-spray-facts }
     - { role: kubespray-defaults }
 
-- name: Generate the etcd certificates beforehand
-  hosts: etcd
-  gather_facts: False
-  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
-  environment: "{{ proxy_disable_env }}"
-  roles:
-    - { role: kubespray-defaults }
-    - { role: etcd, tags: etcd, etcd_cluster_setup: false }
+# - name: Generate the etcd certificates beforehand
+#   hosts: etcd
+#   gather_facts: False
+#   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+#   environment: "{{ proxy_disable_env }}"
+#   roles:
+#     - { role: kubespray-defaults }
+#     - { role: etcd, tags: etcd, etcd_cluster_setup: false }
 
 # - name: Download images to ansible host cache via first kube_control_plane node
 #   hosts: kube_control_plane[0]
@@ -71,6 +71,15 @@
     - { role: container-engine, tags: "container-engine", when: deploy_container_engine }
     - { role: download, tags: download, when: "not skip_downloads" }
     - { role: etcd, tags: etcd, etcd_cluster_setup: false, when: "not etcd_kubeadm_enabled|default(false)" }
+  vars:
+    kubeadm_images:
+      kubeadm_kube-proxy:
+        enabled: true
+        container: true
+        repo: "{{ kube_image_repo }}/kube-proxy"
+        tag: "{{ kube_version }}"
+        groups: "k8s_cluster"
+
 
 - name: Target only workers to get kubelet installed and checking in on any new nodes(node)
   hosts: "{{ node }}"
@@ -113,3 +122,4 @@
     - { role: kubernetes/kubeadm, tags: kubeadm }
     - { role: kubernetes/node-label, tags: node-label }
     - { role: network_plugin, tags: network }
+
