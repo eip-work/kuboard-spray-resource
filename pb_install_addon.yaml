@@ -1,0 +1,42 @@
+---
+- name: Check ansible version
+  import_playbook: 3rd/kubespray/ansible_version.yml
+
+# - name: Ensure compatibility with old groups
+#   import_playbook: legacy_groups.yml
+
+- hosts: bastion[0]
+  gather_facts: False
+  environment: "{{ proxy_disable_env }}"
+  roles:
+    - { role: kubespray-defaults }
+    - { role: bastion-ssh-config, tags: ["localhost", "bastion"] }
+
+# - name: Gather facts
+#   tags: always
+#   import_playbook: 3rd/kubespray/facts.yml
+- name: Gather facts
+  gather_facts: False
+  hosts: k8s_cluster
+  roles:
+    - { role: kuboard-spray-facts }
+
+- name: Pre-install
+  hosts: k8s_cluster
+  roles:
+    - { role: kubespray-defaults }
+    - { role: kubernetes/preinstall, tags: preinstall }
+    - { role: download, tags: download, when: "not skip_downloads" }
+
+- hosts: kube_control_plane
+  gather_facts: False
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  environment: "{{ proxy_disable_env }}"
+  roles:
+    - { role: kubespray-defaults }
+    - { role: kubernetes-apps/external_cloud_controller, tags: external-cloud-controller }
+    - { role: kubernetes-apps/network_plugin, tags: network }
+    - { role: kubernetes-apps/policy_controller, tags: policy-controller }
+    - { role: kubernetes-apps/ingress_controller, tags: ingress-controller }
+    - { role: kubernetes-apps/external_provisioner, tags: external-provisioner }
+    - { role: kubernetes-apps, tags: apps }
