@@ -5,4 +5,4 @@ COPY roles/ /kuboard-spray/resource/content/roles/
 COPY kubespray_cache/  /kuboard-spray/resource/content/kubespray_cache/
 COPY image_cache_k8s/ /kuboard-spray/resource/content/kubespray_cache/images/
 COPY image_cache/ /kuboard-spray/resource/content/kubespray_cache/images/
-COPY ansible.cfg README.md *.yaml *.md /kuboard-spray/resource/content/
+COPY ansible.cfg README.md release.md *.yaml *.md /kuboard-spray/resource/content/

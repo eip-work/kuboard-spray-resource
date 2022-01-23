@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0-4_k8s-v1.23.1_v1.3-amd64
+  version: spray-v2.18.0-5_k8s-v1.23.1_v1.4-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.0.0
@@ -21,7 +21,7 @@ metadata:
         - '7.9'
 
 data:
-  kubespray_version: v2.18.0-4
+  kubespray_version: v2.18.0-5
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
