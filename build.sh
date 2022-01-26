@@ -11,8 +11,8 @@ kubespray_version="${kubespray_version%%_k8s*}"
 echo "checkout eip-work/kubespray:${kubespray_version}"
 
 cd ./3rd/kubespray
-git checkout ${kubespray_version}
 git pull
+git checkout ${kubespray_version}
 
 cd ../..
 
