@@ -1,0 +1,1 @@
+kuboard-spary 依赖 kubespray 作为集群的安装工具
