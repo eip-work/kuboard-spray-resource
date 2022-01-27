@@ -29,6 +29,7 @@ data:
     sync_nginx_config: pb_sync_nginx_config.yaml
     sync_etcd_address: pb_sync_etcd_address.yaml
     install_addon: pb_install_addon.yaml
+    remove_addon: pb_remove_addon.yaml
 
   kubernetes:
     kube_version: 'v1.23.3'
@@ -146,6 +147,9 @@ data:
           - download
           - upgrade
           - netchecker
+        remove_addon_tags:
+          - upgrade
+          - netchecker
         downloads:
           - netcheck_server
           - netcheck_agent
@@ -171,6 +175,9 @@ data:
           keyword: "k8s.gcr.io/metrics-server/metrics-server"
         install_addon_tags:
           - download
+          - upgrade
+          - metrics_server
+        remove_addon_tags:
           - upgrade
           - metrics_server
         downloads:
