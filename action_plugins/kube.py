@@ -10,8 +10,8 @@ class ActionModule(ActionBase):
         print(task_vars['kuboardspray_operation'])
         module_args = self._task.args.copy()
         if task_vars['kuboardspray_operation'] == 'remove_addon':
-            if (module_args['resource'] == 'ns' and module_args['namespace'] == 'default'):
-                print("ignore default namespace.")
+            if (module_args['resource'] == 'ns'):
+                print("ignore namespace ", module_args['namespace'])
             else:
                 module_args['state'] = 'absent'
 
