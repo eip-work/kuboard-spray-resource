@@ -19,7 +19,7 @@
   gather_facts: False
   hosts: k8s_cluster
   roles:
-    - { role: kuboard-spray-facts }
+    - { role: kuboard-spray-facts, tags: download }
 
 - name: Pre-install
   gather_facts: False
