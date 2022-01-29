@@ -1,6 +1,8 @@
 ---
-- name: Check ansible version
-  import_playbook: 3rd/kubespray/ansible_version.yml
+
+# 由于始终通过镜像分发，因此我们不检查 ansible_version
+# - name: Check ansible version
+#   import_playbook: 3rd/kubespray/ansible_version.yml
 
 # - name: Ensure compatibility with old groups
 #   import_playbook: legacy_groups.yml
