@@ -3,13 +3,6 @@
 # - name: Check ansible version
 #   import_playbook: 3rd/kubespray/ansible_version.yml
 
-- hosts: bastion[0]
-  gather_facts: False
-  environment: "{{ proxy_disable_env }}"
-  roles:
-    - { role: kubespray-defaults }
-    - { role: bastion-ssh-config, tags: ["localhost", "bastion"] }
-
 # content from 3rd/kubespray/facts.yml
 - name: Gather facts
   gather_facts: no

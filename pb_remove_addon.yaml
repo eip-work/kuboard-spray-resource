@@ -6,13 +6,6 @@
 # - name: Ensure compatibility with old groups
 #   import_playbook: legacy_groups.yml
 
-- hosts: bastion[0]
-  gather_facts: False
-  environment: "{{ proxy_disable_env }}"
-  roles:
-    - { role: kubespray-defaults }
-    - { role: bastion-ssh-config, tags: ["localhost", "bastion"] }
-
 # - name: Gather facts
 #   tags: always
 #   import_playbook: 3rd/kubespray/facts.yml
