@@ -12,6 +12,7 @@
 - name: Gather facts
   gather_facts: False
   hosts: k8s_cluster
+  any_errors_fatal: true
   roles:
     - { role: kuboard-spray-facts }
 

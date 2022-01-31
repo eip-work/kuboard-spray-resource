@@ -13,6 +13,7 @@
 - name: Gather facts
   gather_facts: False
   hosts: k8s_cluster:etcd:calico_rr
+  any_errors_fatal: true
   roles:
     - { role: kuboard-spray-facts }
 

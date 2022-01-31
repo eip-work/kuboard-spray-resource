@@ -31,6 +31,7 @@
 
 - name: Gather facts
   hosts: kube_control_plane,{{node}}
+  any_errors_fatal: true
   roles:
     - { role: kuboard-spray-facts }
     - { role: kubespray-defaults }

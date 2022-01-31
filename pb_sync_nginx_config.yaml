@@ -3,11 +3,17 @@
 # - name: Check ansible version
 #   import_playbook: 3rd/kubespray/ansible_version.yml
 
+- name: Gather facts
+  gather_facts: False
+  hosts: k8s_cluster
+  any_errors_fatal: true
+  roles:
+    - { role: kuboard-spray-facts, tags: ['nginx'] }
+
 - name: Config nginx proxy for apiserver
   gather_facts: False
   hosts: k8s_cluster
   roles:
-    - { role: kuboard-spray-facts, tags: ['nginx'] }
     - { role: kubespray-defaults }
     - { role: kubernetes/node }
 
