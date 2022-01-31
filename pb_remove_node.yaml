@@ -15,10 +15,10 @@
 - hosts: kube_control_plane[0]:etcd[0]
   gather_facts: no
   roles:
-    - { role: kuboard-spray-facts }
-    - { role: kubespray-defaults }
+    - { role: kuboard-spray-facts, when: not reset_nodes|default(True)|bool }
+    - { role: kubespray-defaults, when: not reset_nodes|default(True)|bool }
 
-- hosts: "{{ node | default('kube_node') }}"
+- hosts: "{{ node }}"
   gather_facts: no
   environment: "{{ proxy_disable_env }}"
   roles:
@@ -27,8 +27,7 @@
     - { role: remove-node/remove-etcd-node, when: inventory_hostname in groups.etcd }
     - { role: reset, tags: reset, when: reset_nodes|default(True)|bool }
 
-# Currently cannot remove first master or etcd
-- hosts: "{{ node | default('kube_control_plane[1:]:etcd[1:]') }}"
+- hosts: "{{ node }}"
   gather_facts: no
   environment: "{{ proxy_disable_env }}"
   roles:
