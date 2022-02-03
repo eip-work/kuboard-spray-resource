@@ -10,6 +10,11 @@ metadata:
   issue_date: '2021-01-26'
   owner: 'shaohq@foxmail.com'
   can_upgrade_from:
+    include:
+      - spray-v[0-9.-]*_k8s-v1.23.1_v[0-9.]*-amd64
+    exclude:
+      - spray-v2.18.0a-0_k8s-v1.23.3_v1.5-amd64
+  can_replace_to:
   supported_os:
     - distribution: Ubuntu
       versions:
@@ -30,6 +35,8 @@ data:
     sync_etcd_address: pb_sync_etcd_address.yaml
     install_addon: pb_install_addon.yaml
     remove_addon: pb_remove_addon.yaml
+    cluster_version: pb_cluster_version.yaml
+    upgrade_cluster: pb_upgrade_cluster.yaml
 
   kubernetes:
     kube_version: 'v1.23.3'
