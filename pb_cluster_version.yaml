@@ -2,7 +2,12 @@
 - name: Gather K8s Cluster Version
   hosts: target
   gather_facts: False
+  strategy: free
   tasks:
+    - name: kubelet
+      shell: kubelet --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      when:
+        - inventory_hostname in groups['k8s_cluster']
     - name: kube-apiserver
       shell: kubectl version | grep Server | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
       when:
@@ -21,10 +26,6 @@
         if [ "${ps_value}" != "" ]; then
           crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s.gcr.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
         fi
-      when:
-        - inventory_hostname in groups['k8s_cluster']
-    - name: kubelet
-      shell: kubelet --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: etcd
