@@ -72,6 +72,14 @@ data:
           mode: "0755"
           groups:
           - k8s_cluster
+        coredns:
+          enabled: "{{ dns_mode in ['coredns', 'coredns_dual'] }}"
+          container: true
+          repo: "{{ coredns_image_repo }}"
+          tag: "{{ coredns_image_tag }}"
+          sha256: "{{ coredns_digest_checksum|default(None) }}"
+          groups:
+          - k8s_cluster
       kubeadm_checksums:
         amd64:
           v1.23.3: 57ec7f2921568dcf4cda0699b877cc830d49ddd2709e035c339a5afc3b83586f
