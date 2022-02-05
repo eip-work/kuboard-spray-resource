@@ -1,0 +1,126 @@
+---
+- name: Gather K8s Cluster Version
+  hosts: target
+  gather_facts: False
+  strategy: free
+  tasks:
+    - name: kubelet
+      shell: kubelet --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      when:
+        - inventory_hostname in groups['k8s_cluster']
+    - name: kube-apiserver
+      shell: kubectl version | grep Server | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      when:
+        - inventory_hostname in groups['kube_control_plane']
+    - name: kubectl
+      shell: kubectl version --client=true | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      when:
+        - inventory_hostname in groups['kube_control_plane']
+    - name: kubeadm
+      shell: kubeadm version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      when:
+        - inventory_hostname in groups['k8s_cluster']
+    - name: kubeproxy
+      shell: |+
+        ps_value=$(docker ps | grep k8s_kube-proxy_kube-proxy)
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - inventory_hostname in groups['k8s_cluster']
+    - name: etcd
+      shell: echo v$(etcd --version | grep etcd | grep -Eo "[0-9]+\.[0-9]+\.[0-9]")
+      when:
+        - inventory_hostname in groups['etcd']
+        - etcd_deployment_type is defined and etcd_deployment_type == 'host'
+    - name: etcd_docker
+      shell: |+
+        ps_value=$(docker ps | grep quay.io/coreos/etcd | grep {{etcd_member_name}})
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - inventory_hostname in groups['etcd']
+        - etcd_deployment_type is defined and etcd_deployment_type == 'docker'
+    - name: docker
+      shell: docker version --format '{{"{{.Server.Version}}"}}'
+    - name: calico
+      shell: |+
+        ps_value=$(docker ps | grep k8s_calico-node_calico-node)
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - inventory_hostname in groups['k8s_cluster']
+        - kube_network_plugin == 'calico'
+    - name: flannel
+      shell: |+
+        ps_value=$(docker ps | grep k8s_kube-flannel_kube-flannel)
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - inventory_hostname in groups['k8s_cluster']
+        - kube_network_plugin == 'flannel'
+    - name: runc
+      shell: echo v$(runc --version | grep runc | grep -Eo "[0-9]+\.[0-9]+\.[0-9]")
+    - name: nginx_image
+      shell: |+
+        ps_value=$(docker ps | grep k8s_nginx-proxy_nginx-proxy)
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep -Eo "nginx:[0-9]+\.[0-9]+\.[0-9]" | grep -Eo "[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - inventory_hostname in groups['kube_node']
+        - inventory_hostname not in groups['kube_control_plane']
+    - name: coredns
+      shell: |+
+        ps_value=$(docker ps | grep k8s_coredns_coredns)
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - inventory_hostname in groups['kube_control_plane']
+    - name: nodelocaldns
+      shell: |+
+        ps_value=$(docker ps | grep k8s_node-cache_nodelocaldns)
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep k8s.gcr.io/dns/k8s-dns | grep -Eo "[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - enable_nodelocaldns
+    - name: netchecker
+      shell: |+
+        ps_value=$(docker ps | grep k8s_netchecker-agent_netchecker-agent)
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - deploy_netchecker
+    - name: metrics_server
+      shell: |+
+        ps_value=$(docker ps | grep k8s_metrics-server_metrics-server)
+        if [ "${ps_value}" != "" ]; then
+          imageId=$(docker inspect $(echo ${ps_value} | awk '{print $1}') | grep -Eo -m 1 'sha256:[0-9a-z]*')
+          imageId=${imageId#sha256:}
+          docker inspect $imageId | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - deploy_netchecker
+    

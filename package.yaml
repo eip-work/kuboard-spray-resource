@@ -13,15 +13,15 @@ metadata:
     include:
       - spray-v[0-9.-]*_k8s-v1.23.1_v[0-9.]*-amd64
     exclude:
-      - spray-v2.18.0a-0_k8s-v1.23.3_v1.5-amd64
   can_replace_to:
+    include:
+      - spray-v2.18.0a-0_k8s-v1.23.3_v1.5-amd64
   supported_os:
     - distribution: Ubuntu
       versions:
         - '20.04'
     - distribution: CentOS
       versions:
-        - '8.5'
         - '7.6'
         - '7.8'
         - '7.9'
@@ -39,7 +39,8 @@ data:
     sync_etcd_address: pb_sync_etcd_address.yaml
     install_addon: pb_install_addon.yaml
     remove_addon: pb_remove_addon.yaml
-    cluster_version: pb_cluster_version.yaml
+    cluster_version_containerd: pb_cluster_version_containerd.yaml
+    cluster_version_docker: pb_cluster_version_docker.yaml
     upgrade_cluster: pb_upgrade_cluster.yaml
 
   kubernetes:

@@ -45,11 +45,19 @@
       when:
         - inventory_hostname in groups['k8s_cluster']
         - kube_network_plugin == 'calico'
+    - name: flannel
+      shell: |+
+        ps_value=$(crictl ps | grep flannel)
+        if [ "${ps_value}" != "" ]; then
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "quay.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+        fi
+      when:
+        - inventory_hostname in groups['k8s_cluster']
+        - kube_network_plugin == 'flannel'
     - name: nerdctl
       shell: nerdctl --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]"
       when:
         - inventory_hostname in groups['k8s_cluster']
-        - container_manager == 'containerd'
     - name: runc
       shell: echo v$(runc --version | grep runc | grep -Eo "[0-9]+\.[0-9]+\.[0-9]")
     - name: nginx_image
