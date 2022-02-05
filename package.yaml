@@ -1,8 +1,8 @@
 metadata:
-  version: spray-v2.18.0a-0_k8s-v1.23.3_v1.5-amd64
+  version: spray-v2.18.0a-1_k8s-v1.23.3_v1.6-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
-    min: v1.0.0-alpha.5
+    min: v1.0.0-beta.1
   available_at:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
@@ -21,12 +21,16 @@ metadata:
         - '20.04'
     - distribution: CentOS
       versions:
+        - '8.5'
         - '7.6'
         - '7.8'
         - '7.9'
+    - distribution: openEuler
+      versions:
+        - '20.03'
 
 data:
-  kubespray_version: v2.18.0a-0
+  kubespray_version: v2.18.0a-1
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
@@ -80,15 +84,6 @@ data:
           sha256: "{{ coredns_digest_checksum|default(None) }}"
           groups:
           - k8s_cluster
-      kubeadm_checksums:
-        amd64:
-          v1.23.3: 57ec7f2921568dcf4cda0699b877cc830d49ddd2709e035c339a5afc3b83586f
-      kubelet_checksums:
-        amd64:
-          v1.23.3: 8f9d2dd992af82855fbac2d82e030429b08ba7775e4fee7bf043eb857dfb0317
-      kubectl_checksums:
-        amd64:
-          v1.23.3: d7da739e4977657a3b3c84962df49493e36b09cc66381a5e36029206dd1e01d0
 
   etcd:
     etcd_version: v3.5.1
@@ -110,7 +105,7 @@ data:
       version: 'v1.23.0'
       target: crictl_version
     - name: nerdctl
-      version: '0.15.0'
+      version: '0.16.0'
       target: nerdctl_version
     - name: nginx_image
       version: 1.21.4
