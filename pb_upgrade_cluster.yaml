@@ -4,7 +4,7 @@
   hosts: target
   any_errors_fatal: true
   roles:
-    - { role: kuboard-spray-facts }
+    - { role: kuboard-spray-facts, tags: download }
 
 - hosts: k8s_cluster:etcd:calico_rr
   strategy: linear
