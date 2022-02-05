@@ -1,7 +1,9 @@
 # 版本更新内容
 
 
-## spray-v2.18.0a-0_k8s-v1.23.3_v1.6-amd64
+## spray-v2.18.0a-2_k8s-v1.23.3_v1.6-amd64
+
+2021-02-05
 
 **更新内容**
 
@@ -14,7 +16,6 @@
 * coredns 应该分发到 k8s_cluster
 * 适配操作系统
   * OpenEuler 20.03
-  * CentOS 8.5
 
 ## spray-v2.18.0a-0_k8s-v1.23.3_v1.5-amd64
 

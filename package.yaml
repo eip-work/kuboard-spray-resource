@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0a-1_k8s-v1.23.3_v1.6-amd64
+  version: spray-v2.18.0a-2_k8s-v1.23.3_v1.6-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.0.0-beta.1
@@ -7,11 +7,12 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: '2021-01-26'
+  issue_date: '2021-02-05'
   owner: 'shaohq@foxmail.com'
   can_upgrade_from:
     include:
-      - spray-v[0-9.-]*_k8s-v1.23.1_v[0-9.]*-amd64
+      - spray-v2.18.[0-9a-]*_k8s-v1.23.1_v[0-9.]*-amd64
+      - spray-master-8d9ed01_k8s-v1.23.1_v[0-9.]*-amd64
     exclude:
   can_replace_to:
     include:
@@ -30,7 +31,7 @@ metadata:
         - '20.03'
 
 data:
-  kubespray_version: v2.18.0a-1
+  kubespray_version: v2.18.0a-2
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
