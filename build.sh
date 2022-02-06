@@ -33,6 +33,17 @@ mv ./cache/${version} kubespray_cache
 
 
 echo
+echo 删除 package.yaml
+rm package.yaml
+if [ $(uname -m) == "x86_64" ]; then
+  echo 链接到 package_amd64.yaml
+  ln -s "package_amd64.yaml" package.yaml
+else
+  echo 链接到 package_arm64.yaml
+  ln -s "package_arm64.yaml" package.yaml
+fi
+
+echo
 echo "构建镜像"
 
 docker build -f Dockerfile -t $tag:$version .

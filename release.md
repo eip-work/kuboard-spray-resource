@@ -1,9 +1,9 @@
 # 版本更新内容
 
 
-## spray-v2.18.0a-2_k8s-v1.23.3_v1.6-amd64
+## spray-v2.18.0a-2_k8s-v1.23.3_v1.6
 
-2021-02-05
+2021-02-06
 
 **更新内容**
 
@@ -14,10 +14,12 @@
   * 支持集群组件版本查询的操作
   * 支持集群升级操作
 * coredns 应该分发到 k8s_cluster
-* 适配操作系统
+* amd64 适配操作系统
   * OpenEuler 20.03
+* arm64 适配操作系统
+  * Ubuntu 20.04
 
-## spray-v2.18.0a-0_k8s-v1.23.3_v1.5-amd64
+## spray-v2.18.0a-0_k8s-v1.23.3_v1.5
 
 **发布时间**
 
@@ -37,15 +39,15 @@
 
 * 解决 netcheck_etcd 不能离线下载的问题
 
-## spray-v2.18.0-5_k8s-v1.23.1_v1.4-amd64
+## spray-v2.18.0-5_k8s-v1.23.1_v1.4
 
 **前提条件**
 
-* kuboard-spray 版本不低于 v1.0.0-alpha.5-amd64
+* kuboard-spray 版本不低于 v1.0.0-alpha.5
 
 **更新内容**
 
-* 配合 kuboard-spray v1.0.0-alpha.5-amd64 及以上版本
+* 配合 kuboard-spray v1.0.0-alpha.5 及以上版本
   * 可以单独安装可选组件
 * 优化
   * 更新 /etc/nginx/nginx.conf 后，检查 nginx 的重启状态
