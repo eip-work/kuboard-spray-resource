@@ -1,11 +1,26 @@
 #!/bin/bash
 
+echo
+echo 删除 package.yaml
+rm package.yaml
+if [ $(uname -m) == "x86_64" ]; then
+  echo 链接到 package_amd64.yaml
+  ln -s "package_amd64.yaml" package.yaml
+else
+  echo 链接到 package_arm64.yaml
+  ln -s "package_arm64.yaml" package.yaml
+fi
+
 # tag=swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
 tag=$(cat package.yaml | shyaml get-value metadata.available_at.0)
 
 version=$(cat package.yaml | shyaml get-value metadata.version)
 kubespray_version="${version#*spray-}"
 kubespray_version="${kubespray_version%%_k8s*}"
+
+echo
+echo "cache/*" > .dockerignore
+echo "!cache/${version}" >> .dockerignore
 
 
 echo "checkout eip-work/kubespray:${kubespray_version}"
@@ -30,18 +45,6 @@ mkdir image_cache_k8s
 mv ./cache/${version}/images/k8s.* image_cache_k8s/
 mv ./cache/${version}/images image_cache
 mv ./cache/${version} kubespray_cache
-
-
-echo
-echo 删除 package.yaml
-rm package.yaml
-if [ $(uname -m) == "x86_64" ]; then
-  echo 链接到 package_amd64.yaml
-  ln -s "package_amd64.yaml" package.yaml
-else
-  echo 链接到 package_arm64.yaml
-  ln -s "package_arm64.yaml" package.yaml
-fi
 
 echo
 echo "构建镜像"
