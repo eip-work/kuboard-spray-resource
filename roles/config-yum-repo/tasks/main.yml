@@ -1,0 +1,25 @@
+---
+
+- name: set kuboardspray_repo_field_name
+  set_fact:
+    kuboardspray_repo_field_name: "kuboardspray_repo_{{ ansible_distribution|lower }}"
+
+- name: check ansible_distribution
+  assert:
+    msg: "请预先在 {{ ansible_distribution }} 操作系统中为其配置正确的 yum 软件源，并选择“使用操作系统预先配置的软件源”"
+    that:
+      - vars[kuboardspray_repo_field_name] is not defined or vars[kuboardspray_repo_field_name] == 'AS_IS'
+  when:
+    - ansible_distribution in ['OracleLinux']
+
+- include_tasks: "yum_repo.yml"
+  when:
+    - vars[kuboardspray_repo_field_name] is defined
+    - vars[kuboardspray_repo_field_name] != 'AS_IS'
+    - ansible_distribution in ["CentOS", "Anolis", 'Rocky']
+
+- include_tasks: "openeuler.yml"
+  when:
+    - vars[kuboardspray_repo_field_name] is defined
+    - vars[kuboardspray_repo_field_name] != 'AS_IS'
+    - ansible_distribution in ['openEuler']

@@ -1,0 +1,6 @@
+[AppStream]
+name=AnolisOS-$releasever - AppStream
+baseurl={{ anolis_repo }}/$releasever/AppStream/$basearch/os
+enabled=1
+gpgkey={{ anolis_repo }}/RPM-GPG-KEY-ANOLIS
+gpgcheck=1

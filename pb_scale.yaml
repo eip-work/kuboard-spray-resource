@@ -16,7 +16,9 @@
   any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
   roles:
     - { role: config-apt-sources }
-    - { role: config-centos-repo }
+    - { role: config-yum-repo }
+    - { role: kubespray-defaults }
+    - { role: configure-docker-repo, when: container_manager == 'docker' }
 
 
 - name: Bootstrap any new workers

@@ -1,0 +1,31 @@
+---
+
+- name: "configuring {{ansible_distribution|lower}} repos"
+  template:
+    src: "{{ansible_distribution|lower}}_{{ansible_distribution_major_version}}/{{ template_name }}"
+    dest: "/etc/yum.repos.d/{{ template_name }}"
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  become: true
+  vars:
+    template_name: "{{item | regex_search('[a-zA-Z0-9][a-zA-Z0-9-._]*\\.repo')}}"
+  register: kuboardspray_yum_repo_configured
+  with_fileglob:
+    - "roles/config-yum-repo/templates/{{ansible_distribution|lower}}_{{ansible_distribution_major_version}}/*.repo"
+
+
+- name: "{{ansible_pkg_mgr}}-clean-metadata"
+  command: "{{ansible_pkg_mgr}} clean metadata"
+  args:
+    warn: no
+  when:
+    - kuboardspray_yum_repo_configured['changed']
+
+- name: "{{ansible_pkg_mgr}}-makecache"
+  command: "{{ansible_pkg_mgr}} makecache"
+  args:
+    warn: no
+  when:
+    - kuboardspray_yum_repo_configured['changed']

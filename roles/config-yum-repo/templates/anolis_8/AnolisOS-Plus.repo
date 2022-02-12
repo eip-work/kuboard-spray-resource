@@ -1,0 +1,6 @@
+[Plus]
+name=AnolisOS-$releasever - Plus
+baseurl={{ anolis_repo }}/$releasever/Plus/$basearch/os
+enabled=0
+gpgkey={{ anolis_repo }}/RPM-GPG-KEY-ANOLIS
+gpgcheck=1

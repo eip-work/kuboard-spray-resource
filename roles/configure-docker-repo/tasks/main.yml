@@ -1,0 +1,69 @@
+---
+
+- name: gather os specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+        - "{{ ansible_distribution|lower }}-{{ ansible_distribution_major_version|lower|replace('/', '_') }}.yml"
+        - "{{ ansible_distribution|lower }}.yml"
+      paths:
+        - ../vars
+      skip: false
+  tags:
+    - facts
+
+- name: ensure podman are removed
+  package:
+    name: "podman,containers-common"
+    state: absent
+  when:
+    - ansible_distribution in ["Rocky", "openEuler", "Anolis", "OracleLinux", "CentOS"]
+
+- name: Ensure old versions of Docker are not installed. | Debian
+  apt:
+    name: '{{ docker_remove_packages_apt }}'
+    state: absent
+  when:
+    - ansible_os_family == 'Debian'
+    - (docker_versioned_pkg[docker_version | string] is search('docker-ce'))
+
+
+- name: set apt repo
+  block:
+    - name: ensure docker-ce repository public key is installed
+      apt_key:
+        id: "{{ item }}"
+        url: "{{ docker_repo_key_info.url }}"
+        state: present
+      register: keyserver_task_result
+      until: keyserver_task_result is succeeded
+      retries: 4
+      delay: "{{ retry_stagger | d(3) }}"
+      with_items: "{{ docker_repo_key_info.repo_keys }}"
+
+    - name: ensure docker-ce repository is enabled
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+      with_items: "{{ docker_repo_info.repos }}"
+  when: ansible_pkg_mgr == 'apt'
+
+- name: set yum/dnf repo
+  block:
+    - name: Set docker_yum_repo_field_name
+      set_fact:
+        docker_yum_repo_field_name: "docker_{{ ansible_distribution | lower }}_repo_base_url"
+        docker_yum_repo_gpgkey_field_name: "docker_{{ ansible_distribution | lower }}_repo_gpgkey"
+
+    - name: Set docker_yum_repo_base_url
+      set_fact:
+        docker_yum_repo_base_url: "{{ lookup('vars', docker_yum_repo_field_name) }}"
+        docker_yum_repo_gpgkey: "{{ lookup('vars', docker_yum_repo_gpgkey_field_name) }}"
+
+    - name: "Configure docker {{ ansible_pkg_mgr }} repository"
+      template:
+        src: "docker.repo.j2"
+        dest: "/etc/yum.repos.d/docker-ce.repo"
+        mode: 0644
+  when:
+    - ansible_pkg_mgr in ['dnf', 'yum']

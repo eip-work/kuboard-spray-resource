@@ -1,0 +1,11 @@
+[docker-ce]
+name=Docker-CE Repository
+baseurl={{ docker_yum_repo_base_url }}
+enabled=0
+gpgcheck=0
+sslverify=0
+keepcache={{ docker_rpm_keepcache | default('1') }}
+gpgkey={{ docker_yum_repo_gpgkey }}
+{% if http_proxy is defined %}
+proxy={{ http_proxy }}
+{% endif %}

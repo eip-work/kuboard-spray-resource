@@ -1,0 +1,20 @@
+- name: Get openEuler repo file
+  get_url:
+    url: "{{ openeuler_repo }}"
+    dest: /etc/yum.repos.d/openEuler.repo
+    mode: '0644'
+  register: kuboardspray_yum_repo_configured
+
+- name: "dnf-clean-metadata"
+  command: "dnf clean metadata"
+  args:
+    warn: no
+  when:
+    - kuboardspray_yum_repo_configured['changed']
+
+- name: "dnf-makecache"
+  command: "dnf makecache"
+  args:
+    warn: no
+  when:
+    - kuboardspray_yum_repo_configured['changed']

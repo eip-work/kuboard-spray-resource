@@ -1,0 +1,6 @@
+[DDE]
+name=AnolisOS-$releasever - DDE
+baseurl={{ anolis_repo }}/$releasever/DDE/$basearch/os
+enabled=0
+gpgkey={{ anolis_repo }}/RPM-GPG-KEY-ANOLIS
+gpgcheck=1

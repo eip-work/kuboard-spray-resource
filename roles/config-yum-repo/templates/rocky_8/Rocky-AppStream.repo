@@ -1,0 +1,18 @@
+# Rocky-AppStream.repo
+#
+# The mirrorlist system uses the connecting IP address of the client and the
+# update status of each mirror to pick current mirrors that are geographically
+# close to the client.  You should use this for Rocky updates unless you are
+# manually picking other mirrors.
+#
+# If the mirrorlist does not work for you, you can try the commented out
+# baseurl line instead.
+
+[appstream]
+name=Rocky Linux $releasever - AppStream
+#mirrorlist=https://mirrors.rockylinux.org/mirrorlist?arch=$basearch&repo=AppStream-$releasever
+baseurl={{ rocky_repo }}/$releasever/AppStream/$basearch/os/
+gpgcheck=1
+enabled=1
+countme=1
+gpgkey={{ rocky_repo }}/RPM-GPG-KEY-rockyofficial

@@ -1,0 +1,6 @@
+[Extras]
+name=AnolisOS-$releasever - Extras
+baseurl={{ anolis_repo }}/$releasever/Extras/$basearch/os
+enabled=1
+gpgkey={{ anolis_repo }}/RPM-GPG-KEY-ANOLIS
+gpgcheck=1

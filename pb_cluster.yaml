@@ -17,19 +17,21 @@
   roles:
     - { role: kuboard-spray-facts }
 
+- hosts: target
+  gather_facts: False
+  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
+  roles:
+    - { role: config-apt-sources }
+    - { role: config-yum-repo }
+    - { role: kubespray-defaults }
+    - { role: configure-docker-repo, when: container_manager == 'docker' }
+
 # add os_service task to disable firewalld
 - name: Disable firewalld
   gather_facts: False
   hosts: target
   roles:
     - { role: os-services/roles/prepare }
-
-- hosts: target
-  gather_facts: False
-  any_errors_fatal: "{{ any_errors_fatal | default(true) }}"
-  roles:
-    - { role: config-apt-sources }
-    - { role: config-centos-repo }
 
 - hosts: k8s_cluster:etcd
   gather_facts: False

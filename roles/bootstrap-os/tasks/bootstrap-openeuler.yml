@@ -1,0 +1,9 @@
+---
+
+- assert:
+    msg:
+      - "使用 openEuler 操作系统时，kuboardspray 只支持 containerd 作为容器引擎"
+    that:
+      - container_manager == 'containerd'
+
+- include_tasks: centos-alike.yml
