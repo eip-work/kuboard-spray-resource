@@ -13,11 +13,11 @@
 - set_fact:
     kuboardspray_supported_os_versions: "{{kuboardspray_supported_os.stdout | from_yaml | selectattr('distribution', '==', ansible_distribution)}}"
 
-- name: 检查是否支持此操作系统
+- name: "检查是否支持此操作系统 {{ ansible_distribution }} {{ ansible_distribution_version }}"
   assert:
     msg:
-      - "当前不支持此操作系统: {{ ansible_distribution }} {{ ansible_distribution_version }}"
-      - "支持的操作系统有: {{ kuboardspray_supported_os.stdout | from_yaml }}"
+      - "当前资源包不支持此操作系统: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      - "当前资源包支持的操作系统有: {{ kuboardspray_supported_os.stdout | from_yaml }}"
     that:
       - kuboardspray_supported_os_versions|length > 0
       - ansible_distribution_version in kuboardspray_supported_os_versions[0].versions
