@@ -3,6 +3,25 @@
   setup:
     gather_subset: '!all'
 
+- name: Read supported_os
+  shell: "cat package.yaml | shyaml get-value metadata.supported_os"
+  delegate_to: localhost
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: kuboardspray_supported_os
+
+- set_fact:
+    kuboardspray_supported_os_versions: "{{kuboardspray_supported_os.stdout | from_yaml | selectattr('distribution', '==', ansible_distribution)}}"
+
+- name: 检查是否支持此操作系统
+  assert:
+    msg:
+      - "当前不支持此操作系统: {{ ansible_distribution }} {{ ansible_distribution_version }}"
+      - "支持的操作系统有: {{ kuboardspray_supported_os.stdout | from_yaml }}"
+    that:
+      - kuboardspray_supported_os_versions|length > 0
+      - ansible_distribution_version in kuboardspray_supported_os_versions[0].versions
+
 # filter match the following variables:
 # ansible_default_ipv4
 # ansible_default_ipv6
