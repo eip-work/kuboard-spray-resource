@@ -10,7 +10,7 @@
 - name: "bootstrap-{{ ansible_distribution|lower }}"
   include_tasks: "{{ bootstrap_os_task_file_name }}"
   vars:
-    bootstrap_os_task_file_name: "{{ item | regex_search('bootstrap-[a-zA-Z0-9-._]*\\.yml') }}"
+    bootstrap_os_task_file_name: "{{ item | regex_search('bootstrap-[a-zA-Z0-9-._ ]*\\.yml') }}"
   with_first_found:
     - files:
         - "bootstrap-{{ ansible_distribution|lower }}.yml"

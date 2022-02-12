@@ -39,6 +39,9 @@ metadata:
     - distribution: openEuler
       versions:
         - '20.03'
+    - distribution: Kylin Linux Advanced Server
+      versions:
+        - 'V10'
 
 data:
   kubespray_version: v2.18.0a-3
