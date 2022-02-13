@@ -42,6 +42,9 @@ metadata:
     - distribution: Kylin Linux Advanced Server
       versions:
         - 'V10'
+    - distribution: openSUSE Leap
+      versions:
+        - '15.3'
 
 data:
   kubespray_version: v2.18.0a-3
