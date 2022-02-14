@@ -18,6 +18,7 @@
   roles:
     - { role: kubespray-defaults }
     - { role: bootstrap-os, tags: bootstrap-os}
+    - { role: deploy-kube-bench, tags: download, when: "not skip_downloads" }
 
 - name: Download images to ansible host cache via first kube_control_plane node
   hosts: kube_control_plane[0]

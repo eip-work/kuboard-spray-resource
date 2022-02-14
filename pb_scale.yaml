@@ -30,6 +30,7 @@
   roles:
     - { role: kubespray-defaults }
     - { role: bootstrap-os, tags: bootstrap-os }
+    - { role: deploy-kube-bench, tags: download, when: "not skip_downloads" }
 
 - name: Gather facts
   hosts: kube_control_plane,{{node}}

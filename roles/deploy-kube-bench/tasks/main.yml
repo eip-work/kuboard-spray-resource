@@ -1,0 +1,24 @@
+---
+
+- name: debug
+  debug:
+    msg: test
+
+- name: 复制 kubebench config 到目标服务器
+  ansible.builtin.copy:
+    src: "{{ role_path }}/kube-bench/cfg"
+    dest: /root/kube-bench/
+    force: true
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: 复制 kubebench 到目标服务器
+  ansible.builtin.copy:
+    src: "{{ role_path }}/kube-bench/kube-bench-{{ host_architecture }}"
+    dest: /root/kube-bench/kube-bench
+    force: true
+    owner: root
+    group: root
+    mode: '0755'
+

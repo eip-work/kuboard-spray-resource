@@ -102,14 +102,6 @@ data:
           sha256: "{{ coredns_digest_checksum|default(None) }}"
           groups:
           - k8s_cluster
-        kube_bench:
-          enabled: true
-          container: true
-          repo: "docker.io/aquasec/kube-bench"
-          tag: "v0.6.6"
-          sha256: "{{ kube_bench_checksum|default(None) }}"
-          groups:
-          - k8s_cluster
 
   etcd:
     etcd_version: v3.5.1

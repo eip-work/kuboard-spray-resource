@@ -25,6 +25,7 @@
     - { role: config-yum-repo }
     - { role: kubespray-defaults }
     - { role: configure-docker-repo, when: container_manager == 'docker' }
+    - { role: deploy-kube-bench, tags: download, when: "not skip_downloads" }
 
 # add os_service task to disable firewalld
 - name: Disable firewalld
