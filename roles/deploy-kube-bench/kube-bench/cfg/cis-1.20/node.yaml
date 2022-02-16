@@ -324,18 +324,18 @@ groups:
         scored: true
 
       - id: 4.2.8
-        text: "Ensure that the --hostname-override argument is not set (Manual)"
+        text: "Ensure that the --hostname-override argument is set to the same as hostname (Manual)"
         # This is one of those properties that can only be set as a command line argument.
         # To check if the property is set as expected, we need to parse the kubelet command
         # instead reading the Kubelet Configuration file.
-        audit: "/bin/ps -fC $kubeletbin "
+        audit: "/bin/ps -fC $kubeletbin | grep -F hostname-override=$(hostname)"
         tests:
           test_items:
             - flag: --hostname-override
-              set: false
+              set: true
         remediation: |
           Edit the kubelet service file $kubeletsvc
-          on each worker node and remove the --hostname-override argument from the
+          on each worker node and edit the --hostname-override argument from the
           KUBELET_SYSTEM_PODS_ARGS variable.
           Based on your system, restart the kubelet service. For example:
           systemctl daemon-reload
