@@ -1,7 +1,23 @@
 # 版本更新内容
 
+## v1.7
 
+**更新内容**
+
+* 安装前检查操作系统是否在支持的列表中
+* 部署 kube-bench
+* amd64 适配操作系统
+  * OracleLinux 8.5
+  * Anolis 8.5
+  * Rocky 8.5
+  * 中标麒麟 V10
+  * openSUSE Leap 15.3
+* arm64 版本
+  * arm64 环境下不支持 netchecker
+  * 适配 CentOS 7.9
 ## spray-v2.18.0a-2_k8s-v1.23.3_v1.6
+
+**发布时间**
 
 2021-02-06
 
