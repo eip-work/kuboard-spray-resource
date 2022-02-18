@@ -26,7 +26,7 @@ metadata:
         - '7.6'
         - '7.8'
         - '7.9'
-        - '8.5'
+        - '8'
     - distribution: Anolis
       versions:
         - '8.5'
@@ -59,12 +59,15 @@ data:
     cluster_version_containerd: pb_cluster_version_containerd.yaml
     cluster_version_docker: pb_cluster_version_docker.yaml
     upgrade_cluster: pb_upgrade_cluster.yaml
+    cis_scan: true ## 只在此属性为 true 的时候激活 CIS 扫描
 
   kubernetes:
     kube_version: 'v1.23.3'
     image_arch: amd64
     gcr_image_repo: 'gcr.io'
     kube_image_repo: 'k8s.gcr.io'
+    candidate_admission_plugins: AlwaysAdmit,AlwaysDeny,CertificateApproval,CertificateSigning,CertificateSubjectRestriction,DefaultIngressClass,DefaultStorageClass,DefaultTolerationSeconds,DenyServiceExternalIPs,EventRateLimit,ExtendedResourceToleration,ImagePolicyWebhook,LimitPodHardAntiAffinityTopology,LimitRanger,MutatingAdmissionWebhook,NamespaceAutoProvision,NamespaceExists,NamespaceLifecycle,NodeRestriction,OwnerReferencesPermissionEnforcement,PersistentVolumeClaimResize,PersistentVolumeLabel,PodNodeSelector,PodSecurity,PodSecurityPolicy,PodTolerationRestriction,Priority,ResourceQuota,RuntimeClass,SecurityContextDeny,ServiceAccount,StorageObjectInUseProtection,TaintNodesByCondition,ValidatingAdmissionWebhook
+    default_enabled_admission_plugins: CertificateApproval,CertificateSigning,CertificateSubjectRestriction,DefaultIngressClass,DefaultStorageClass,DefaultTolerationSeconds,LimitRanger,MutatingAdmissionWebhook,NamespaceLifecycle,PersistentVolumeClaimResize,Priority,ResourceQuota,RuntimeClass,ServiceAccount,StorageObjectInUseProtection,TaintNodesByCondition,ValidatingAdmissionWebhook
 
   container_engine:
     - container_manager: 'containerd'
@@ -77,6 +80,7 @@ data:
 
   vars:
     k8s_cluster:
+      # kubeadm_init_phases_skip_default: [ "preflight", "addon/coredns" ]
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
       kuboardspray_extra_downloads:
         netcheck_etcd:
