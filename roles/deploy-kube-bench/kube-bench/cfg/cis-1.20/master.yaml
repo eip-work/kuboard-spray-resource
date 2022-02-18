@@ -153,7 +153,7 @@ groups:
 
       - id: 1.1.11
         text: "Ensure that the etcd data directory permissions are set to 700 or more restrictive (Automated)"
-        audit: cat "/proc/$(/bin/ps -C etcd -o pid= | tr -d ' ')/environ" | tr '\0' '\n' | grep ETCD_DATA_DIR | sed 's%.*ETCD_DATA_DIR[= ]\([^ ]*\).*%\1%' | xargs stat -c permissions=%a
+        audit: ps -ef | grep $etcdbin | grep -- --data-dir | sed 's%.*data-dir[= ]\([^ ]*\).*%\1%' | xargs stat -c permissions=%a
         tests:
           test_items:
             - flag: "permissions"
@@ -161,21 +161,21 @@ groups:
                 op: bitmask
                 value: "700"
         remediation: |
-          On the etcd server node, get the etcd data directory, passed as an environment var ETCD_DATA_DIR,
+          On the etcd server node, get the etcd data directory, passed as an argument --data-dir,
           from the below command:
-          cat "/proc/$(/bin/ps -C etcd -o pid= | tr -d ' ')/environ" | tr '\0' '\n' | grep ETCD_DATA_DIR
+          ps -ef | grep etcd
           Run the below command (based on the etcd data directory found above). For example,
           chmod 700 /var/lib/etcd
         scored: true
 
       - id: 1.1.12
-        text: "Ensure that the etcd data directory ownership is set to root:root (Automated)"
-        audit: cat "/proc/$(/bin/ps -C etcd -o pid= | tr -d ' ')/environ" | tr '\0' '\n' | grep ETCD_DATA_DIR | sed 's%.*ETCD_DATA_DIR[= ]\([^ ]*\).*%\1%' | xargs stat -c %U:%G
+        text: "Ensure that the etcd data directory ownership is set to etcd:etcd (Automated)"
+        audit: ps -ef | grep $etcdbin | grep -- --data-dir | sed 's%.*data-dir[= ]\([^ ]*\).*%\1%' | xargs stat -c %U:%G
         tests:
           test_items:
             - flag: "root:root"
         remediation: |
-          On the etcd server node, get the etcd data directory, passed as an environment var ETCD_DATA_DIR,
+          On the etcd server node, get the etcd data directory, passed as an argument --data-dir,
           from the below command:
           ps -ef | grep etcd
           Run the below command (based on the etcd data directory found above).
