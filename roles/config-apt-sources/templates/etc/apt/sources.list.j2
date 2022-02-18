@@ -1,10 +1,11 @@
-deb {{ ubuntu_repo }} {{ ansible_distribution_release }} main restricted universe multiverse
-#deb-src {{ ubuntu_repo }} {{ ansible_distribution_release }} main restricted universe multiverse
-deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-security main restricted universe multiverse
-#deb-src {{ ubuntu_repo }} {{ ansible_distribution_release }}-security main restricted universe multiverse
-deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-updates main restricted universe multiverse
-#deb-src {{ ubuntu_repo }} {{ ansible_distribution_release }}-updates main restricted universe multiverse
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }} main restricted
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-updates main restricted
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }} universe
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-updates universe
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }} multiverse
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-updates multiverse
 deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-backports main restricted universe multiverse
-#deb-src {{ ubuntu_repo }} {{ ansible_distribution_release }}-backports main restricted universe multiverse
-deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-proposed main restricted universe multiverse
-#deb-src {{ ubuntu_repo }} {{ ansible_distribution_release }}-proposed main restricted universe multiverse
+
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-security main restricted
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-security universe
+deb {{ ubuntu_repo }} {{ ansible_distribution_release }}-security multiverse

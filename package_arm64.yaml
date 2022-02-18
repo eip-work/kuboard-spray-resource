@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0a-2_k8s-v1.23.3_v1.6-arm64
+  version: spray-kuboard-spray-v2.18.0a_k8s-v1.23.3_v1.6-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.0.0-beta.1
@@ -37,10 +37,9 @@ data:
     kube_image_repo: 'k8s.gcr.io'
 
   container_engine:
-    # - container_manager: 'containerd'
-    #   params:
-    #     containerd_version: 1.5.9
-    # containerd 团队未官方提供 arm64 版本
+    - container_manager: 'containerd'
+      params:
+        containerd_version: 1.6.0
     - container_manager: 'docker'
       params:
         docker_version: '20.10'
@@ -48,6 +47,9 @@ data:
 
   vars:
     k8s_cluster:
+      containerd_archive_checksums:
+        arm64:
+          1.6.0: 6eff3e16d44c89e1e8480a9ca078f79bab82af602818455cc162be344f64686a
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
       kuboardspray_extra_downloads:
         netcheck_etcd:
@@ -107,7 +109,7 @@ data:
       version: 1.8.5
     - name: pause
       target: pod_infra_version
-      version: '3.3'
+      version: '3.6'
   network_plugin:
     - name: calico
       params:
@@ -135,31 +137,31 @@ data:
       params:
         nodelocaldns_version: '1.21.1'
         enable_nodelocaldns_secondary: false
-    - name: netchecker
-      target: deploy_netchecker
-      lifecycle:
-        install_by_default: true
-        check:
-          shell: "kubectl get deployment -n {{ netcheck_namespace | default('default') }} netchecker-server -o json"
-          keyword: "k8s-netchecker-server"
-        install_addon_tags:
-          - download
-          - upgrade
-          - netchecker
-        remove_addon_tags:
-          - upgrade
-          - netchecker
-        downloads:
-          - netcheck_server
-          - netcheck_agent
-          - netcheck_etcd
-      params:
-        netcheck_version: "v1.2.2"
-        netcheck_agent_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-agent"
-        netcheck_agent_image_tag: "{{ netcheck_version }}"
-        netcheck_server_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-server"
-        netcheck_server_image_tag: "{{ netcheck_version }}"
-        netcheck_etcd_image_tag: "v3.5.1"
+    # - name: netchecker
+    #   target: deploy_netchecker
+    #   lifecycle:
+    #     install_by_default: true
+    #     check:
+    #       shell: "kubectl get deployment -n {{ netcheck_namespace | default('default') }} netchecker-server -o json"
+    #       keyword: "k8s-netchecker-server"
+    #     install_addon_tags:
+    #       - download
+    #       - upgrade
+    #       - netchecker
+    #     remove_addon_tags:
+    #       - upgrade
+    #       - netchecker
+    #     downloads:
+    #       - netcheck_server
+    #       - netcheck_agent
+    #       - netcheck_etcd
+    #   params:
+    #     netcheck_version: "v1.2.2"
+    #     netcheck_agent_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-agent"
+    #     netcheck_agent_image_tag: "{{ netcheck_version }}"
+    #     netcheck_server_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-server"
+    #     netcheck_server_image_tag: "{{ netcheck_version }}"
+    #     netcheck_etcd_image_tag: "v3.5.1"
     # - name: helm
     #   install_by_default: false
     #   target: helm_enabled
