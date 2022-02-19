@@ -316,6 +316,7 @@ groups:
       - id: 1.2.1
         text: "Ensure that the --anonymous-auth argument is set to false (Manual)"
         audit: "/bin/ps -ef | grep $apiserverbin | grep -v grep"
+        type: "manual"
         tests:
           test_items:
             - flag: "--anonymous-auth"
@@ -439,6 +440,7 @@ groups:
       - id: 1.2.9
         text: "Ensure that the admission control plugin EventRateLimit is set (Manual)"
         audit: "/bin/ps -ef | grep $apiserverbin | grep -v grep"
+        type: manual
         tests:
           test_items:
             - flag: "--enable-admission-plugins"
@@ -472,23 +474,24 @@ groups:
         scored: true
 
       - id: 1.2.11
-        text: "Ensure that the admission control plugin AlwaysPullImages is set (Manual)"
+        text: "Ensure that the admission control plugin AlwaysPullImages is not set (Manual)"
         audit: "/bin/ps -ef | grep $apiserverbin | grep -v grep"
         tests:
           test_items:
             - flag: "--enable-admission-plugins"
               compare:
-                op: has
+                op: nothave
                 value: "AlwaysPullImages"
         remediation: |
           Edit the API server pod specification file $apiserverconf
-          on the master node and set the --enable-admission-plugins parameter to include AlwaysPullImages.
+          on the master node and set the --enable-admission-plugins parameter to not include AlwaysPullImages.
           --enable-admission-plugins=...,AlwaysPullImages,...
         scored: false
 
       - id: 1.2.12
         text: "Ensure that the admission control plugin SecurityContextDeny is set if PodSecurityPolicy is not used (Manual)"
         audit: "/bin/ps -ef | grep $apiserverbin | grep -v grep"
+        type: manual
         tests:
           bin_op: or
           test_items:
@@ -545,19 +548,19 @@ groups:
         scored: true
 
       - id: 1.2.15
-        text: "Ensure that the admission control plugin PodSecurityPolicy is set (Automated)"
+        text: "Ensure that the admission control plugin PodSecurityPolicy is aws_ebs_csi_plugin_digest_checksum (Automated)"
         audit: "/bin/ps -ef | grep $apiserverbin | grep -v grep"
         tests:
           test_items:
             - flag: "--enable-admission-plugins"
               compare:
-                op: has
+                op: nothave
                 value: "PodSecurityPolicy"
         remediation: |
           Follow the documentation and create Pod Security Policy objects as per your environment.
           Then, edit the API server pod specification file $apiserverconf
           on the master node and set the --enable-admission-plugins parameter to a
-          value that includes PodSecurityPolicy:
+          value that does not include PodSecurityPolicy:
           --enable-admission-plugins=...,PodSecurityPolicy,...
           Then restart the API Server.
         scored: true
@@ -804,6 +807,7 @@ groups:
       - id: 1.2.32
         text: "Ensure that the --encryption-provider-config argument is set as appropriate (Manual)"
         audit: "/bin/ps -ef | grep $apiserverbin | grep -v grep"
+        type: manual
         tests:
           test_items:
             - flag: "--encryption-provider-config"
@@ -815,6 +819,7 @@ groups:
 
       - id: 1.2.33
         text: "Ensure that encryption providers are appropriately configured (Manual)"
+        type: manual
         audit: |
           ENCRYPTION_PROVIDER_CONFIG=$(ps -ef | grep $apiserverbin | grep -- --encryption-provider-config | sed 's%.*encryption-provider-config[= ]\([^ ]*\).*%\1%')
           if test -e $ENCRYPTION_PROVIDER_CONFIG; then grep -A1 'providers:' $ENCRYPTION_PROVIDER_CONFIG | tail -n1 | grep -o "[A-Za-z]*" | sed 's/^/provider=/'; fi

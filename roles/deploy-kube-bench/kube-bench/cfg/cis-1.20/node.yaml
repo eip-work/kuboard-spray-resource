@@ -367,6 +367,7 @@ groups:
         text: "Ensure that the --tls-cert-file and --tls-private-key-file arguments are set as appropriate (Manual)"
         audit: "/bin/ps -fC $kubeletbin"
         audit_config: "/bin/cat $kubeletconf"
+        type: manual
         tests:
           test_items:
             - flag: --tls-cert-file
