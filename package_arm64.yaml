@@ -1,15 +1,19 @@
 metadata:
-  version: spray-kuboard-spray-v2.18.0a_k8s-v1.23.3_v1.6-arm64
+  version: spray-kuboard-spray-v2.18.0a_k8s-v1.23.4_v1.7-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
-    min: v1.0.0-beta.1
+    min: v1.0.0-beta.2
   available_at:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: '2021-02-05'
+  issue_date: '2021-02-20'
   owner: 'shaohq@foxmail.com'
   can_upgrade_from:
+    include:
+      - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-3]_v[0-9.]*-amd64
+      - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-amd64
+    exclude:
   can_replace_to:
   supported_os:
     - distribution: Ubuntu
@@ -17,7 +21,7 @@ metadata:
         - '20.04'
 
 data:
-  kubespray_version: v2.18.0a-2
+  kubespray_version: v2.18.0a-3
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
@@ -29,12 +33,16 @@ data:
     cluster_version_containerd: pb_cluster_version_containerd.yaml
     cluster_version_docker: pb_cluster_version_docker.yaml
     upgrade_cluster: pb_upgrade_cluster.yaml
+    cis_scan: true ## 只在此属性为 true 的时候激活 CIS 扫描
 
   kubernetes:
-    kube_version: 'v1.23.3'
+    kube_version: 'v1.23.4'
     image_arch: arm64
     gcr_image_repo: 'gcr.io'
     kube_image_repo: 'k8s.gcr.io'
+    candidate_admission_plugins: AlwaysAdmit,AlwaysDeny,CertificateApproval,CertificateSigning,CertificateSubjectRestriction,DefaultIngressClass,DefaultStorageClass,DefaultTolerationSeconds,DenyServiceExternalIPs,EventRateLimit,ExtendedResourceToleration,ImagePolicyWebhook,LimitPodHardAntiAffinityTopology,LimitRanger,MutatingAdmissionWebhook,NamespaceAutoProvision,NamespaceExists,NamespaceLifecycle,NodeRestriction,OwnerReferencesPermissionEnforcement,PersistentVolumeClaimResize,PersistentVolumeLabel,PodNodeSelector,PodSecurity,PodTolerationRestriction,Priority,ResourceQuota,RuntimeClass,SecurityContextDeny,ServiceAccount,StorageObjectInUseProtection,TaintNodesByCondition,ValidatingAdmissionWebhook
+    default_enabled_admission_plugins: CertificateApproval,CertificateSigning,CertificateSubjectRestriction,DefaultIngressClass,DefaultStorageClass,DefaultTolerationSeconds,LimitRanger,MutatingAdmissionWebhook,NamespaceLifecycle,PersistentVolumeClaimResize,Priority,ResourceQuota,RuntimeClass,ServiceAccount,StorageObjectInUseProtection,TaintNodesByCondition,ValidatingAdmissionWebhook
+
 
   container_engine:
     - container_manager: 'containerd'
@@ -47,9 +55,22 @@ data:
 
   vars:
     k8s_cluster:
+      containerd_version: 1.6.0
+      kubelet_checksums:
+        arm64:
+          v1.23.4: c4f09c9031a34549fbaa48231b115fee6e170ce6832dce26d4b50b040aad2311
+      kubectl_checksums:
+        arm64:
+          v1.23.4: aa45dba48791eeb78a994a2723c462d155af4e39fdcfbcb39ce9c96f604a967a
+      kubeadm_checksums:
+        arm64:
+          v1.23.4: 90fd5101e321053cdb66d165879a9cde18f19ba9bb8eae152fd4f4fcbe497be1
       containerd_archive_checksums:
         arm64:
           1.6.0: 6eff3e16d44c89e1e8480a9ca078f79bab82af602818455cc162be344f64686a
+      nerdctl_archive_checksums:
+        arm64:
+          0.17.0: cddd33f915c617e7ed32f79bc5a18eb2821cddf4de082e3e47764871abe21f90
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
       kuboardspray_extra_downloads:
         netcheck_etcd:
@@ -96,7 +117,7 @@ data:
       version: 'v1.23.0'
       target: crictl_version
     - name: nerdctl
-      version: '0.16.0'
+      version: '0.17.0'
       target: nerdctl_version
     - name: nginx_image
       version: 1.21.4
