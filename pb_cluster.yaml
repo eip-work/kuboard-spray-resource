@@ -143,3 +143,11 @@
   roles:
     - { role: kubespray-defaults }
     - { role: kubernetes/preinstall, when: "dns_mode != 'none' and resolvconf_mode == 'host_resolvconf'", tags: resolvconf, dns_late: true }
+
+- hosts: etcd
+  gather_facts: False
+  tasks:
+    - name: "修改 {{ etcd_data_dir }} 属性，以满足 CIS 扫描要求"
+      ansible.builtin.file:
+        path: "{{ etcd_data_dir }}"
+        mode: '0700'
