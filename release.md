@@ -1,29 +1,40 @@
 # 版本更新内容
 
-## v1.7
+## spray-v2.18.0a-6_k8s-v1.23.4_v1.7-amd64
+
+**发布日期**
+
+2021-02-20
 
 **更新内容**
 
 * 版本升级
   * kube-version: v1.23.4
-  * container: 1.6.0
+  * containerd: 1.6.0
   * pause: 3.6
   * nerdctl: 0.17.0
   * calico: v3.21.4
+  * runc: v1.1.0
 * 安装前检查操作系统是否在支持的列表中
+* kube-bench CIS 扫描
+  * 匹配 kube-bench CIS 扫描规则
 * 部署 kube-bench
   * 匹配 kube-bench 的扫描规则
 * amd64 适配操作系统
-  * OracleLinux 8.5
-  * Anolis 8.5
-  * Rocky 8.5
-  * 中标麒麟 V10
-  * openSUSE Leap 15.3
+  * 适配 OracleLinux 8.5
+  * 适配 Anolis 8.5
+  * 适配 Rocky 8.5
+  * 适配 中标麒麟 V10
+  * 适配 openSUSE Leap 15.3
 * arm64 版本
   * arm64 环境下不支持 netchecker
   * arm64 环境下支持容器引擎 containerd
   * 适配 CentOS 7.9
-  * 
+  * 适配 OracleLinux 8.5
+  * 适配 Anolis 8.5
+  * 适配 Rocky 8.5
+  * 适配 中标麒麟 V10
+  * 适配 openSUSE Leap 15.3
 
 ## spray-v2.18.0a-2_k8s-v1.23.3_v1.6
 

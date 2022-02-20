@@ -43,7 +43,7 @@ metadata:
         - 'V10'
     - distribution: openSUSE Leap
       versions:
-        - '15.3'
+        - '15.3' #已验证
 
 data:
   kubespray_version: v2.18.0a-6
