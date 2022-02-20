@@ -379,10 +379,13 @@ groups:
       - id: 1.2.5
         text: "Ensure that the --kubelet-certificate-authority argument is set as appropriate (Automated)"
         audit: "/bin/ps -ef | grep $apiserverbin | grep -v grep"
+        type: manual
         tests:
           test_items:
             - flag: "--kubelet-certificate-authority"
         remediation: |
+          激活此特性将导致部分组件不能正常工作，例如 metrics-server 需要访问 kubelet 的 10250 端口，
+          待后续版本解决完这些问题后，将默认激活 --kubelet-certificate-authority
           Follow the Kubernetes documentation and setup the TLS connection between
           the apiserver and kubelets. Then, edit the API server pod specification file
           $apiserverconf on the master node and set the
