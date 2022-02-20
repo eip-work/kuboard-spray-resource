@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0a-4_k8s-v1.23.4_v1.7-arm64
+  version: spray-v2.18.0a-6_k8s-v1.23.4_v1.7-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.0.0-beta.2
@@ -7,8 +7,8 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: '2021-02-20'
-  owner: 'shaohq@foxmail.com'
+  issue_date: "2021-02-20"
+  owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
       - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-3]_v[0-9.]*-amd64
@@ -18,13 +18,35 @@ metadata:
   supported_os:
     - distribution: Ubuntu
       versions:
-        - '20.04'
+        - "20.04"  #已验证
     - distribution: Anolis
       versions:
-        - '8.4'
+        - "8.5"  #已验证
+        - "8.4"  #已验证
+    - distribution: CentOS
+      versions:
+        - "8"    #已验证
+        - "7.9"  #已验证
+        - '7.8'
+        - '7.6'
+    - distribution: OracleLinux
+      versions:
+        - '8.5'  #已验证
+    - distribution: Rocky
+      versions:
+        - '8.5'
+    - distribution: openEuler
+      versions:
+        - '20.03'
+    - distribution: Kylin Linux Advanced Server
+      versions:
+        - 'V10'
+    - distribution: openSUSE Leap
+      versions:
+        - '15.3'
 
 data:
-  kubespray_version: v2.18.0a-4
+  kubespray_version: v2.18.0a-6
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
@@ -36,24 +58,23 @@ data:
     cluster_version_containerd: pb_cluster_version_containerd.yaml
     cluster_version_docker: pb_cluster_version_docker.yaml
     upgrade_cluster: pb_upgrade_cluster.yaml
-    cis_scan: true ## 只在此属性为 true 的时候激活 CIS 扫描
+    cis_scan: true # 只在此属性为 true 的时候激活 CIS 扫描
 
   kubernetes:
-    kube_version: 'v1.23.4'
+    kube_version: "v1.23.4"
     image_arch: arm64
-    gcr_image_repo: 'gcr.io'
-    kube_image_repo: 'k8s.gcr.io'
+    gcr_image_repo: "gcr.io"
+    kube_image_repo: "k8s.gcr.io"
     candidate_admission_plugins: AlwaysAdmit,AlwaysDeny,CertificateApproval,CertificateSigning,CertificateSubjectRestriction,DefaultIngressClass,DefaultStorageClass,DefaultTolerationSeconds,DenyServiceExternalIPs,EventRateLimit,ExtendedResourceToleration,ImagePolicyWebhook,LimitPodHardAntiAffinityTopology,LimitRanger,MutatingAdmissionWebhook,NamespaceAutoProvision,NamespaceExists,NamespaceLifecycle,NodeRestriction,OwnerReferencesPermissionEnforcement,PersistentVolumeClaimResize,PersistentVolumeLabel,PodNodeSelector,PodSecurity,PodTolerationRestriction,Priority,ResourceQuota,RuntimeClass,SecurityContextDeny,ServiceAccount,StorageObjectInUseProtection,TaintNodesByCondition,ValidatingAdmissionWebhook
     default_enabled_admission_plugins: CertificateApproval,CertificateSigning,CertificateSubjectRestriction,DefaultIngressClass,DefaultStorageClass,DefaultTolerationSeconds,LimitRanger,MutatingAdmissionWebhook,NamespaceLifecycle,PersistentVolumeClaimResize,Priority,ResourceQuota,RuntimeClass,ServiceAccount,StorageObjectInUseProtection,TaintNodesByCondition,ValidatingAdmissionWebhook
 
-
   container_engine:
-    - container_manager: 'containerd'
+    - container_manager: "containerd"
       params:
         containerd_version: 1.6.0
-    - container_manager: 'docker'
+    - container_manager: "docker"
       params:
-        docker_version: '20.10'
+        docker_version: "20.10"
         docker_containerd_version: 1.4.12
 
   vars:
@@ -90,7 +111,7 @@ data:
           owner: "root"
           mode: "0755"
           groups:
-          - k8s_cluster
+            - k8s_cluster
         coredns:
           enabled: "{{ dns_mode in ['coredns', 'coredns_dual'] }}"
           container: true
@@ -98,14 +119,14 @@ data:
           tag: "{{ coredns_image_tag }}"
           sha256: "{{ coredns_digest_checksum|default(None) }}"
           groups:
-          - k8s_cluster
+            - k8s_cluster
 
   etcd:
     etcd_version: v3.5.1
     etcd_params:
-    etcd_deployment_type: 
-      - 'host'
-      - 'docker'
+    etcd_deployment_type:
+      - "host"
+      - "docker"
   dependency:
     - name: crun
       version: 1.4
@@ -117,27 +138,27 @@ data:
       version: "v1.0.1"
       target: cni_version
     - name: crictl
-      version: 'v1.23.0'
+      version: "v1.23.0"
       target: crictl_version
     - name: nerdctl
-      version: '0.17.0'
+      version: "0.17.0"
       target: nerdctl_version
     - name: nginx_image
       version: 1.21.4
       target: nginx_image_tag
     - name: coredns
       target: coredns_version
-      version: 'v1.8.6'
+      version: "v1.8.6"
     - name: cluster-proportional-autoscaler
       target: dnsautoscaler_version
       version: 1.8.5
     - name: pause
       target: pod_infra_version
-      version: '3.6'
+      version: "3.6"
   network_plugin:
     - name: calico
       params:
-        calico_version: 'v3.21.4'
+        calico_version: "v3.21.4"
     - name: flannel
       params:
         flannel_version: "v0.15.1"
@@ -149,7 +170,7 @@ data:
         install_by_default: true
         check:
           shell: "kubectl get daemonset -n kube-system nodelocaldns -o json"
-          keyword: "\"k8s-app\": \"kube-dns\""
+          keyword: '"k8s-app": "kube-dns"'
         install_addon_tags:
           - download
           - upgrade
@@ -159,7 +180,7 @@ data:
           - nodelocaldns
           - coredns
       params:
-        nodelocaldns_version: '1.21.1'
+        nodelocaldns_version: "1.21.1"
         enable_nodelocaldns_secondary: false
     # - name: netchecker
     #   target: deploy_netchecker
@@ -230,4 +251,3 @@ data:
     #   target: local_path_provisioner_enabled
     #   params:
     #     local_path_provisioner_image_tag: "v0.0.19"
-
