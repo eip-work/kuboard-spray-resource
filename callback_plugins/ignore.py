@@ -24,4 +24,4 @@ class CallbackModule(CallbackBase):
 
     def v2_runner_on_failed(self, result, ignore_errors=False):
         if ignore_errors:
-            self._display.display("出现此错误提示属于正常情况，请忽略", color=C.COLOR_WARN)
+            self._display.display("出现此错误提示属于正常情况，请忽略", color=C.COLOR_SKIP)
