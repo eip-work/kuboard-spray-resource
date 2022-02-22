@@ -58,6 +58,8 @@ data:
     cluster_version_containerd: pb_cluster_version_containerd.yaml
     cluster_version_docker: pb_cluster_version_docker.yaml
     upgrade_cluster: pb_upgrade_cluster.yaml
+    drain_node: pb_drain_node.yaml
+    uncordon_node: pb_uncordon_node.yaml
     cis_scan: true ## 只在此属性为 true 的时候激活 CIS 扫描
 
   kubernetes:
