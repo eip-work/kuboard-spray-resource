@@ -22,6 +22,13 @@
       - kuboardspray_supported_os_versions|length > 0
       - ansible_distribution_version in kuboardspray_supported_os_versions[0].versions
 
+- name: "检查是否为操作系统 {{ ansible_distribution }} 选择了软件源"
+  assert:
+    msg:
+      - "请在『全局设置』『软件源』中勾选 {{ ansible_distribution }}"
+    that:
+      - "hostvars[inventory_hostname]['kuboardspray_repo_' + ansible_distribution | lower] is defined"
+
 # filter match the following variables:
 # ansible_default_ipv4
 # ansible_default_ipv6
