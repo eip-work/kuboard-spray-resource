@@ -78,7 +78,7 @@ data:
         docker_containerd_version: 1.4.12
 
   vars:
-    k8s_cluster:
+    target:
       containerd_version: 1.6.0
       kubelet_checksums:
         arm64:

@@ -80,7 +80,7 @@ data:
         docker_containerd_version: 1.4.12
 
   vars:
-    k8s_cluster:
+    target:
       # kubeadm_init_phases_skip_default: [ "preflight", "addon/coredns" ]
       containerd_version: 1.6.0
       kubelet_checksums:

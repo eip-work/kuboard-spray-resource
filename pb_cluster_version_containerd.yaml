@@ -34,8 +34,12 @@
         - inventory_hostname in groups['etcd']
     - name: containerd
       shell: containerd --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]"
+      when:
+        - inventory_hostname in groups['k8s_cluster']
     - name: crictl
       shell: crictl --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      when:
+        - inventory_hostname in groups['k8s_cluster']
     - name: calico
       shell: |+
         ps_value=$(crictl ps | grep calico-node)
@@ -60,6 +64,8 @@
         - inventory_hostname in groups['k8s_cluster']
     - name: runc
       shell: echo v$(runc --version | grep runc | grep -Eo "[0-9]+\.[0-9]+\.[0-9]")
+      when:
+        - inventory_hostname in groups['k8s_cluster']
     - name: nginx_image
       shell: |+
         ps_value=$(crictl ps | grep nginx-proxy)
