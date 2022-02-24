@@ -3,7 +3,34 @@
   setup:
     gather_subset: '!all'
 
-- name: Read supported_os
+- name: 检查 kuboard spray 版本
+  run_once: true
+  block:
+    - name: 检查是否检测到 kuboardspray_version
+      run_once: true
+      fail:
+        msg:
+          - "资源包不支持当前 kuboardspray 版本" 
+          - "请升级 kuboardspray 到最新版本 https://kuboard-spray.cn/support/change-log/v1.html"
+      when:
+        - kuboardspray_version is not defined
+
+    - name: 读取资源包要求的最低 kuboardspray 版本
+      shell: "cat package.yaml | shyaml get-value metadata.kuboard_spray_version.min"
+      delegate_to: localhost
+      args:
+        chdir: "{{ playbook_dir }}"
+      register: kuboardspray_min_version
+
+    - name: "检查是否满足资源包对 kuboardspray 版本的最低要求 {{ kuboardspray_version }} >= {{ kuboardspray_min_version.stdout }}"
+      assert:
+        msg:
+          - "资源包要求 kuboardspray 的版本不能低于 {{kuboardspray_min_version.stdout}}，当前 kuboardspray 版本为 {{ kuboardspray_version }}"
+          - "建议升级 kuboardspray 到最新版本 https://kuboard-spray.cn/support/change-log/v1.html"
+        that:
+          - kuboardspray_version is version(kuboardspray_min_version.stdout, 'ge')
+
+- name: 读取资源包支持的操作系统列表
   shell: "cat package.yaml | shyaml get-value metadata.supported_os"
   delegate_to: localhost
   args:
