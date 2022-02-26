@@ -1,0 +1,10 @@
+---
+
+- name: 更新证书
+  hosts: kube_control_plane
+  gather_facts: False
+  tasks:
+    - name: 逐个更新 kube_control_plane 的证书
+      include_tasks: "./roles/renew-cert/tasks/main.yml"
+      when: inventory_hostname == item
+      loop: "{{ groups['kube_control_plane'] }}"

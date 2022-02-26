@@ -1,0 +1,22 @@
+---
+- debug:
+    msg: "开始更新 {{ inventory_hostname }} 的证书"
+
+- name: 生成新的证书
+  shell: "/usr/local/bin/k8s-certs-renew.sh"
+
+- name: 等待 kube-apiserver 重启，大约需要 1 分钟
+  wait_for:
+    timeout: 10
+
+- name: 等待 kube-apiserver 重新启动
+  shell: "set -o pipefail && curl -ik https://localhost:6443/healthz | grep -v '\"apiVersion\":' > /dev/null"
+  args:
+    executable: /bin/bash
+  register: apiserver_is_restarted
+  until: apiserver_is_restarted.rc == 0
+  retries: "120"
+  delay: "5"
+  changed_when: false
+  check_mode: no
+  failed_when: apiserver_is_restarted.rc != 0

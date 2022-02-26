@@ -61,6 +61,7 @@ data:
     drain_node: pb_drain_node.yaml
     uncordon_node: pb_uncordon_node.yaml
     cis_scan: true ## 只在此属性为 true 的时候激活 CIS 扫描
+    renew_cert: pb_renew_cert.yaml
 
   kubernetes:
     kube_version: "v1.23.4"
