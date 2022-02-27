@@ -1,0 +1,25 @@
+---
+- name: Gather facts
+  gather_facts: False
+  hosts: k8s_cluster
+  any_errors_fatal: true
+  roles:
+    - { role: kuboard-spray-facts }
+    - { role: kubespray-defaults }
+    - role: container-engine/docker
+      when: container_manager == 'docker'
+    - role: container-engine/containerd
+      when: container_manager == 'containerd'
+
+# - name: 更新容器引擎参数
+#   hosts: k8s_cluster
+#   gather_facts: False
+#   tasks:
+#     - include_role:
+#         name: container-engine/docker
+#       when: 
+#         - inventory_hostname == iterate_k8s_cluster_item
+#         - container_manager == 'docker'
+#       loop: "{{ groups['k8s_cluster'] }}"
+#       loop_control:
+#         loop_var: iterate_k8s_cluster_item

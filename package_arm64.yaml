@@ -58,6 +58,8 @@ data:
     cluster_version_containerd: pb_cluster_version_containerd.yaml
     cluster_version_docker: pb_cluster_version_docker.yaml
     upgrade_cluster: pb_upgrade_cluster.yaml
+    renew_cert: pb_renew_cert.yaml
+    sync_container_engine_params: pb_sync_container_engine_params.yaml
     cis_scan: true # 只在此属性为 true 的时候激活 CIS 扫描
 
   kubernetes:
