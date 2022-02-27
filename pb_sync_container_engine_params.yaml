@@ -6,6 +6,8 @@
   roles:
     - { role: kuboard-spray-facts }
     - { role: kubespray-defaults }
+    - role: configure-docker-repo
+      when: container_manager == 'docker'
     - role: container-engine/docker
       when: container_manager == 'docker'
     - role: container-engine/containerd
