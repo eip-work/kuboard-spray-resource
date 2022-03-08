@@ -1,0 +1,14 @@
+---
+
+- name: Gather facts
+  gather_facts: False
+  hosts: kube_control_plane:etcd
+  any_errors_fatal: true
+  roles:
+    - { role: kuboard-spray-facts }
+
+- name: 备份 ETCD
+  gather_facts: False
+  hosts: etcd
+  roles:
+    - { role: backup-etcd }

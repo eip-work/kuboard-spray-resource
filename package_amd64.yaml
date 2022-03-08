@@ -66,6 +66,7 @@ data:
     cis_scan: true # 只在此属性为 true 的时候激活 CIS 扫描
     renew_cert: pb_renew_cert.yaml
     sync_container_engine_params: pb_sync_container_engine_params.yaml
+    backup_etcd: pb_backup_etcd.yaml
 
   kubernetes:
     kube_version: "v1.23.4"
