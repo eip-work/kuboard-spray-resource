@@ -1,0 +1,9 @@
+---
+- name: 恢复 etcd 数据
+  hosts: etcd
+  gather_facts: False
+  roles:
+    - { role: kuboard-spray-facts }
+    - { role: kubespray-defaults }
+    - { role: restore-etcd }
+

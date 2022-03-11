@@ -76,12 +76,6 @@
   until: etcd_backup_v3_command.rc == 0
   delay: "{{ retry_stagger | random + 3 }}"
 
-- name: Remove old etcd backups
-  shell:
-    chdir: "{{ etcd_backup_prefix }}"
-    cmd: "find . -name 'etcd-*' -type d | sort -n | head -n -{{ etcd_backup_retention_count }} | xargs rm -rf"
-  when: etcd_backup_retention_count >= 0
-
 - name: Create Backup Temporary Directory
   file:
     path: "/tmp/etcd-backup/"
@@ -100,3 +94,13 @@
     src: "/tmp/etcd-backup/{{ etcd_backup_directory }}.tgz"
     dest: "{{ kuboardspray_cluster_dir }}/backup/{{ inventory_hostname }}/{{ etcd_member_name }}/"
     flat: yes
+
+- name: 删除远程临时文件 1
+  file:
+    path: "{{ etcd_backup_prefix }}/etcd"
+    state: absent
+
+- name: 删除远程临时文件 2
+  file:
+    path: "/tmp/etcd-backup"
+    state: absent
