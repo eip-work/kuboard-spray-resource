@@ -30,6 +30,21 @@
         that:
           - kuboardspray_version is version(kuboardspray_min_version.stdout, 'ge')
 
+- name: 读取资源包支持的 CPU 架构
+  shell: "cat package.yaml | shyaml get-value data.kubernetes.image_arch"
+  delegate_to: localhost
+  args:
+    chdir: "{{ playbook_dir }}"
+  register: kuboardspray_image_arch
+
+- name: "检查是否支持此节点的 CPU 架构 {{ host_architecture }}"
+  assert:
+    msg:
+      - "当前资源包支持 {{ kuboardspray_image_arch.stdout }}，不支持此节点的 CPU 架构: {{ host_architecture }}"
+      - "请确保 kuboard-spray 所在机器的 CPU 架构与节点机器的 CPU 架构相同"
+    that:
+      - host_architecture == kuboardspray_image_arch.stdout
+
 - name: 读取资源包支持的操作系统列表
   shell: "cat package.yaml | shyaml get-value metadata.supported_os"
   delegate_to: localhost
