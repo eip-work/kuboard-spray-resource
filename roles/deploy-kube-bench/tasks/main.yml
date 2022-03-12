@@ -1,9 +1,5 @@
 ---
 
-- name: debug
-  debug:
-    msg: test
-
 - name: 复制 kubebench config 到目标服务器
   ansible.builtin.copy:
     src: "{{ role_path }}/kube-bench/cfg"
