@@ -89,13 +89,13 @@ data:
       containerd_version: 1.6.1
       kubelet_checksums:
         arm64:
-          v1.23.5: c4f09c9031a34549fbaa48231b115fee6e170ce6832dce26d4b50b040aad2311
+          v1.23.5: 61f7e3ae0eb00633d3b5163c046cfcae7e73b5f26d4ffcf343f3a45904323583
       kubectl_checksums:
         arm64:
-          v1.23.5: aa45dba48791eeb78a994a2723c462d155af4e39fdcfbcb39ce9c96f604a967a
+          v1.23.5: 15cd560c04def7bbe5ee3f6f75e2cfd3913371c7e76354f4b2d5d6f536b70e39
       kubeadm_checksums:
         arm64:
-          v1.23.5: 90fd5101e321053cdb66d165879a9cde18f19ba9bb8eae152fd4f4fcbe497be1
+          v1.23.5: 22a8468abc5d45b3415d694ad52cc8099114248c3d1fcf4297ec2b336f5cc274
       crun_checksums:
         arm64:
           1.4.3: f4f328c99f879273ed475f6f7766904948808de0268a48d92e6e0f2038a1989d
