@@ -1,37 +1,35 @@
 metadata:
-  version: spray-v2.18.0a-8_k8s-v1.23.4_v1.9-amd64
+  version: spray-v2.18.0a-8_k8s-v1.23.5_v1.10-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
-    min: v1.0.0-beta.3
+    min: v1.0.0-rc.1
   available_at:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2021-02-27"
+  issue_date: "2021-03-20"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-3]_v[0-9.]*-amd64
+      - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-4]_v[0-9.]*-amd64
       - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-amd64
     exclude:
   can_replace_to:
     include:
-      - spray-v2.18.0a-6_k8s-v1.23.4_v1.7-amd64
-      - spray-v2.18.0a-7_k8s-v1.23.4_v1.8-amd64
   supported_os:
     - distribution: Ubuntu
       versions:
-        - "20.04" #已验证
+        - "20.04"  #已验证
+    - distribution: Anolis
+      versions:
+        - "8.5"  #已验证
+        - "8.4"  #已验证
     - distribution: CentOS
       versions:
         - "7.6"
         - "7.8"
         - "7.9" #已验证
         - "8"
-    - distribution: Anolis
-      versions:
-        - "8.5" #已验证
-        - "8.4"
     - distribution: OracleLinux
       versions:
         - "8.5"
@@ -70,7 +68,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.23.4"
+    kube_version: "v1.23.5"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -80,7 +78,7 @@ data:
   container_engine:
     - container_manager: "containerd"
       params:
-        containerd_version: 1.6.0
+        containerd_version: 1.6.1
     - container_manager: "docker"
       params:
         docker_version: "20.10"
@@ -88,23 +86,25 @@ data:
 
   vars:
     target:
-      # kubeadm_init_phases_skip_default: [ "preflight", "addon/coredns" ]
-      containerd_version: 1.6.0
+      containerd_version: 1.6.1
       kubelet_checksums:
         amd64:
-          v1.23.4: ec3db57edcce219c24ef37f4a6a2eef5a1543e4a9bd15e7ecc993b9f74950d91
+          v1.23.5: 253b9db2299b09b91e4c09781ce1d2db6bad2099cf16ba210245159f48d0d5e4
       kubectl_checksums:
         amd64:
-          v1.23.4: 3f0398d4c8a5ff633e09abd0764ed3b9091fafbe3044970108794b02731c72d6
+          v1.23.5: 715da05c56aa4f8df09cb1f9d96a2aa2c33a1232f6fd195e3ffce6e98a50a879
       kubeadm_checksums:
         amd64:
-          v1.23.4: c91912c9fd34a50492f889e08ff94c447fdceff150b588016fecc9051a1e56b8
+          v1.23.5: 8eebded187ee84c97003074eaa347e34131fef3acdf3e589a9b0200f94687667
+      crun_checksums:
+        amd64:
+          1.4.3: 6255325b641be6a3cfb33b5bd7790c035337ad18b9c012d0fbe0e4173a2dbd29
       containerd_archive_checksums:
         amd64:
-          1.6.0: f77725e4f757523bf1472ec3b9e02b09303a5d99529173be0f11a6d39f5676e9
+          1.6.1: c1df0a12af2be019ca2d6c157f94e8ce7430484ab29948c9805882df40ec458b
       nerdctl_archive_checksums:
         amd64:
-          0.17.0: 4c08a6ce657ff851dd7a7b1d21c64f1c1950e35de03fa7f1853eab47fa2b2d53
+          0.17.1: 6d18d3eaa74cd2f8e36e51f551282355d0bb1dd962ecd2d1dfecee161d0bd39a
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
       kuboardspray_extra_downloads:
         netcheck_etcd:
@@ -139,7 +139,7 @@ data:
       - "docker"
   dependency:
     - name: crun
-      version: 1.4
+      version: 1.4.3
       target: crun_version
     - name: runc
       version: v1.1.0
@@ -151,7 +151,7 @@ data:
       version: "v1.23.0"
       target: crictl_version
     - name: nerdctl
-      version: "0.17.0"
+      version: "0.17.1"
       target: nerdctl_version
     - name: nginx_image
       version: 1.21.4
