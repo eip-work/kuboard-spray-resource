@@ -48,8 +48,8 @@ containerd_package_info:
   pkgs:
 
 # CentOS/RedHat docker-ce repo
-docker_rh_repo_base_url: 'https://download.docker.com/linux/centos/{{ ansible_distribution_major_version }}/$basearch/stable'
-docker_rh_repo_gpgkey: 'https://download.docker.com/linux/centos/gpg'
+docker_redhat_repo_base_url: 'https://download.docker.com/linux/centos/{{ ansible_distribution_major_version }}/$basearch/stable'
+docker_redhat_repo_gpgkey: 'https://download.docker.com/linux/centos/gpg'
 
 docker_centos_repo_base_url: 'https://download.docker.com/linux/centos/{{ ansible_distribution_major_version }}/$basearch/stable'
 docker_centos_repo_gpgkey: 'https://download.docker.com/linux/centos/gpg'
