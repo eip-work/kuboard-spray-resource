@@ -15,6 +15,10 @@
       when:
         - kuboardspray_version is not defined
 
+    - name: wrap kuboardspray_version
+      set_fact:
+        kuboardspray_version_wrapper: "{{ kuboardspray_version }}-w"
+
     - name: 读取资源包要求的最低 kuboardspray 版本
       shell: "cat package.yaml | shyaml get-value metadata.kuboard_spray_version.min"
       delegate_to: localhost
@@ -28,7 +32,7 @@
           - "资源包要求 kuboardspray 的版本不能低于 {{kuboardspray_min_version.stdout}}，当前 kuboardspray 版本为 {{ kuboardspray_version }}"
           - "建议升级 kuboardspray 到最新版本 https://kuboard-spray.cn/support/change-log/v1.html"
         that:
-          - kuboardspray_version is version(kuboardspray_min_version.stdout, 'ge')
+          - kuboardspray_version_wrapper is version(kuboardspray_min_version.stdout, operator='ge')
 
 - name: 读取资源包支持的 CPU 架构
   shell: "cat package.yaml | shyaml get-value data.kubernetes.image_arch"
