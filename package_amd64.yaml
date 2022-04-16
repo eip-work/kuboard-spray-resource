@@ -20,7 +20,7 @@ metadata:
   supported_os:
     - distribution: Ubuntu
       versions:
-        - "20.04" 
+        - "20.04"
     - distribution: Anolis
       versions:
         - "8.5" 
@@ -44,6 +44,7 @@ metadata:
     - distribution: openEuler
       versions:
         - "20.03"
+        - "22.03"
     - distribution: Kylin Linux Advanced Server
       versions:
         - "V10"
