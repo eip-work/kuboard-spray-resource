@@ -1,26 +1,24 @@
 metadata:
-  version: spray-v2.18.0a-8_k8s-v1.23.5_v1.11-arm64
+  version: spray-v2.18.0a-8_k8s-v1.23.6_v1.12-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
-    min: v1.0.0-rc.1
+    min: v1.0.0
   available_at:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2021-03-20"
+  issue_date: "2021-04-22"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-4]_v[0-9.]*-arm64
+      - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-5]_v[0-9.]*-arm64
       - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-arm64
     exclude:
   can_replace_to:
-    include:
-      - spray-v2.18.0a-8_k8s-v1.23.5_v1.10-arm64
   supported_os:
     - distribution: Ubuntu
       versions:
-        - "20.04" 
+        - "20.04"
     - distribution: Anolis
       versions:
         - "8.5" 
@@ -74,7 +72,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.23.5"
+    kube_version: "v1.23.6"
     image_arch: arm64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -84,7 +82,7 @@ data:
   container_engine:
     - container_manager: "containerd"
       params:
-        containerd_version: 1.6.1
+        containerd_version: 1.6.2
     - container_manager: "docker"
       params:
         docker_version: "20.10"
@@ -92,25 +90,41 @@ data:
 
   vars:
     target:
-      containerd_version: 1.6.1
+      containerd_version: 1.6.2
       kubelet_checksums:
         arm64:
-          v1.23.5: 61f7e3ae0eb00633d3b5163c046cfcae7e73b5f26d4ffcf343f3a45904323583
+          v1.23.6: 61f7e3ae0eb00633d3b5163c046cfcae7e73b5f26d4ffcf343f3a45904323583
       kubectl_checksums:
         arm64:
-          v1.23.5: 15cd560c04def7bbe5ee3f6f75e2cfd3913371c7e76354f4b2d5d6f536b70e39
+          v1.23.6: 15cd560c04def7bbe5ee3f6f75e2cfd3913371c7e76354f4b2d5d6f536b70e39
       kubeadm_checksums:
         arm64:
-          v1.23.5: 22a8468abc5d45b3415d694ad52cc8099114248c3d1fcf4297ec2b336f5cc274
+          v1.23.6: 22a8468abc5d45b3415d694ad52cc8099114248c3d1fcf4297ec2b336f5cc274
       crun_checksums:
+        amd64:
+          1.4.4: 73f7f89a98f69c0bf0e9fe1e0129201d5b72529785b4b1bcb4d43c31d0c3a8ea
         arm64:
-          1.4.3: f4f328c99f879273ed475f6f7766904948808de0268a48d92e6e0f2038a1989d
+          1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d
+      runc_checksums:
+        arm64:
+          v1.1.1: 20c436a736547309371c7ac2a335f5fe5a42b450120e497d09c8dc3902c28444
+        amd64:
+          v1.1.1: 5798c85d2c8b6942247ab8d6830ef362924cd72a8e236e77430c3ab1be15f080
       containerd_archive_checksums:
         arm64:
-          1.6.1: fbeec71f2d37e0e4ceaaac2bdf081295add940a7a5c7a6bcc125e5bbae067791
+          1.6.2: a4b24b3c38a67852daa80f03ec2bc94e31a0f4393477cd7dc1c1a7c2d3eb2a95
+        amd64:
+          1.6.2: c1df0a12af2be019ca2d6c157f94e8ce7430484ab29948c9805882df40ec458b
       nerdctl_archive_checksums:
         arm64:
-          0.17.1: 8828b59c95398556d11be4684929fc975c25cb794c31d41d57baf489efb2ad2d
+          0.18.0: 4f73a20d4872da3771a1f7088cae707bf119d35c2e97ea33c9d31b9d167ad956
+        amd64:
+          0.18.0: ea44e112d3365c8d86f9189b6fae250767e383dfa7c01a8c05f3de2a7b7c8720
+      etcd_binary_checksums:
+        arm64:
+          v3.5.3: 8b00f2f51568303799368ee4a3c9b9ff8a3dd9f8b7772c4f6589e46bc62f7115
+        amd64:
+          v3.5.3: e13e119ff9b28234561738cd261c2a031eb1c8688079dcf96d8035b3ad19ca58
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
       kuboardspray_extra_downloads:
         netcheck_etcd:
@@ -138,17 +152,17 @@ data:
             - k8s_cluster
 
   etcd:
-    etcd_version: v3.5.1
+    etcd_version: v3.5.3
     etcd_params:
     etcd_deployment_type:
       - "host"
       - "docker"
   dependency:
     - name: crun
-      version: 1.4.3
+      version: 1.4.4
       target: crun_version
     - name: runc
-      version: v1.1.0
+      version: v1.1.1
       target: runc_version
     - name: cni-plugins
       version: "v1.0.1"
@@ -157,7 +171,7 @@ data:
       version: "v1.23.0"
       target: crictl_version
     - name: nerdctl
-      version: "0.17.1"
+      version: "0.18.0"
       target: nerdctl_version
     - name: nginx_image
       version: 1.21.4
@@ -222,7 +236,7 @@ data:
     #     netcheck_agent_image_tag: "{{ netcheck_version }}"
     #     netcheck_server_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-server"
     #     netcheck_server_image_tag: "{{ netcheck_version }}"
-    #     netcheck_etcd_image_tag: "v3.5.1"
+    #     netcheck_etcd_image_tag: "v3.5.3"
     # - name: helm
     #   install_by_default: false
     #   target: helm_enabled
