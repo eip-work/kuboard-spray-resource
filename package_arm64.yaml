@@ -93,18 +93,24 @@ data:
       containerd_version: 1.6.2
       kubelet_checksums:
         arm64:
-          v1.23.6: 61f7e3ae0eb00633d3b5163c046cfcae7e73b5f26d4ffcf343f3a45904323583
+          v1.23.6: 11a0310e8e7af5a11539ac26d6c14cf1b77d35bce4ca74e4bbd053ed1afc8650
+        amd64:
+          v1.23.6: fbb83e35f6b9f7cae19c50694240291805ca9c4028676af868306553b3e9266c
       kubectl_checksums:
         arm64:
-          v1.23.6: 15cd560c04def7bbe5ee3f6f75e2cfd3913371c7e76354f4b2d5d6f536b70e39
+          v1.23.6: 4be771c8e6a082ba61f0367077f480237f9858ef5efe14b1dbbfc05cd42fc360
+        amd64:
+          v1.23.6: 703a06354bab9f45c80102abff89f1a62cbc2c6d80678fd3973a014acc7c500a
       kubeadm_checksums:
         arm64:
-          v1.23.6: 22a8468abc5d45b3415d694ad52cc8099114248c3d1fcf4297ec2b336f5cc274
-      crun_checksums:
+          v1.23.6: a4db7458e224c3a2a7b468fc2704b31fec437614914b26a9e3d9efb6eecf61ee
         amd64:
-          1.4.4: 73f7f89a98f69c0bf0e9fe1e0129201d5b72529785b4b1bcb4d43c31d0c3a8ea
+          v1.23.6: 9213c7d738e86c9a562874021df832735236fcfd5599fd4474bab3283d34bfd7
+      crun_checksums:
         arm64:
           1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d
+        amd64:
+          1.4.4: 73f7f89a98f69c0bf0e9fe1e0129201d5b72529785b4b1bcb4d43c31d0c3a8ea
       runc_checksums:
         arm64:
           v1.1.1: 20c436a736547309371c7ac2a335f5fe5a42b450120e497d09c8dc3902c28444
@@ -114,7 +120,7 @@ data:
         arm64:
           1.6.2: a4b24b3c38a67852daa80f03ec2bc94e31a0f4393477cd7dc1c1a7c2d3eb2a95
         amd64:
-          1.6.2: c1df0a12af2be019ca2d6c157f94e8ce7430484ab29948c9805882df40ec458b
+          1.6.2: 3d94f887de5f284b0d6ee61fa17ba413a7d60b4bb27d756a402b713a53685c6a
       nerdctl_archive_checksums:
         arm64:
           0.18.0: 4f73a20d4872da3771a1f7088cae707bf119d35c2e97ea33c9d31b9d167ad956
