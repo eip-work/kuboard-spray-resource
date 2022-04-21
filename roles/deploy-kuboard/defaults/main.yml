@@ -1,0 +1,5 @@
+---
+
+deploy_kuboard: true
+kuboard_data_dir: /var/lib/kuboard
+kuboard_version: "v3.4.1.0"
