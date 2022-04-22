@@ -91,6 +91,7 @@ data:
   vars:
     target:
       containerd_version: 1.6.2
+      etcd_version: v3.5.3
       kubelet_checksums:
         arm64:
           v1.23.6: 11a0310e8e7af5a11539ac26d6c14cf1b77d35bce4ca74e4bbd053ed1afc8650
