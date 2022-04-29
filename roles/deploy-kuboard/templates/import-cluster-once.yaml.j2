@@ -1,0 +1,85 @@
+---
+kind: KubernetesCluster
+metadata:
+  name: {{ kuboard_cluster_name }}
+  cluster: {{ kuboard_cluster_name }}
+  annotations:
+    description: {{ kuboard_cluster_name }}
+spec:
+  type: EXISTING
+  connectionType: kubeconfig
+  kubeDisableTls: true
+  kubeconfig: |-
+  {% for l in kuboard_kubeconfig_content.stdout_lines %}
+  {{ l }}
+  {% endfor %}
+  #
+  kubeconfigObj:
+    clustername: "{{ cluster_name }}"
+    username: kubernetes-admin
+    cluster:
+      certificate-authority-data: "{{ kuboard_kubeconfig_certificate_authority_data.stdout }}"
+      server: "https://{{ ip }}:6443"
+    user:
+      client-certificate-data: "{{ kuboard_kubeconfig_client_certificate_data.stdout }}"
+      client-key-data: "{{ kuboard_kubeconfig_client_key_data.stdout }}"
+  kubeserver: "https://{{ ip }}:6443"
+status:
+  phase: IMPORTED
+  agentVersion:
+    version: ''
+    buildDate: ''
+  kubernetesVersion:
+    major: "1"
+    minor: ""
+    gitVersion: "{{ kube_version}}"
+    gitCommit: ""
+    gitTreeState: "clean"
+    buildDate: ""
+    goVersion: ""
+    compiler: "gc"
+    platform: "linux/arm64"
+
+---
+kind: KubernetesClusterToken
+metadata:
+  name: kuboard-admin
+  cluster: {{ kuboard_cluster_name }}
+spec:
+  token: "{{ kuboard_admin_token.stdout }}"
+  anonymousToken: ""
+  agentVersion:
+    version: ""
+    buildDate: ""
+  kubernetesVersion:
+    major: "1"
+    minor: ""
+    gitVersion: "{{ kube_version}}"
+    gitCommit: ""
+    gitTreeState: "clean"
+    buildDate: ""
+    goVersion: ""
+    compiler: "gc"
+    platform: "linux/{{ image_arch }}"
+
+---
+kind: KubernetesClusterToken
+metadata:
+  name: kuboard-viewer
+  cluster: {{ kuboard_cluster_name }}
+spec:
+  token: "{{ kuboard_viewer_token.stdout }}"
+  anonymousToken: ""
+  agentVersion:
+    version: ""
+    buildDate: ""
+  kubernetesVersion:
+    major: "1"
+    minor: ""
+    gitVersion: "{{ kube_version}}"
+    gitCommit: ""
+    gitTreeState: "clean"
+    buildDate: ""
+    goVersion: ""
+    compiler: "gc"
+    platform: "linux/{{ image_arch }}"

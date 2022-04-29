@@ -28,6 +28,7 @@
   environment: "{{ proxy_disable_env }}"
   roles:
     - { role: kubespray-defaults }
+    - { role: deploy-kuboard, tags: kuboard }
     - { role: kubernetes-apps/external_cloud_controller, tags: external-cloud-controller }
     - { role: kubernetes-apps/network_plugin, tags: network }
     - { role: kubernetes-apps/policy_controller, tags: policy-controller }
