@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0a-8_k8s-v1.23.6_v1.12-amd64
+  version: spray-v2.18.0a-8_k8s-v1.23.6_v1.13-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.0.0
@@ -134,6 +134,16 @@ data:
           v3.5.3: e13e119ff9b28234561738cd261c2a031eb1c8688079dcf96d8035b3ad19ca58
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
       kuboardspray_extra_downloads:
+        kuboard:
+          container: true
+          file: false
+          enabled: "{{ kuboard_enabled }}"
+          version: "{{ kuboard_version }}"
+          repo: "eipwork/kuboard"
+          tag: "{{ kuboard_version }}"
+          sha256: ""
+          groups:
+            - kube_control_plane
         netcheck_etcd:
           container: true
           file: false
@@ -201,6 +211,28 @@ data:
         flannel_version: "v0.15.1"
         flannel_cni_version: "v1.0.0"
   addon:
+    - name: kuboard
+      target: kuboard_enabled
+      lifecycle:
+        install_by_default: true
+        check:
+          shell: "kubectl get pods -n kuboard -l k8s.kuboard.cn/name=kuboard-v3"
+          keyword: 'kuboard-v3'
+        install_addon_tags:
+          - download
+          - upgrade
+          - kuboard
+        remove_addon_tags:
+          - upgrade
+          - kuboard
+        downloads:
+          - kuboard
+      params_default:
+        kuboard_version: 'v3.4.1.0'
+        kuboard_port: 80
+        kuboard_cluster_name: 'default'
+        kuboard_data_dir: '/root/kuboard-data'
+      params:
     - name: nodelocaldns
       target: enable_nodelocaldns
       lifecycle:

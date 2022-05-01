@@ -1,0 +1,90 @@
+---
+- name: Remove kuboard
+  block:
+    - name: Remove kuboard | Delete kuboard.yaml
+      file:
+        path: "/etc/kubernetes/manifests/kuboard.yaml"
+        state: absent
+
+    - name: Remove kuboard | Delete addon dir
+      file:
+        path: "{{ kuboard_data_dir }}"
+        state: absent
+
+  when:
+    - kuboardspray_operation == 'remove_addon'
+    - inventory_hostname == groups['kube_control_plane'][0]
+  tags:
+    - upgrade
+    - kuboard
+    
+
+- name: Deploy kuboard
+  block:
+    - name: Deploy kuboard | Create addon dir
+      file:
+        path: "{{ kuboard_data_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Deploy kuboard | Create ServiceAccount manifests
+      template:
+        src: "kuboard-service-accounts.yaml.j2"
+        dest: "{{ kuboard_data_dir }}/kuboard-service-accounts.yaml"
+        mode: 0744
+
+    - name: Deploy kuboard | Apply ServiceAccount manifests
+      kube:
+        name: "kuboard_service_accounts"
+        kubectl: "{{ bin_dir }}/kubectl"
+        filename: "{{ kuboard_data_dir }}/kuboard-service-accounts.yaml"
+        state: "latest"
+
+    - name: Deploy kuboard | read kubeconfig
+      shell: cat /etc/kubernetes/admin.conf
+      register: kuboard_kubeconfig_content
+    
+    - name: Deploy kuboard | read kubeconfig
+      shell: "cat /etc/kubernetes/admin.conf | grep certificate-authority-data | awk '{print $2}'"
+      register: kuboard_kubeconfig_certificate_authority_data
+
+    - name: Deploy kuboard | read kubeconfig
+      shell: "cat /etc/kubernetes/admin.conf | grep client-certificate-data | awk '{print $2}'"
+      register: kuboard_kubeconfig_client_certificate_data
+
+    - name: Deploy kuboard | read kubeconfig
+      shell: "cat /etc/kubernetes/admin.conf | grep client-key-data | awk '{print $2}'"
+      register: kuboard_kubeconfig_client_key_data
+
+    - name: Deploy kuboard | read kuboard-admin-token
+      shell: "kubectl get secrets -n kuboard -o yaml $(kubectl get secrets -n kuboard | grep kuboard-admin-token | awk '{print $1}') | grep '  token: ' | awk '{print $2}'"
+      retries: 10
+      delay: 3
+      until: kuboard_admin_token.stdout != ""
+      register: kuboard_admin_token
+
+    - name: Deploy kuboard | read kuboard-viewer-token
+      shell: "kubectl get secrets -n kuboard -o yaml $(kubectl get secrets -n kuboard | grep kuboard-viewer-token | awk '{print $1}') | grep '  token: ' | awk '{print $2}'"
+      register: kuboard_viewer_token
+
+    - name: Deploy kuboard | Generate init yaml
+      template:
+        src: "import-cluster-once.yaml.j2"
+        dest: "{{ kuboard_data_dir }}/import-cluster-once.yaml"
+        mode: 0744
+
+    - name: Deploy kuboard | Create kuboard.yaml
+      template:
+        src: "kuboard-pod.yaml.j2"
+        dest: "/etc/kubernetes/manifests/kuboard.yaml"
+        mode: 0600
+
+  when:
+    - inventory_hostname == groups['kube_control_plane'][0]
+    - kuboard_enabled
+    - kuboardspray_operation != 'remove_addon'
+  tags:
+    - kuboard
+    - upgrade

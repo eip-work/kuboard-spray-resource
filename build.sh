@@ -42,7 +42,9 @@ echo "链接到 /cache/${version}"
 # 挪一下文件位置，以便将目录映射到镜像不同的 layer
 rm kubespray_cache
 mkdir image_cache_k8s
+mkdir image_cache_kuboard
 mv ./cache/${version}/images/k8s.* image_cache_k8s/
+mv ./cache/${version}/images/eipwork* image_cache_kuboard/
 mv ./cache/${version}/images image_cache
 mv ./cache/${version} kubespray_cache
 
@@ -56,8 +58,10 @@ echo "恢复到 /cache/${version}"
 # 将文件恢复到原来的位置
 mv kubespray_cache ./cache/${version}
 mv image_cache ./cache/${version}/images
+mv image_cache_kuboard/eipwork* ./cache/${version}/images/
 mv image_cache_k8s/k8s.* ./cache/${version}/images/
 rm -r image_cache_k8s
+rm -r image_cache_kuboard
 
 ln -s "./cache/${version}" kubespray_cache
 ls -lh kubespray_cache
