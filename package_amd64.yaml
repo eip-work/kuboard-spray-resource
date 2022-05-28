@@ -93,19 +93,20 @@ data:
       containerd_version: 1.6.4
       etcd_version: v3.5.3
       calico_version: "v3.21.5"
+      flannel_cni_version: "v1.0.1"
       kubelet_checksums:
         arm64:
-          v1.23.7: 11a0310e8e7af5a11539ac26d6c14cf1b77d35bce4ca74e4bbd053ed1afc8650
+          v1.23.7: e96b746a77b00c04f1926035899a583ce28f02e9a5dca26c1bfb8251ca6a43bb
         amd64:
           v1.23.7: 518f67200e853253ed6424488d6148476144b6b796ec7c6160cff15769b3e12a
       kubectl_checksums:
         arm64:
-          v1.23.7: 4be771c8e6a082ba61f0367077f480237f9858ef5efe14b1dbbfc05cd42fc360
+          v1.23.7: 5d59447a5facd8623a79c2a296a68a573789d2b102b902aafb3a730fc4bb0d3b
         amd64:
           v1.23.7: b4c27ad52812ebf3164db927af1a01e503be3fb9dc5ffa058c9281d67c76f66e
       kubeadm_checksums:
         arm64:
-          v1.23.7: a4db7458e224c3a2a7b468fc2704b31fec437614914b26a9e3d9efb6eecf61ee
+          v1.23.7: 65fd71aa138166039b7f4f3695308064abe7f41d2f157175e6527e60fb461eae
         amd64:
           v1.23.7: d7d863213eeb4791cdbd7c5fd398cf0cc2ef1547b3a74de8285786040f75efd2
       crun_checksums:
@@ -127,7 +128,7 @@ data:
         amd64:
           v3.21.5: 98407b1c608fec0896004767c72cd4b6cf939976d67d3eca121f1f02137c92a7
         arm64:
-          v3.21.5: 4817dff5a867e4e5e8cfe4571b569cfe73d56e3f9a3bac4ccf5d25a5a681277d
+          v3.21.5: cc73e2b8f5b695b6ab06e7856cd516c1e9ec3e903abb510ef465ca6b530e18e6
       calico_crds_archive_checksums:
         v3.21.5: ffbbaa2bc32b01bf160828d2cfd4504d83c69cb1f74c0028349181ed61bad635
       nerdctl_archive_checksums:
@@ -147,7 +148,7 @@ data:
           v1.1.1: b275772da4026d2161bf8a8b41ed4786754c8a93ebfb6564006d5da7f23831e5
       flannel_cni_binary_checksums:
         arm64:
-          v1.0.1: eb7183498b5d1ae4034dde6184e4396270e29ed88482b295f81b93eb3120c61c
+          v1.0.1: f813ae49b7b84eb95db73f7a3c34d2ee101f8cfc27e3a8054297a36d53308543
         amd64:
           v1.0.1: 63906a5b7dc78fbf1fbd484adbf4931aea5b15546ece3c7202c779ab9ea994a2
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
