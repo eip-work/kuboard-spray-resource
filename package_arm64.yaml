@@ -247,7 +247,7 @@ data:
         downloads:
           - kuboard
       params_default:
-        kuboard_version: 'v3.5.0.1'
+        kuboard_version: 'v3.5.0.2'
         kuboard_port: 80
         kuboard_cluster_name: 'default'
         kuboard_data_dir: '/root/kuboard-data'
