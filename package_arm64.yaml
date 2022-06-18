@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.19.0a_k8s-v1.24.1_v1.14-arm64
+  version: spray-v2.19.0a_k8s-v1.24.2_v2.1-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.1.0
@@ -7,7 +7,7 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2022-05-04"
+  issue_date: "2022-06-19"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
@@ -51,7 +51,7 @@ metadata:
         - "15.3"
 
 data:
-  kubespray_version: v2.19.0a
+  kubespray_version: kuboard-spray-v2.19.0a
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
@@ -92,21 +92,23 @@ data:
     target:
       containerd_version: 1.6.4
       etcd_version: v3.5.4
+      calico_version: "v3.23.1"
+      flannel_cni_version: "v1.0.1"
       kubelet_checksums:
         arm64:
-          v1.24.1: c2189c6956afda0f6002839f9f14a9b48c89dcc0228701e84856be36a3aac6bf
+          v1.24.2: 40a8460e104fbf97abee9763f6e1f2143debc46cc6c9a1a18e21c1ff9960d8c0
         amd64:
-          v1.24.1: fc352d5c983b0ccf47acd8816eb826d781f408d27263dd8f761dfb63e69abfde
+          v1.24.2: 13da57d32be1debad3d8923e481f30aaa46bca7030b7e748b099d403b30e5343
       kubectl_checksums:
         arm64:
-          v1.24.1: b817b54183e089494f8b925096e9b65af3a356d87f94b73929bf5a6028a06271
+          v1.24.2: 5a4c3652f08b4d095b686e1323ac246edbd8b6e5edd5a2626fb71afbcd89bc79
         amd64:
-          v1.24.1: 0ec3c2dbafc6dd27fc8ad25fa27fc527b5d7356d1830c0efbb8adcf975d9e84a
+          v1.24.2: f15fb430afd79f79ef7cf94a4e402cd212f02d8ec5a5e6a7ba9c3d5a2f954542
       kubeadm_checksums:
         arm64:
-          v1.24.1: 04f18fe097351cd16dc91cd3bde979201916686c6f4e1b87bae69ab4479fda04
+          v1.24.2: bd823b934d1445a020f8df5fe544722175024af62adbf6eb27dc7250d5db0548
         amd64:
-          v1.24.1: 15e3193eecbc69330ada3f340c5a47999959bc227c735fa95e4aa79470c085d0
+          v1.24.2: 028f73b8e7c2ae389817d34e0cb829a814ce2fac0a535a3aa0708f3133e3e712
       crun_checksums:
         arm64:
           1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d
@@ -132,6 +134,20 @@ data:
           v3.5.4: 8e9c2c28ed6b35f36fd94300541da10e1385f335d677afd8efccdcba026f1fa7
         amd64:
           v3.5.4: b1091166153df1ee0bb29b47fb1943ef0ddf0cd5d07a8fe69827580a08134def
+      cni_binary_checksums:
+        arm64:
+          v1.1.1: 16484966a46b4692028ba32d16afd994e079dc2cc63fbc2191d7bfaf5e11f3dd
+        amd64:
+          v1.1.1: b275772da4026d2161bf8a8b41ed4786754c8a93ebfb6564006d5da7f23831e5
+      flannel_cni_binary_checksums:
+        arm64:
+          v1.0.1: f813ae49b7b84eb95db73f7a3c34d2ee101f8cfc27e3a8054297a36d53308543
+        amd64:
+          v1.0.1: 63906a5b7dc78fbf1fbd484adbf4931aea5b15546ece3c7202c779ab9ea994a2
+      flannel_image_repo: "{{ docker_image_repo }}/flannelcni/flannel"
+      flannel_image_tag: "{{ flannel_version }}-{{ image_arch }}"
+      flannel_init_image_repo: "{{ docker_image_repo }}/flannelcni/flannel-cni-plugin"
+      flannel_init_image_tag: "{{ flannel_cni_version }}-{{ image_arch }}"
       calicoctl_download_url: "https://github.com/projectcalico/calico/releases/download/{{ calico_ctl_version }}/calicoctl-linux-{{ image_arch }}"
       calicoctl_binary_checksums:
         amd64:
@@ -152,6 +168,11 @@ data:
             v0.4.3: 0994923848882ad0d4825d5af1dc227687a10a02688f785709b03549dd34d71d
           amd64:
             v0.4.3: 5df32eaa0e888a2566439c4ccb2ef3a3e6e89522f2f2126030171e2585585e4f
+      crictl_checksums:
+        arm64:
+          v1.24.0: b6fe172738dfa68ca4c71ade53574e859bf61a3e34d21b305587b1ad4ab28d24
+        amd64:
+          v1.24.0: 3df4a4306e0554aea4fdc26ecef9eea29a58c8460bebfaca3405799787609880
       snapshot_controller_image_tag: "v4.2.1"
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
       kuboardspray_extra_downloads:
@@ -212,7 +233,7 @@ data:
       version: "v1.24.0"
       target: crictl_version
     - name: nerdctl
-      version: "0.19.0"
+      version: "0.20.0"
       target: nerdctl_version
     - name: nginx_image
       version: 1.21.4
@@ -229,7 +250,7 @@ data:
   network_plugin:
     - name: calico
       params:
-        calico_version: "v3.22.3"
+        calico_version: "v3.23.1"
     - name: flannel
       params:
         flannel_version: "v0.17.0"
@@ -322,7 +343,7 @@ data:
         downloads:
           - metrics_server
       params:
-        metrics_server_version: "v0.5.2"
+        metrics_server_version: "v0.6.1"
     # - name: cephfs_provisioner
     #   install_by_default: false
     #   target: cephfs_provisioner_enabled
