@@ -98,17 +98,17 @@ data:
         arm64:
           v1.23.8: 1b4ec707e29e8136e3516a437cb541a79c52c69b1331a7add2b47e7ac7d032e6
         amd64:
-          v1.23.8: fc352d5c983b0ccf47acd8816eb826d781f408d27263dd8f761dfb63e69abfde
+          v1.23.8: 1ba15ad4d9d99cfc3cbef922b5101492ad74e812629837ac2e5705a68cb7af1e
       kubectl_checksums:
         arm64:
           v1.23.8: b293fce0b3dec37d3f5b8875b8fddc64e02f0f54f54dd7742368973c52530890
         amd64:
-          v1.23.8: 0ec3c2dbafc6dd27fc8ad25fa27fc527b5d7356d1830c0efbb8adcf975d9e84a
+          v1.23.8: 299803a347e2e50def7740c477f0dedc69fc9e18b26b2f10e9ff84a411edb894
       kubeadm_checksums:
         arm64:
           v1.23.8: 9b3d8863ea4ab0438881ccfbe285568529462bc77ef4512b515397a002d81b22
         amd64:
-          v1.23.8: 15e3193eecbc69330ada3f340c5a47999959bc227c735fa95e4aa79470c085d0
+          v1.23.8: edbd60fd6a7e11c71f848b3a6e5d1b5a2bb8ebd703e5490caa8db267361a7b89
       crun_checksums:
         arm64:
           1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d

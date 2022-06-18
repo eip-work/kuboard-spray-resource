@@ -92,23 +92,23 @@ data:
     target:
       containerd_version: 1.6.4
       etcd_version: v3.5.4
-      calico_version: "v3.22.3"
+      calico_version: "v3.21.5"
       flannel_cni_version: "v1.0.1"
       kubelet_checksums:
         arm64:
           v1.23.8: 1b4ec707e29e8136e3516a437cb541a79c52c69b1331a7add2b47e7ac7d032e6
         amd64:
-          v1.23.8: 518f67200e853253ed6424488d6148476144b6b796ec7c6160cff15769b3e12a
+          v1.23.8: 1ba15ad4d9d99cfc3cbef922b5101492ad74e812629837ac2e5705a68cb7af1e
       kubectl_checksums:
         arm64:
           v1.23.8: b293fce0b3dec37d3f5b8875b8fddc64e02f0f54f54dd7742368973c52530890
         amd64:
-          v1.23.8: b4c27ad52812ebf3164db927af1a01e503be3fb9dc5ffa058c9281d67c76f66e
+          v1.23.8: 299803a347e2e50def7740c477f0dedc69fc9e18b26b2f10e9ff84a411edb894
       kubeadm_checksums:
         arm64:
           v1.23.8: 9b3d8863ea4ab0438881ccfbe285568529462bc77ef4512b515397a002d81b22
         amd64:
-          v1.23.8: d7d863213eeb4791cdbd7c5fd398cf0cc2ef1547b3a74de8285786040f75efd2
+          v1.23.8: edbd60fd6a7e11c71f848b3a6e5d1b5a2bb8ebd703e5490caa8db267361a7b89
       crun_checksums:
         arm64:
           1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d
@@ -139,6 +139,15 @@ data:
           v1.1.1: 16484966a46b4692028ba32d16afd994e079dc2cc63fbc2191d7bfaf5e11f3dd
         amd64:
           v1.1.1: b275772da4026d2161bf8a8b41ed4786754c8a93ebfb6564006d5da7f23831e5
+      flannel_cni_binary_checksums:
+        arm64:
+          v1.0.1: f813ae49b7b84eb95db73f7a3c34d2ee101f8cfc27e3a8054297a36d53308543
+        amd64:
+          v1.0.1: 63906a5b7dc78fbf1fbd484adbf4931aea5b15546ece3c7202c779ab9ea994a2
+      flannel_image_repo: "{{ docker_image_repo }}/flannelcni/flannel"
+      flannel_image_tag: "{{ flannel_version }}-{{ image_arch }}"
+      flannel_init_image_repo: "{{ docker_image_repo }}/flannelcni/flannel-cni-plugin"
+      flannel_init_image_tag: "{{ flannel_cni_version }}-{{ image_arch }}"
       calicoctl_download_url: "https://github.com/projectcalico/calico/releases/download/{{ calico_ctl_version }}/calicoctl-linux-{{ image_arch }}"
       calicoctl_binary_checksums:
         amd64:
@@ -241,7 +250,7 @@ data:
   network_plugin:
     - name: calico
       params:
-        calico_version: "v3.22.3"
+        calico_version: "v3.21.5"
     - name: flannel
       params:
         flannel_version: "v0.17.0"
