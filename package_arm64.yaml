@@ -216,7 +216,6 @@ data:
     etcd_params:
     etcd_deployment_type:
       - "host"
-      - "docker"
   dependency:
     - name: crun
       version: 1.4.4
