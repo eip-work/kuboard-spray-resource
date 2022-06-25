@@ -11,6 +11,10 @@
 * kubernetes 版本更新到 v1.24.2
 * 支持 ubuntu 22.04
 
+**问题修正**
+
+* k8s1.24.x 不自动为 ServiceAccount 创建 Secret
+
 ## spray-v2.18.0a-8_k8s-v1.23.6_v1.13
 
 **发布日期**
