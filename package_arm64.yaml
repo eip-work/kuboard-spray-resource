@@ -181,7 +181,7 @@ data:
           container: true
           file: false
           enabled: "{{ kuboard_enabled | default(false) }}"
-          version: "{{ kuboard_version | default('v3.5.0.2') }}"
+          version: "{{ kuboard_version | default('v3.5.0.3') }}"
           repo: "eipwork/kuboard"
           tag: "{{ kuboard_version }}"
           sha256: ""
@@ -273,7 +273,7 @@ data:
         downloads:
           - kuboard
       params_default:
-        kuboard_version: 'v3.5.0.2'
+        kuboard_version: 'v3.5.0.3'
         kuboard_port: 80
         kuboard_cluster_name: 'default'
         kuboard_data_dir: '/root/kuboard-data'
