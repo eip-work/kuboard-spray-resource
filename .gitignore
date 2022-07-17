@@ -4,3 +4,4 @@ __pycache__
 package.yaml
 .dockerignore
 .vscode
+.DS_Store
