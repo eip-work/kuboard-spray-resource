@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.19.0a_k8s-v1.24.3_v2.2-amd64
+  version: spray-v2.19.0a_k8s-v1.24.4_v2.3-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -7,11 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2022-07-15"
+  issue_date: "2022-08-21"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.19.0a_k8s-v1.24.[0-2]*_v2.[0-1]*-amd64
+      - spray-v2.19.0a_k8s-v1.24.[0-3]*_v2.[0-2]*-amd64
       - spray-v2.18.[0-9a-]*_k8s-v1.23.[0-9]*_v[0-9.]*-amd64
       - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-amd64
     exclude:
@@ -74,7 +74,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.24.3"
+    kube_version: "v1.24.4"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -98,19 +98,19 @@ data:
       flannel_cni_version: "v1.0.1"
       kubelet_checksums:
         arm64:
-          v1.24.3: 6c04ae25ee9b434f40e0d2466eb4ef5604dc43f306ddf1e5f165fc9d3c521e12
+          v1.24.4: 2d9817c1e9e1edd9480aa05862ea6e9655a9512d820b1933175f5d7c8253ca61
         amd64:
-          v1.24.3: da575ceb7c44fddbe7d2514c16798f39f8c10e54b5dbef3bcee5ac547637db11
+          v1.24.4: da575ceb7c44fddbe7d2514c16798f39f8c10e54b5dbef3bcee5ac547637db11
       kubectl_checksums:
         arm64:
-          v1.24.3: bdad4d3063ddb7bfa5ecf17fb8b029d5d81d7d4ea1650e4369aafa13ed97149a
+          v1.24.4: 0aa4a08ff81efe3fc1a8ef880ca2f8622e3b1f93bf622583d7b9bfe3124afe61
         amd64:
-          v1.24.3: 8a45348bdaf81d46caf1706c8bf95b3f431150554f47d444ffde89e8cdd712c1
+          v1.24.4: 8a45348bdaf81d46caf1706c8bf95b3f431150554f47d444ffde89e8cdd712c1
       kubeadm_checksums:
         arm64:
-          v1.24.3: ea0fb451b69d78e39548698b32fb8623fad61a1a95483fe0add63e3ffb6e31b5
+          v1.24.4: 18de228f6087a2e5243bffcd2cc88c40180a4fa83e4de310ad071b4620bdd8b6
         amd64:
-          v1.24.3: 406d5a80712c45d21cdbcc51aab298f0a43170df9477259443d48eac116998ff
+          v1.24.4: 406d5a80712c45d21cdbcc51aab298f0a43170df9477259443d48eac116998ff
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
@@ -128,9 +128,9 @@ data:
           1.6.6: 0212869675742081d70600a1afc6cea4388435cc52bf5dc21f4efdcb9a92d2ef
       nerdctl_archive_checksums:
         arm64:
-          0.20.0: 9a38c99d23587eb89e7461a6d21fa6c6b1e492241d12f153482b4f99e611249c
+          0.22.2: 15fc3f992b59d6fbadca9c71e0337dab77cdfb08d79c925502449180a13d94a4
         amd64:
-          0.20.0: e23d50316f9e268ca4a21bd4614a544f53b2cecf352144ceefa038da512bb29a
+          0.22.2: ad40ecf11c689fad594a05a40fef65adb4df8ecd1ffb6711e13cff5382aeaed9
       etcd_binary_checksums:
         arm64:
           v3.5.4: 8e9c2c28ed6b35f36fd94300541da10e1385f335d677afd8efccdcba026f1fa7
@@ -143,9 +143,9 @@ data:
           v1.1.1: b275772da4026d2161bf8a8b41ed4786754c8a93ebfb6564006d5da7f23831e5
       flannel_cni_binary_checksums:
         arm64:
-          v1.0.1: f813ae49b7b84eb95db73f7a3c34d2ee101f8cfc27e3a8054297a36d53308543
+          v1.1.0: f813ae49b7b84eb95db73f7a3c34d2ee101f8cfc27e3a8054297a36d53308543
         amd64:
-          v1.0.1: 63906a5b7dc78fbf1fbd484adbf4931aea5b15546ece3c7202c779ab9ea994a2
+          v1.1.0: 63906a5b7dc78fbf1fbd484adbf4931aea5b15546ece3c7202c779ab9ea994a2
       flannel_image_repo: "{{ docker_image_repo }}/flannelcni/flannel"
       flannel_image_tag: "{{ flannel_version }}-{{ image_arch }}"
       flannel_init_image_repo: "{{ docker_image_repo }}/flannelcni/flannel-cni-plugin"
@@ -234,7 +234,7 @@ data:
       version: "v1.24.0"
       target: crictl_version
     - name: nerdctl
-      version: "0.20.0"
+      version: "0.22.2"
       target: nerdctl_version
     - name: nginx_image
       version: 1.21.4
@@ -254,8 +254,8 @@ data:
         calico_version: "v3.23.1"
     - name: flannel
       params:
-        flannel_version: "v0.17.0"
-        flannel_cni_version: "v1.0.1"
+        flannel_version: "v0.18.1"
+        flannel_cni_version: "v1.1.0"
   addon:
     - name: kuboard
       target: kuboard_enabled
