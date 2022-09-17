@@ -1,0 +1,15 @@
+---
+
+- assert:
+    msg:
+      - "使用 uniontech os server 20 操作系统时，kuboardspray 只支持 containerd 作为容器引擎"
+    that:
+      - container_manager == 'containerd'
+
+- name: Install conntrack
+  package:
+    name: conntrack
+    state: present
+  become: true
+
+- include_tasks: centos-alike.yml
