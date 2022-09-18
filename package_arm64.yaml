@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0a-8_k8s-v1.23.10_v1.17-arm64
+  version: spray-v2.18.0a-8_k8s-v1.23.11_v1.18-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.1.0
@@ -7,10 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2022-08-21"
+  issue_date: "2022-09-18"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
+      - spray-v2.18.0a-8_k8s-v1.23.10_v[0-9.]*-arm64
       - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-9]_v[0-9.]*-arm64
       - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-arm64
     exclude:
@@ -72,7 +73,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.23.10"
+    kube_version: "v1.23.11"
     image_arch: arm64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -96,19 +97,19 @@ data:
       flannel_cni_version: "v1.0.1"
       kubelet_checksums:
         arm64:
-          v1.23.10: 8ce1c79ee7c5d346719e3637e72a51dd96fc7f2e1f443aa39b05c1d9d9de32c8
+          v1.23.11: 8ce1c79ee7c5d346719e3637e72a51dd96fc7f2e1f443aa39b05c1d9d9de32c8
         amd64:
-          v1.23.10: c2ba75b36000103af6fa2c3955c5b8a633b33740e234931441082e21a334b80b
+          v1.23.11: b0e6d413f9b4cf1007fcb9f0ea6460ed5273a50c945ae475c224036b0ab817f7
       kubectl_checksums:
         arm64:
-          v1.23.10: d88b7777b3227dd49f44dbd1c7b918f9ddc5d016ecc47547a717a501fcdc316b
+          v1.23.11: d88b7777b3227dd49f44dbd1c7b918f9ddc5d016ecc47547a717a501fcdc316b
         amd64:
-          v1.23.10: 3ffa658e7f1595f622577b160bdcdc7a5a90d09d234757ffbe53dd50c0cb88f7
+          v1.23.11: cf04ad2fa1cf118a951d690af0afbbe8f5fc4f02c721c848080d466e6159111e
       kubeadm_checksums:
         arm64:
-          v1.23.10: 42e957eebef78f6462644d9debc096616054ebd2832e95a176c07c28ebed645c
+          v1.23.11: 42e957eebef78f6462644d9debc096616054ebd2832e95a176c07c28ebed645c
         amd64:
-          v1.23.10: 43d186c3c58e3f8858c6a22bc71b5441282ac0ccbff6f1d0c2a66ee045986b64
+          v1.23.11: 2f10bd298a694d3133ea19192b796a106c282441e4148c114c39376042097692
       crun_checksums:
         arm64:
           1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d
