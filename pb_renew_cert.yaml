@@ -1,5 +1,9 @@
 ---
 
+- hosts: all
+  vars:
+    unsafe_show_logs: "{{ not (kuboardspray_no_log|false) }}"
+
 - name: 更新证书
   hosts: kube_control_plane
   gather_facts: False

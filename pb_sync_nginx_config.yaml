@@ -1,4 +1,9 @@
 ---
+
+- hosts: all
+  vars:
+    unsafe_show_logs: "{{ not (kuboardspray_no_log|false) }}"
+
 # 由于始终通过镜像分发，因此我们不检查 ansible_version
 # - name: Check ansible version
 #   import_playbook: 3rd/kubespray/ansible_version.yml

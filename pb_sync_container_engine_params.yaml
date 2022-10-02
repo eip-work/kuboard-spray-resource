@@ -1,4 +1,9 @@
 ---
+
+- hosts: all
+  vars:
+    unsafe_show_logs: "{{ not (kuboardspray_no_log|false) }}"
+
 - name: Gather facts
   gather_facts: False
   hosts: k8s_cluster
