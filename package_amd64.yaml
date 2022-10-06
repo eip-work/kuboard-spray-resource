@@ -242,7 +242,7 @@ data:
       version: "0.22.2"
       target: nerdctl_version
     - name: nginx_image
-      version: 1.23.0-alpine
+      version: 1.23.0
       target: nginx_image_tag
     - name: coredns
       target: coredns_version
