@@ -1,5 +1,5 @@
 metadata:
-  version: spray-kuboard-spray-v2.20.0a_k8s-v1.25.2_v3.1-amd64
+  version: spray-v2.20.0a_k8s-v1.25.2_v3.1-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
