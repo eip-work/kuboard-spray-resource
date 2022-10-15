@@ -1,8 +1,9 @@
 ---
 
 - hosts: all
-  vars:
-    unsafe_show_logs: "{{ not (kuboardspray_no_log|false) }}"
+  tasks:
+    - set_fact:
+        unsafe_show_logs: "{{ not (kuboardspray_no_log | default(true)) }}"
 
 - name: deploy kube-bench
   hosts: target
