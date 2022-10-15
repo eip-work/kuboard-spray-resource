@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.20.0a_k8s-v1.25.2_v3.1-amd64
+  version: spray-v2.20.0a_k8s-v1.25.3_v3.2-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -7,10 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2022-10-06"
+  issue_date: "2022-10-16"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
+      - spray-v2.20.0a_k8s-v1.25.[0-2]_v3.[0-1]-amd64
       - spray-v2.19.0b_k8s-v1.24.[0-9]*_v2.[0-9]*-amd64
       - spray-v2.19.0a_k8s-v1.24.[0-9]*_v2.[0-9]*-amd64
     exclude:
@@ -76,7 +77,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.25.2"
+    kube_version: "v1.25.3"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -100,19 +101,19 @@ data:
       flannel_cni_version: "v1.1.0"
       kubelet_checksums:
         arm64:
-          v1.25.2: c9348c0bae1d723a39235fc041053d9453be6b517082f066b3a089c3edbdd2ae
+          v1.25.3: c9348c0bae1d723a39235fc041053d9453be6b517082f066b3a089c3edbdd2ae
         amd64:
-          v1.25.2: 631e31b3ec648f920292fdc1bde46053cca5d5c71d622678d86907d556efaea3
+          v1.25.3: d5c89c5e5dae6afa5f06a3e0e653ac3b93fa9a93c775a715531269ec91a54abe
       kubectl_checksums:
         arm64:
-          v1.25.2: b26aa656194545699471278ad899a90b1ea9408d35f6c65e3a46831b9c063fd5
+          v1.25.3: b26aa656194545699471278ad899a90b1ea9408d35f6c65e3a46831b9c063fd5
         amd64:
-          v1.25.2: 8639f2b9c33d38910d706171ce3d25be9b19fc139d0e3d4627f38ce84f9040eb
+          v1.25.3: f57e568495c377407485d3eadc27cda25310694ef4ffc480eeea81dea2b60624
       kubeadm_checksums:
         arm64:
-          v1.25.2: 437dc97b0ca25b3fa8d74b39e4059a77397b55c1a6d16bddfd5a889d91490ce0
+          v1.25.3: 437dc97b0ca25b3fa8d74b39e4059a77397b55c1a6d16bddfd5a889d91490ce0
         amd64:
-          v1.25.2: 63ee3de0c386c6f3c155874b46b07707cc72ce5b9e23f336befd0b829c1bd2ad
+          v1.25.3: 01b59ce429263c62b85d2db18f0ccdef076b866962ed63971ff2bd2864deea7b
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
