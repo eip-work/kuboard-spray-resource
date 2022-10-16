@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0a-8_k8s-v1.23.12_v1.19-amd64
+  version: spray-v2.18.0a-8_k8s-v1.23.13_v1.20-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.1.0
@@ -11,7 +11,7 @@ metadata:
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.18.0a-8_k8s-v1.23.1[0-1]_v[0-9.]*-amd64
+      - spray-v2.18.0a-8_k8s-v1.23.1[0-2]_v[0-9.]*-amd64
       - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-9]_v[0-9.]*-amd64
       - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-amd64
     exclude:
@@ -73,7 +73,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.23.12"
+    kube_version: "v1.23.13"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -97,19 +97,19 @@ data:
       flannel_cni_version: "v1.0.1"
       kubelet_checksums:
         arm64:
-          v1.23.12: b802f12c79a9797f83a366c617144d019d2994fc724c75f642a9d031ce6a3488
+          v1.23.13: b802f12c79a9797f83a366c617144d019d2994fc724c75f642a9d031ce6a3488
         amd64:
-          v1.23.12: 98ffa8a736d3e43debb1aa61ae71dea3671989cde5e9e44c6ee51a3d47c63614
+          v1.23.13: 4d8f796b82dbe2b89b6d587bfeedf66724526b211c75a53456d4ac4014e3dcca
       kubectl_checksums:
         arm64:
-          v1.23.12: 88ebbc41252b39d49ce574a5a2bb25943bb82e55a252c27fe4fc096ce2dbb437
+          v1.23.13: 88ebbc41252b39d49ce574a5a2bb25943bb82e55a252c27fe4fc096ce2dbb437
         amd64:
-          v1.23.12: b150c7c4830cc3be4bedd8998bf36a92975c95cd1967b4ef2d1edda080ffe5d9
+          v1.23.13: fae6957e6a7047ad49cdd20976cd2ce9188b502c831fbf61f36618ea1188ba38
       kubeadm_checksums:
         arm64:
-          v1.23.12: d05f6765a65f7541d07aad989ee80cd730c395f042afbe0526f667ea1a0b2947
+          v1.23.13: d05f6765a65f7541d07aad989ee80cd730c395f042afbe0526f667ea1a0b2947
         amd64:
-          v1.23.12: bf45d00062688d21ff479bf126e1259d0ce3dee1c5c2fcd803f57497cd5e9e83
+          v1.23.13: ff86af2b5fa979234dd3f9e7b04ec7d3017239a58417397153726d8077c4ac89
       crun_checksums:
         arm64:
           1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d
