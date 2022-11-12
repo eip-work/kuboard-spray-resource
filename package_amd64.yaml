@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.19.0b_k8s-v1.24.7_v2.6-amd64
+  version: spray-v2.19.0c_k8s-v1.24.8_v2.6-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -11,7 +11,7 @@ metadata:
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.19.0b_k8s-v1.24.[0-6]_v2.[0-5]-amd64
+      - spray-v2.19.0b_k8s-v1.24.[0-7]_v2.[0-6]-amd64
       - spray-v2.19.0a_k8s-v1.24.[0-5]*_v2.[0-4]*-amd64
       - spray-v2.18.[0-9a-]*_k8s-v1.23.[0-9]*_v[0-9.]*-amd64
       - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-amd64
@@ -55,9 +55,11 @@ metadata:
     - distribution: UnionTech OS Server 20
       versions:
         - "20"
+  supported_feature:
+    eviction_hard: true
 
 data:
-  kubespray_version: v2.19.0b
+  kubespray_version: v2.19.0c
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
@@ -78,7 +80,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.24.7"
+    kube_version: "v1.24.8"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -102,19 +104,19 @@ data:
       flannel_cni_version: "v1.1.0"
       kubelet_checksums:
         arm64:
-          v1.24.7: 2a7b8e131d6823462e38bc1514b5dea5dca86254b3a12ed4a0fa653c2e06dd0e
+          v1.24.8: 4e1427651e4ff3927f96ce4b93c471ccc76c683fc1619ee0d677d77345b54edb
         amd64:
-          v1.24.7: 4d24c97c924c40971412cc497145ad823e4b7b87ccda97ebced375f7e886e9e2
+          v1.24.8: 2da0b93857cf352bff5d1eb42e34d398a5971b63a53d8687b45179a78540d6d6
       kubectl_checksums:
         arm64:
-          v1.24.7: 2f62e55960b02bb63cbc9154141520ac7cf0c2d55b45dd4a72867971e24a7219
+          v1.24.8: b8ac2abfcb1fa04695d18098558ff483ec2c2488877b5abc4035a543544cdcb1
         amd64:
-          v1.24.7: 2d88e56d668b1d7575b4783f22d512e94da432f42467c3aeac8a300b6345f12d
+          v1.24.8: f93c18751ec715b4d4437e7ece18fe91948c71be1f24ab02a2dde150f5449855
       kubeadm_checksums:
         arm64:
-          v1.24.7: 211b8d1881468bb673b26036dbcfa4b12877587b0a6260ffd55fd87c2aee6e41
+          v1.24.8: 6f35562001e859f2a76a89c0da61f09433cc6628ccbc3992e82a977e0e348870
         amd64:
-          v1.24.7: 8b67319d28bf37e8e7c224954dc778cbe946f2bb0ed86975d8caa83d51c955ee
+          v1.24.8: 9fea42b4fb5eb2da638d20710ebb791dde221e6477793d3de70134ac058c4cc7
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
