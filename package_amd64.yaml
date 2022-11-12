@@ -54,6 +54,8 @@ metadata:
     - distribution: UnionTech OS Server 20
       versions:
         - "20"
+  supported_feature:
+    eviction_hard: true
 
 data:
   kubespray_version: v2.20.0a
