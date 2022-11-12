@@ -1,5 +1,16 @@
 # 版本更新内容
 
+## spray-v2.20.0b_k8s-v1.25.4_v3.3
+
+**发布日期**
+
+2022年11月13日
+
+**新特性**
+
+* kubernetes 版本更新到 v1.25.4
+* 支持自定义 kubelet 参数 evictionHard （kuboard-spray 版本不低于 v1.2.2 时可使用此选项）
+
 ## spray-v2.20.0a_k8s-v1.25.3_v3.2
 
 **发布日期**
