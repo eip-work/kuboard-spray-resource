@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.20.0a_k8s-v1.25.3_v3.2-arm64
+  version: spray-kuboard-spray-v2.20.0a_k8s-v1.25.4_v3.3-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -7,11 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2022-10-16"
+  issue_date: "2022-11-13"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.20.0a_k8s-v1.25.[0-2]_v3.[0-1]-arm64
+      - spray-v2.20.0a_k8s-v1.25.[0-3]_v3.[0-2]-arm64
       - spray-v2.19.0b_k8s-v1.24.[0-9]*_v2.[0-9]*-arm64
       - spray-v2.19.0a_k8s-v1.24.[0-9]*_v2.[0-9]*-arm64
     exclude:
@@ -77,7 +77,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.25.3"
+    kube_version: "v1.25.4"
     image_arch: arm64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -101,19 +101,19 @@ data:
       flannel_cni_version: "v1.1.0"
       kubelet_checksums:
         arm64:
-          v1.25.3: 929d25fc3f901749b058141a9c624ff379759869e09df49b75657c0be3141091
+          v1.25.4: 8ff80a12381fad2e96c9cec6712591018c830cdd327fc7bd825237aa51a6ada3
         amd64:
-          v1.25.3: d5c89c5e5dae6afa5f06a3e0e653ac3b93fa9a93c775a715531269ec91a54abe
+          v1.25.4: 7f7437e361f829967ee02e30026d7e85219693432ac5e930cc98dd9c7ddb2fac
       kubectl_checksums:
         arm64:
-          v1.25.3: cfd5092ce347a69fe49c93681a164d9a8376d69eef587da894207c62ec7d6a5d
+          v1.25.4: a8e9cd3c6ca80b67091fc41bc7fe8e9f246835925c835823a08a20ed9bcea1ba
         amd64:
-          v1.25.3: f57e568495c377407485d3eadc27cda25310694ef4ffc480eeea81dea2b60624
+          v1.25.4: e4e569249798a09f37e31b8b33571970fcfbdecdd99b1b81108adc93ca74b522
       kubeadm_checksums:
         arm64:
-          v1.25.3: 61bb61eceff78b44be62a12bce7c62fb232ce1338928e4207deeb144f82f1d06
+          v1.25.4: 3f5b273e8852d13fa39892a30cf64928465c32d0eb741118ba89714b51f03cd5
         amd64:
-          v1.25.3: 01b59ce429263c62b85d2db18f0ccdef076b866962ed63971ff2bd2864deea7b
+          v1.25.4: b8a6119d2a3a7c6add43dcf8f920436bf7fe71a77a086e96e40aa9d6f70be826
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
@@ -131,14 +131,14 @@ data:
           1.6.8: 3a1322c18ee5ff4b9bd5af6b7b30c923a3eab8af1df05554f530ef8e2b24ac5e
       nerdctl_archive_checksums:
         arm64:
-          0.22.2: 15fc3f992b59d6fbadca9c71e0337dab77cdfb08d79c925502449180a13d94a4
+          1.0.0: 27622c9d95efe6d807d5f3770d24ddd71719c6ae18f76b5fc89663a51bcd6208
         amd64:
-          0.22.2: ad40ecf11c689fad594a05a40fef65adb4df8ecd1ffb6711e13cff5382aeaed9
+          1.0.0: 3e993d714e6b88d1803a58d9ff5a00d121f0544c35efed3a3789e19d6ab36964
       etcd_binary_checksums:
         arm64:
-          v3.5.4: 8e9c2c28ed6b35f36fd94300541da10e1385f335d677afd8efccdcba026f1fa7
+          v3.5.5: a8d177ae8ecfd1ef025c35ac8c444041d14e67028c1a7b4eda3a69a8dee5f9c3
         amd64:
-          v3.5.4: b1091166153df1ee0bb29b47fb1943ef0ddf0cd5d07a8fe69827580a08134def
+          v3.5.5: 7910a2fdb1863c80b885d06f6729043bff0540f2006bf6af34674df2636cb906
       cni_binary_checksums:
         arm64:
           v1.1.1: 16484966a46b4692028ba32d16afd994e079dc2cc63fbc2191d7bfaf5e11f3dd
@@ -219,7 +219,7 @@ data:
             - k8s_cluster
 
   etcd:
-    etcd_version: v3.5.4
+    etcd_version: v3.5.5
     etcd_params:
     etcd_deployment_type:
       - "host"
@@ -240,7 +240,7 @@ data:
       version: "v1.25.0"
       target: crictl_version
     - name: nerdctl
-      version: "0.22.2"
+      version: "1.0.0"
       target: nerdctl_version
     - name: nginx_image
       version: 1.23.0
