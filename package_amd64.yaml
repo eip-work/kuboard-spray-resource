@@ -7,7 +7,7 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2022-11-13"
+  issue_date: "2022-12-12"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
@@ -102,17 +102,17 @@ data:
       flannel_cni_version: "v1.1.0"
       kubelet_checksums:
         arm64:
-          v1.25.5: 8ff80a12381fad2e96c9cec6712591018c830cdd327fc7bd825237aa51a6ada3
+          v1.25.5: 18aa53ff59740a11504218905b51b29cc78fb8b5dd818a619141afa9dafb8f5a
         amd64:
           v1.25.5: 16b23e1254830805b892cfccf2687eb3edb4ea54ffbadb8cc2eee6d3b1fab8e6
       kubectl_checksums:
         arm64:
-          v1.25.5: a8e9cd3c6ca80b67091fc41bc7fe8e9f246835925c835823a08a20ed9bcea1ba
+          v1.25.5: 7bc650f28a5b4436df2abcfae5905e461728ba416146beac17a2634fa82a6f0a
         amd64:
           v1.25.5: 6a660cd44db3d4bfe1563f6689cbe2ffb28ee4baf3532e04fff2d7b909081c29
       kubeadm_checksums:
         arm64:
-          v1.25.5: 3f5b273e8852d13fa39892a30cf64928465c32d0eb741118ba89714b51f03cd5
+          v1.25.5: 426dddad1c60b7617f4095507cef524d76ec268a0201c1df154c108287a0b98e
         amd64:
           v1.25.5: af0b25c7a995c2d208ef0b9d24b70fe6f390ebb1e3987f4e0f548854ba9a3b87
       crun_checksums:
