@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.20.0b_k8s-v1.25.4_v3.3-amd64
+  version: spray-v2.20.0b_k8s-v1.25.5_v3.4-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -11,9 +11,8 @@ metadata:
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.20.0a_k8s-v1.25.[0-3]_v3.[0-2]-amd64
-      - spray-v2.19.0b_k8s-v1.24.[0-9]*_v2.[0-9]*-amd64
-      - spray-v2.19.0a_k8s-v1.24.[0-9]*_v2.[0-9]*-amd64
+      - spray-v2.20.0[a-b]_k8s-v1.25.[0-4]_v3.[0-3]-amd64
+      - spray-v2.19.0[a-c]_k8s-v1.24.[0-9]*_v2.[0-9]*-amd64
     exclude:
   can_replace_to:
   supported_os:
@@ -79,7 +78,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.25.4"
+    kube_version: "v1.25.5"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -89,7 +88,7 @@ data:
   container_engine:
     - container_manager: "containerd"
       params:
-        containerd_version: 1.6.8
+        containerd_version: 1.6.12
     # - container_manager: "docker"
     #   params:
     #     docker_version: "20.10"
@@ -97,25 +96,25 @@ data:
 
   vars:
     target:
-      containerd_version: 1.6.8
-      etcd_version: v3.5.5
+      containerd_version: 1.6.12
+      etcd_version: v3.5.6
       calico_version: "v3.23.3"
       flannel_cni_version: "v1.1.0"
       kubelet_checksums:
         arm64:
-          v1.25.4: 8ff80a12381fad2e96c9cec6712591018c830cdd327fc7bd825237aa51a6ada3
+          v1.25.5: 8ff80a12381fad2e96c9cec6712591018c830cdd327fc7bd825237aa51a6ada3
         amd64:
-          v1.25.4: 7f7437e361f829967ee02e30026d7e85219693432ac5e930cc98dd9c7ddb2fac
+          v1.25.5: 16b23e1254830805b892cfccf2687eb3edb4ea54ffbadb8cc2eee6d3b1fab8e6
       kubectl_checksums:
         arm64:
-          v1.25.4: a8e9cd3c6ca80b67091fc41bc7fe8e9f246835925c835823a08a20ed9bcea1ba
+          v1.25.5: a8e9cd3c6ca80b67091fc41bc7fe8e9f246835925c835823a08a20ed9bcea1ba
         amd64:
-          v1.25.4: e4e569249798a09f37e31b8b33571970fcfbdecdd99b1b81108adc93ca74b522
+          v1.25.5: 6a660cd44db3d4bfe1563f6689cbe2ffb28ee4baf3532e04fff2d7b909081c29
       kubeadm_checksums:
         arm64:
-          v1.25.4: 3f5b273e8852d13fa39892a30cf64928465c32d0eb741118ba89714b51f03cd5
+          v1.25.5: 3f5b273e8852d13fa39892a30cf64928465c32d0eb741118ba89714b51f03cd5
         amd64:
-          v1.25.4: b8a6119d2a3a7c6add43dcf8f920436bf7fe71a77a086e96e40aa9d6f70be826
+          v1.25.5: af0b25c7a995c2d208ef0b9d24b70fe6f390ebb1e3987f4e0f548854ba9a3b87
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
@@ -128,9 +127,9 @@ data:
           v1.1.4: db772be63147a4e747b4fe286c7c16a2edc4a8458bd3092ea46aaee77750e8ce
       containerd_archive_checksums:
         arm64:
-          1.6.8: b114e36ecce78cef9d611416c01b784a420928c82766d6df7dc02b10d9da94cd
+          1.6.12: 0a0133336596b2d1dcafe3587eb91ab302afc28f273614e0e02300694b5457a0
         amd64:
-          1.6.8: 3a1322c18ee5ff4b9bd5af6b7b30c923a3eab8af1df05554f530ef8e2b24ac5e
+          1.6.12: a56c39795fd0d0ee356b4099a4dfa34689779f61afc858ef84c765c63e983a7d..
       nerdctl_archive_checksums:
         arm64:
           1.0.0: 27622c9d95efe6d807d5f3770d24ddd71719c6ae18f76b5fc89663a51bcd6208
@@ -138,9 +137,9 @@ data:
           1.0.0: 3e993d714e6b88d1803a58d9ff5a00d121f0544c35efed3a3789e19d6ab36964
       etcd_binary_checksums:
         arm64:
-          v3.5.5: a8d177ae8ecfd1ef025c35ac8c444041d14e67028c1a7b4eda3a69a8dee5f9c3
+          v3.5.6: 888e25c9c94702ac1254c7655709b44bb3711ebaabd3cb05439f3dd1f2b51a87
         amd64:
-          v3.5.5: 7910a2fdb1863c80b885d06f6729043bff0540f2006bf6af34674df2636cb906
+          v3.5.6: 4db32e3bc06dd0999e2171f76a87c1cffed8369475ec7aa7abee9023635670fb
       cni_binary_checksums:
         arm64:
           v1.1.1: 16484966a46b4692028ba32d16afd994e079dc2cc63fbc2191d7bfaf5e11f3dd
@@ -221,7 +220,7 @@ data:
             - k8s_cluster
 
   etcd:
-    etcd_version: v3.5.5
+    etcd_version: v3.5.6
     etcd_params:
     etcd_deployment_type:
       - "host"
@@ -245,11 +244,11 @@ data:
       version: "1.0.0"
       target: nerdctl_version
     - name: nginx_image
-      version: 1.23.0
+      version: 1.23.2
       target: nginx_image_tag
     - name: coredns
       target: coredns_version
-      version: "v1.8.6"
+      version: "v1.9.3"
     - name: cluster-proportional-autoscaler
       target: dnsautoscaler_version
       version: 1.8.5
