@@ -80,7 +80,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.24.8"
+    kube_version: "v1.24.9"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -104,19 +104,19 @@ data:
       flannel_cni_version: "v1.1.0"
       kubelet_checksums:
         arm64:
-          v1.24.8: 4e1427651e4ff3927f96ce4b93c471ccc76c683fc1619ee0d677d77345b54edb
+          v1.24.9: 34021c6cf593ffc4361e9e2adc3d6e4f5683383eeb894f40d63ccfa268e84f4c
         amd64:
-          v1.24.8: 2da0b93857cf352bff5d1eb42e34d398a5971b63a53d8687b45179a78540d6d6
+          v1.24.9: 2da0b93857cf352bff5d1eb42e34d398a5971b63a53d8687b45179a78540d6d6
       kubectl_checksums:
         arm64:
-          v1.24.8: b8ac2abfcb1fa04695d18098558ff483ec2c2488877b5abc4035a543544cdcb1
+          v1.24.9: f59c522cf5f9db826c64f28364946acb6bcb6957669291fa29b926b7812b5bbe
         amd64:
-          v1.24.8: f93c18751ec715b4d4437e7ece18fe91948c71be1f24ab02a2dde150f5449855
+          v1.24.9: f93c18751ec715b4d4437e7ece18fe91948c71be1f24ab02a2dde150f5449855
       kubeadm_checksums:
         arm64:
-          v1.24.8: 6f35562001e859f2a76a89c0da61f09433cc6628ccbc3992e82a977e0e348870
+          v1.24.9: 57c61562a9de4cc78f276f665d7f04666607b17e3ad0fa6c14be64ad85c80951
         amd64:
-          v1.24.8: 9fea42b4fb5eb2da638d20710ebb791dde221e6477793d3de70134ac058c4cc7
+          v1.24.9: 9fea42b4fb5eb2da638d20710ebb791dde221e6477793d3de70134ac058c4cc7
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
