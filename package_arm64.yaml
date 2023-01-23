@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0a-9_k8s-v1.23.15_v1.22-arm64
+  version: spray-v2.18.0a-9_k8s-v1.23.16_v1.23-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.1.0
@@ -7,11 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2022-12-12"
+  issue_date: "2023-1-25"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.18.0a-[8-9]_k8s-v1.23.1[0-4]_v[0-9.]*-arm64
+      - spray-v2.18.0a-[8-9]_k8s-v1.23.1[0-5]_v[0-9.]*-arm64
       - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-9]_v[0-9.]*-arm64
       - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-arm64
     exclude:
@@ -75,7 +75,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.23.15"
+    kube_version: "v1.23.16"
     image_arch: arm64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -85,7 +85,7 @@ data:
   container_engine:
     - container_manager: "containerd"
       params:
-        containerd_version: 1.6.4
+        containerd_version: 1.6.15
     - container_manager: "docker"
       params:
         docker_version: "20.10"
@@ -93,25 +93,25 @@ data:
 
   vars:
     target:
-      containerd_version: 1.6.4
-      etcd_version: v3.5.4
+      containerd_version: 1.6.15
+      etcd_version: v3.5.6
       calico_version: "v3.21.5"
       flannel_cni_version: "v1.0.1"
       kubelet_checksums:
         arm64:
-          v1.23.15: b5540d2b67f325ad79af6b86a88bc3d1a8a225453911e7ebb7387788ce355a87
+          v1.23.16: b5540d2b67f325ad79af6b86a88bc3d1a8a225453911e7ebb7387788ce355a87
         amd64:
-          v1.23.15: 5cf382d911c13c9cc8f770251b3a2fd9399c70ac50337874f670b9078f88231d
+          v1.23.16: ab4c64a54c3c6de57108b7b83bdcf03413285f06adccfa2bbc5535d20a684682
       kubectl_checksums:
         arm64:
-          v1.23.15: f619f8b4811d60edef692f1d888609cc279a7d8223e50e1c0dc959c7b9250e79
+          v1.23.16: f619f8b4811d60edef692f1d888609cc279a7d8223e50e1c0dc959c7b9250e79
         amd64:
-          v1.23.15: adab29cf67e04e48f566ce185e3904b5deb389ae1e4d57548fcf8947a49a26f5
+          v1.23.16: 5f914edc9dbfbe1b8b8dc0f5dbbac28720a8dffeb940e3339c371e3612c37e48
       kubeadm_checksums:
         arm64:
-          v1.23.15: 8bb17c69ad71bb1230dbe1e598c6ae07390b57e3ba32928f28e83742105424d0
+          v1.23.16: 8bb17c69ad71bb1230dbe1e598c6ae07390b57e3ba32928f28e83742105424d0
         amd64:
-          v1.23.15: 63329e21be8367628f71978cfc140c74ce9cb0336abd9c4802ca7d20d5dec3c3
+          v1.23.16: 511b8d915b8e7ab3c0e6aef905c7ac7901c39d2c67fbc099dda28b498a9871d8
       crun_checksums:
         arm64:
           1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d
@@ -124,9 +124,9 @@ data:
           v1.1.1: 5798c85d2c8b6942247ab8d6830ef362924cd72a8e236e77430c3ab1be15f080
       containerd_archive_checksums:
         arm64:
-          1.6.4: 0205bd1907154388dc85b1afeeb550cbb44c470ef4a290cb1daf91501c85cae6
+          1.6.15: d63e4d27c51e33cd10f8b5621c559f09ece8a65fec66d80551b36cac9e61a07d
         amd64:
-          1.6.4: f23c8ac914d748f85df94d3e82d11ca89ca9fe19a220ce61b99a05b070044de0
+          1.6.15: 191bb4f6e4afc237efc5c85b5866b6fdfed731bde12cceaa6017a9c7f8aeda02
       nerdctl_archive_checksums:
         arm64:
           1.0.0: 27622c9d95efe6d807d5f3770d24ddd71719c6ae18f76b5fc89663a51bcd6208
@@ -134,9 +134,9 @@ data:
           1.0.0: 3e993d714e6b88d1803a58d9ff5a00d121f0544c35efed3a3789e19d6ab36964
       etcd_binary_checksums:
         arm64:
-          v3.5.4: 8e9c2c28ed6b35f36fd94300541da10e1385f335d677afd8efccdcba026f1fa7
+          v3.5.6: 888e25c9c94702ac1254c7655709b44bb3711ebaabd3cb05439f3dd1f2b51a87
         amd64:
-          v3.5.4: b1091166153df1ee0bb29b47fb1943ef0ddf0cd5d07a8fe69827580a08134def
+          v3.5.6: 4db32e3bc06dd0999e2171f76a87c1cffed8369475ec7aa7abee9023635670fb
       cni_binary_checksums:
         arm64:
           v1.1.1: 16484966a46b4692028ba32d16afd994e079dc2cc63fbc2191d7bfaf5e11f3dd
@@ -214,7 +214,7 @@ data:
             - k8s_cluster
 
   etcd:
-    etcd_version: v3.5.4
+    etcd_version: v3.5.6
     etcd_params:
     etcd_deployment_type:
       - "host"
@@ -323,7 +323,7 @@ data:
     #     netcheck_agent_image_tag: "{{ netcheck_version }}"
     #     netcheck_server_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-server"
     #     netcheck_server_image_tag: "{{ netcheck_version }}"
-    #     netcheck_etcd_image_tag: "v3.5.4"
+    #     netcheck_etcd_image_tag: "v3.5.6"
     # - name: helm
     #   install_by_default: false
     #   target: helm_enabled
@@ -346,7 +346,7 @@ data:
         downloads:
           - metrics_server
       params:
-        metrics_server_version: "v0.6.1"
+        metrics_server_version: "v0.6.2"
     # - name: cephfs_provisioner
     #   install_by_default: false
     #   target: cephfs_provisioner_enabled
