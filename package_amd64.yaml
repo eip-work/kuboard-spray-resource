@@ -319,7 +319,7 @@ data:
         netcheck_agent_image_tag: "{{ netcheck_version }}"
         netcheck_server_image_repo: "{{ docker_image_repo }}/mirantis/k8s-netchecker-server"
         netcheck_server_image_tag: "{{ netcheck_version }}"
-        netcheck_etcd_image_tag: "v3.5.4"
+        netcheck_etcd_image_tag: "v3.5.6"
     # - name: helm
     #   install_by_default: false
     #   target: helm_enabled
