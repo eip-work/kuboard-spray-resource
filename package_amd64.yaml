@@ -7,7 +7,7 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2022-12-12"
+  issue_date: "2023-1-25"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
