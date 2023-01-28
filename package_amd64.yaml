@@ -97,6 +97,7 @@ data:
       etcd_version: v3.5.6
       calico_version: "v3.21.5"
       flannel_cni_version: "v1.0.1"
+      kuboard_version: "v3.5.2.0"
       kubelet_checksums:
         arm64:
           v1.23.16: b5540d2b67f325ad79af6b86a88bc3d1a8a225453911e7ebb7387788ce355a87
@@ -276,7 +277,7 @@ data:
         downloads:
           - kuboard
       params_default:
-        kuboard_version: 'v3.5.0.3'
+        kuboard_version: 'v3.5.2.0'
         kuboard_port: 80
         kuboard_cluster_name: 'default'
         kuboard_data_dir: '/root/kuboard-data'
