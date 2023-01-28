@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0a-9_k8s-v1.23.16_v1.23-amd64
+  version: spray-v2.18.0b-1_k8s-v1.23.16_v1.23-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.1.0
@@ -7,7 +7,7 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2023-1-25"
+  issue_date: "2023-1-28"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
@@ -54,7 +54,7 @@ metadata:
     eviction_hard: true
 
 data:
-  kubespray_version: v2.18.0a-9
+  kubespray_version: v2.18.0b-1
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
