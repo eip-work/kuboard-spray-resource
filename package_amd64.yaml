@@ -53,6 +53,9 @@ metadata:
     - distribution: UnionTech OS Server 20
       versions:
         - "20"
+    - distribution: AlmaLinux
+      versions:
+        - "8.7"
   supported_feature:
     eviction_hard: true
 
@@ -170,9 +173,9 @@ data:
             v0.4.3: 5df32eaa0e888a2566439c4ccb2ef3a3e6e89522f2f2126030171e2585585e4f
       crictl_checksums:
         arm64:
-          v1.25.0: 651c939eca010bbf48cc3932516b194028af0893025f9e366127f5b50ad5c4f4
+          v1.26.0: b632ca705a98edc8ad7806f4279feaff956ac83aa109bba8a85ed81e6b900599
         amd64:
-          v1.25.0: 86ab210c007f521ac4cdcbcf0ae3fb2e10923e65f16de83e0e1db191a07f0235
+          v1.26.0: cda5e2143bf19f6b548110ffba0fe3565e03e8743fadd625fee3d62fc4134eed
       snapshot_controller_image_tag: "v4.2.1"
       dns_min_replicas: "{{ [ 2, groups['kube_control_plane'] | length ] | min }}"
       kuboardspray_extra_downloads:
