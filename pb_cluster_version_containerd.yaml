@@ -33,7 +33,7 @@
       when:
         - inventory_hostname in groups['etcd']
     - name: containerd
-      shell: containerd --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]"
+      shell: containerd --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]*"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: crictl
