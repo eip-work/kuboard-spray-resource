@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.21.0a_k8s-v1.26.1_v4.1-arm64
+  version: spray-v2.21.0b_k8s-v1.26.1_v4.1-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.3
@@ -12,7 +12,6 @@ metadata:
   can_upgrade_from:
     include:
       - spray-v2.20.0[a-b]_k8s-v1.25.[0-9]*_v3.[0-9]*-arm64
-      - spray-v2.19.0[a-c]_k8s-v1.24.[0-9]*_v2.[0-9]*-arm64
     exclude:
   can_replace_to:
   supported_os:
@@ -53,11 +52,15 @@ metadata:
     - distribution: UnionTech OS Server 20
       versions:
         - "20"
+    - distribution: AlmaLinux
+      versions:
+        - "8.7"
+        - "9.1"
   supported_feature:
     eviction_hard: true
 
 data:
-  kubespray_version: v2.21.0a
+  kubespray_version: v2.21.0b
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
