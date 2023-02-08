@@ -5,19 +5,19 @@
   strategy: free
   tasks:
     - name: kubelet
-      shell: kubelet --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: kubelet --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: kube-apiserver
-      shell: kubectl version | grep Server | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: kubectl version | grep Server | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+"
       when:
         - inventory_hostname in groups['kube_control_plane']
     - name: kubectl
-      shell: kubectl version --client=true | grep -Eo "\"v[0-9]+\.[0-9]+\.[0-9]\"" | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: kubectl version --client=true | grep -Eo "\"v[0-9]+\.[0-9]+\.[0-9]+\"" | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+"
       when:
         - inventory_hostname in groups['kube_control_plane']
     - name: kubeadm
-      shell: kubeadm version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: kubeadm version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: kubeproxy
@@ -29,22 +29,22 @@
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: etcd
-      shell: echo v$(etcd --version | grep etcd | grep -Eo "[0-9]+\.[0-9]+\.[0-9]")
+      shell: echo v$(etcd --version | grep etcd | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+")
       when:
         - inventory_hostname in groups['etcd']
     - name: containerd
-      shell: containerd --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]*"
+      shell: containerd --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: crictl
-      shell: crictl --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: crictl --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: calico
       shell: |+
         ps_value=$(crictl ps | grep calico-node)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "quay.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "quay.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+";
         fi
       when:
         - inventory_hostname in groups['k8s_cluster']
@@ -53,24 +53,24 @@
       shell: |+
         ps_value=$(crictl ps | grep flannel)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "quay.io\|"image": "docker.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "quay.io\|"image": "docker.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+";
         fi
       when:
         - inventory_hostname in groups['k8s_cluster']
         - kube_network_plugin == 'flannel'
     - name: nerdctl
-      shell: nerdctl --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]"
+      shell: nerdctl --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: runc
-      shell: echo v$(runc --version | grep runc | grep -Eo "[0-9]+\.[0-9]+\.[0-9]")
+      shell: echo v$(runc --version | grep runc | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+")
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: nginx_image
       shell: |+
         ps_value=$(crictl ps | grep nginx-proxy)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "docker.io' | grep -Eo "[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "docker.io' | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+";
         fi
       when:
         - inventory_hostname in groups['kube_node']
@@ -79,7 +79,7 @@
       shell: |+
         ps_value=$(crictl ps | grep coredns)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+";
         fi
       when:
         - inventory_hostname in groups['kube_control_plane']
@@ -87,7 +87,7 @@
       shell: |+
         ps_value=$(crictl ps | grep node-cache)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s' | grep -Eo "[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s' | grep -Eo "[0-9]+\.[0-9]+\.[0-9]+";
         fi
       when:
         - enable_nodelocaldns
@@ -95,7 +95,7 @@
       shell: |+
         ps_value=$(crictl ps | grep netchecker-agent)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "docker.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "docker.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+";
         fi
       when:
         - deploy_netchecker
@@ -103,7 +103,7 @@
       shell: |+
         ps_value=$(crictl ps | grep metrics-server)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s.gcr.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s.gcr.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+";
         fi
       when:
         - deploy_netchecker
