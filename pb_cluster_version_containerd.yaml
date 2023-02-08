@@ -5,26 +5,26 @@
   strategy: free
   tasks:
     - name: kubelet
-      shell: kubelet --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: kubelet --version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]*"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: kube-apiserver
-      shell: kubectl version | grep Server | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: kubectl version | grep Server | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]*"
       when:
         - inventory_hostname in groups['kube_control_plane']
     - name: kubectl
-      shell: kubectl version --client=true | grep -Eo "\"v[0-9]+\.[0-9]+\.[0-9]\"" | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: kubectl version --client=true | grep -Eo "\"v[0-9]+\.[0-9]+\.[0-9]*\"" | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]*"
       when:
         - inventory_hostname in groups['kube_control_plane']
     - name: kubeadm
-      shell: kubeadm version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]"
+      shell: kubeadm version | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]*"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: kubeproxy
       shell: |+
         ps_value=$(crictl ps | grep kube-proxy)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s.gcr.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s.gcr.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]*";
         fi
       when:
         - inventory_hostname in groups['k8s_cluster']
@@ -33,7 +33,7 @@
       when:
         - inventory_hostname in groups['etcd']
     - name: containerd
-      shell: containerd --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]"
+      shell: containerd --version | grep -Eo "[0-9]+\.[0-9]+\.[0-9]*"
       when:
         - inventory_hostname in groups['k8s_cluster']
     - name: crictl
