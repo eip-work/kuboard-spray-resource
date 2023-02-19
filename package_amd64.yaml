@@ -1,8 +1,8 @@
 metadata:
-  version: spray-v2.21.0b_k8s-v1.26.1_v4.1-amd64
+  version: spray-v2.21.0c_k8s-v1.26.1_v4.1-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
-    min: v1.2.3
+    min: v1.2.4
   available_at:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
@@ -60,7 +60,7 @@ metadata:
     eviction_hard: true
 
 data:
-  kubespray_version: v2.21.0b
+  kubespray_version: v2.21.0c
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml

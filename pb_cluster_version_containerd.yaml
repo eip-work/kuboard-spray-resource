@@ -24,7 +24,7 @@
       shell: |+
         ps_value=$(crictl ps | grep kube-proxy)
         if [ "${ps_value}" != "" ]; then
-          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s.gcr.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]";
+          crictl inspect $(echo ${ps_value} | awk '{print $1}') | grep '"image": "k8s.gcr.io' | grep -Eo "v[0-9]+\.[0-9]+\.[0-9]+";
         fi
       when:
         - inventory_hostname in groups['k8s_cluster']
