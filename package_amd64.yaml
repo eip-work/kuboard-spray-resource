@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.21.0c_k8s-v1.26.1_v4.1-amd64
+  version: spray-v2.21.0c_k8s-v1.26.2_v4.2-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.4
@@ -7,10 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2023-2-19"
+  issue_date: "2023-3-2"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
+      - spray-v2.21.0[a-b]_k8s-v1.26.[0-1]*_v4.1-amd64
       - spray-v2.20.0[a-b]_k8s-v1.25.[0-9]*_v3.[0-9]*-amd64
     exclude:
   can_replace_to:
@@ -21,8 +22,9 @@ metadata:
         - "22.04"
     - distribution: Anolis
       versions:
-        - "8.5" 
         - "8.4" 
+        - "8.5"
+        - "8.6" 
     - distribution: CentOS
       versions:
         - "7.6"
@@ -36,9 +38,13 @@ metadata:
     - distribution: OracleLinux
       versions:
         - "8.5"
+        - "8.7"
+        - "9.1"
     - distribution: Rocky
       versions:
         - "8.5"
+        - "8.7"
+        - "9.1"
     - distribution: openEuler
       versions:
         - "20.03"
@@ -81,7 +87,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.26.1"
+    kube_version: "v1.26.2"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -91,7 +97,7 @@ data:
   container_engine:
     - container_manager: "containerd"
       params:
-        containerd_version: 1.6.15
+        containerd_version: 1.6.19
     # - container_manager: "docker"
     #   params:
     #     docker_version: "20.10"
@@ -99,25 +105,25 @@ data:
 
   vars:
     target:
-      containerd_version: 1.6.15
+      containerd_version: 1.6.19
       etcd_version: v3.5.6
       calico_version: "v3.24.5"
       flannel_cni_version: "v1.2.0"
       kubelet_checksums:
         arm64:
-          v1.26.1: f4b514162b52d19909cf0ddf0b816d8d7751c5f1de60eda90cd84dcccc56c399
+          v1.26.2: f4b514162b52d19909cf0ddf0b816d8d7751c5f1de60eda90cd84dcccc56c399
         amd64:
-          v1.26.1: 8b99dd73f309ca1ac4005db638e82f949ffcfb877a060089ec0e729503db8198
+          v1.26.2: 8b99dd73f309ca1ac4005db638e82f949ffcfb877a060089ec0e729503db8198
       kubectl_checksums:
         arm64:
-          v1.26.1: 4027cb0a2840bc14ec3f18151b3360dd2d1f6ce730ed5ac28bd846c17e7d73f5
+          v1.26.2: 4027cb0a2840bc14ec3f18151b3360dd2d1f6ce730ed5ac28bd846c17e7d73f5
         amd64:
-          v1.26.1: d57be22cfa25f7427cfb538cfc8853d763878f8b36c76ce93830f6f2d67c6e5d
+          v1.26.2: d57be22cfa25f7427cfb538cfc8853d763878f8b36c76ce93830f6f2d67c6e5d
       kubeadm_checksums:
         arm64:
-          v1.26.1: db101c4bb8e33bd69241de227ed317feee6d44dbd674891e1b9e11c6e8b369bb
+          v1.26.2: db101c4bb8e33bd69241de227ed317feee6d44dbd674891e1b9e11c6e8b369bb
         amd64:
-          v1.26.1: 1531abfe96e2e9d8af9219192c65d04df8507a46a081ae1e101478e95d2b63da
+          v1.26.2: 1531abfe96e2e9d8af9219192c65d04df8507a46a081ae1e101478e95d2b63da
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
@@ -130,9 +136,9 @@ data:
           v1.1.4: db772be63147a4e747b4fe286c7c16a2edc4a8458bd3092ea46aaee77750e8ce
       containerd_archive_checksums:
         arm64:
-          1.6.15: d63e4d27c51e33cd10f8b5621c559f09ece8a65fec66d80551b36cac9e61a07d
+          1.6.19: 25a0dd6cce4e1058824d6dc277fc01dc45da92539ccb39bb6c8a481c24d2476e
         amd64:
-          1.6.15: 191bb4f6e4afc237efc5c85b5866b6fdfed731bde12cceaa6017a9c7f8aeda02..
+          1.6.19: 3262454d9b3581f4d4da0948f77dde1be51cfc42347a1548bc9ab6870b055815..
       nerdctl_archive_checksums:
         arm64:
           1.0.0: 27622c9d95efe6d807d5f3770d24ddd71719c6ae18f76b5fc89663a51bcd6208
@@ -275,7 +281,7 @@ data:
         downloads:
           - kuboard
       params_default:
-        kuboard_version: 'v3.5.2.0'
+        kuboard_version: 'v3.5.2.2'
         kuboard_port: 80
         kuboard_cluster_name: 'default'
         kuboard_data_dir: '/root/kuboard-data'
