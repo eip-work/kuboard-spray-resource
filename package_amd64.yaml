@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.20.0b_k8s-v1.25.6_v3.5-amd64
+  version: spray-v2.20.0b_k8s-v1.25.7_v3.6-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -7,11 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2023-1-25"
+  issue_date: "2023-3-5"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.20.0[a-b]_k8s-v1.25.[0-5]_v3.[0-4]-amd64
+      - spray-v2.20.0[a-b]_k8s-v1.25.[0-6]_v3.[0-5]-amd64
       - spray-v2.19.0[a-c]_k8s-v1.24.[0-9]*_v2.[0-9]*-amd64
     exclude:
   can_replace_to:
@@ -22,8 +22,9 @@ metadata:
         - "22.04"
     - distribution: Anolis
       versions:
-        - "8.5" 
         - "8.4" 
+        - "8.5"
+        - "8.6" 
     - distribution: CentOS
       versions:
         - "7.6"
@@ -37,9 +38,13 @@ metadata:
     - distribution: OracleLinux
       versions:
         - "8.5"
+        - "8.7"
+        - "9.1"
     - distribution: Rocky
       versions:
         - "8.5"
+        - "8.7"
+        - "9.1"
     - distribution: openEuler
       versions:
         - "20.03"
@@ -53,6 +58,10 @@ metadata:
     - distribution: UnionTech OS Server 20
       versions:
         - "20"
+    - distribution: AlmaLinux
+      versions:
+        - "8.7"
+        - "9.1"
   supported_feature:
     eviction_hard: true
 
@@ -78,7 +87,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.25.6"
+    kube_version: "v1.25.7"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -102,19 +111,19 @@ data:
       flannel_cni_version: "v1.2.0"
       kubelet_checksums:
         arm64:
-          v1.25.6: 6dade59b6fe4b94f03ee173692f5713e023b0cd1abaa8f5ebe4263b49a63df38
+          v1.25.7: cb9176563c7a75be1e8ea23d8e366ced97becabd4626fde01620ec71d2eb1fc2
         amd64:
-          v1.25.6: 8485ac4a60455b77a9b518c13b3aeb0d32338ab7e9894a0b5d217fea585cd2be
+          v1.25.7: 2e3216ac291c78d82fb8988c15d9fd4cf14e2ddd9b17ff91e3abf2e5f3e14fd9
       kubectl_checksums:
         arm64:
-          v1.25.6: 1a4e2850e94d44039c73eae7a6e005b3e1435c00a62bd58df7643bdeb8475cfd
+          v1.25.7: 2c60befa0fefd3bb601e9aa0fc81ae6fb204b514849fe7fa30bea0285449a84b
         amd64:
-          v1.25.6: ba876aef0e9d7e2e8fedac036ec194de5ec9b6d2953e30ff82a2758c6ba32174
+          v1.25.7: 6cdbaf3fdd1032fc8e560ccc0a75b5bd6fa5b6cb45491e9677872f511131ad3d
       kubeadm_checksums:
         arm64:
-          v1.25.6: 54256821830d23b458a29f5d4695331d600e57644604ef68d0e35e5d2a4ffb4b
+          v1.25.7: 64bd532bed1814a28d021e227d18d81cf5b93ac05763a5a5fa6a38b6bb55caee
         amd64:
-          v1.25.6: d8bf16d1a808dce10d4eb9b391ddd6ee8a81e94c669441f20b1227083dbc4417
+          v1.25.7: 54e369043d5c7ac320ccbd51757019274dbfefce36c9abee746e387ac8203704
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
