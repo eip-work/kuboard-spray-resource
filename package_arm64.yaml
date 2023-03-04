@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.19.0c_k8s-v1.24.10_v2.9-arm64
+  version: spray-v2.19.0c_k8s-v1.24.11_v2.10-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -11,6 +11,7 @@ metadata:
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
+      - spray-v2.19.0c_k8s-v1.24.10_v2.9-arm64
       - spray-v2.19.0b_k8s-v1.24.[0-9]_v2.[0-8]-arm64
       - spray-v2.19.0a_k8s-v1.24.[0-5]*_v2.[0-4]*-arm64
       - spray-v2.18.[0-9a-]*_k8s-v1.23.[0-9]*_v[0-9.]*-arm64
@@ -24,8 +25,9 @@ metadata:
         - "22.04"
     - distribution: Anolis
       versions:
-        - "8.5" 
         - "8.4" 
+        - "8.5"
+        - "8.6" 
     - distribution: CentOS
       versions:
         - "7.6"
@@ -39,9 +41,13 @@ metadata:
     - distribution: OracleLinux
       versions:
         - "8.5"
+        - "8.7"
+        - "9.1"
     - distribution: Rocky
       versions:
         - "8.5"
+        - "8.7"
+        - "9.1"
     - distribution: openEuler
       versions:
         - "20.03"
@@ -55,6 +61,10 @@ metadata:
     - distribution: UnionTech OS Server 20
       versions:
         - "20"
+    - distribution: AlmaLinux
+      versions:
+        - "8.7"
+        - "9.1"
   supported_feature:
     eviction_hard: true
 
@@ -80,7 +90,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.24.10"
+    kube_version: "v1.24.11"
     image_arch: arm64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -100,23 +110,23 @@ data:
     target:
       containerd_version: 1.6.15
       etcd_version: v3.5.6
-      calico_version: "v3.23.1"
+      calico_version: "v3.23.3"
       flannel_cni_version: "v1.2.0"
       kubelet_checksums:
         arm64:
-          v1.24.10: e4f5f6d864dfcbe5e5773039f4c44b026a1fa8626f459c82c00e8a4d85bbc089
+          v1.24.11: 43a535958b7b9d8da5600208064eb3f799d9069ced6d836a79d24dd87525f66f
         amd64:
-          v1.24.10: 34b1731df37d1762662bd91f1cba57a9d2ee86296813c48c4e52a9d7955a1b9e
+          v1.24.11: 1d4849fa3aee4847b8ccecc7e14b16caeb0d507a20d0250cf57e71155248f74f
       kubectl_checksums:
         arm64:
-          v1.24.10: 3a0fa419264b3df077bc8220d721d6cbef6cc944014d9337adfd4434ac23bebf
+          v1.24.11: b333f110a0408448b8ba18aa41ca40571056c78e496762ee8084e741b685e206
         amd64:
-          v1.24.10: d8e9cd9bb073ff09e2f2a74cf48e94a9b9d4f2fa2e2dd91b68b01f64e7061a3b
+          v1.24.11: c8bdf1b12d5ac91d163c07e61b9527ef718bec6a00f4fd4cf071591218f59be5
       kubeadm_checksums:
         arm64:
-          v1.24.10: dfa768a684ee9854da4aee0a39164c0ce2e07156a0f0d284d9153c5eb14584b2
+          v1.24.11: 3986f6a48af8f6d2c1cdba1e60e347077e6d1882df984f422b7d1d77eb82005e
         amd64:
-          v1.24.10: 5e29917dc277a8bc4b90bf9dbed8d3dca903fd7cbf7f12c2e256fe22e9f2a1f9
+          v1.24.11: 9123cdda3118772794198f784e4f39f34212ebaa919bdddaf611190d7c4abf38
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
@@ -154,11 +164,11 @@ data:
       calicoctl_download_url: "https://github.com/projectcalico/calico/releases/download/{{ calico_ctl_version }}/calicoctl-linux-{{ image_arch }}"
       calicoctl_binary_checksums:
         amd64:
-          v3.23.1: e8fd04d776df5571917512560800bf77f3cdf36ca864c9cae966cb74d62ba4fe
+          v3.23.3: d9c04ab15bad9d8037192abd2aa4733a01b0b64a461c7b788118a0d6747c1737
         arm64:
-          v3.23.1: 30f7e118c21ecba445b4fbb27f7ac8bc0d1525ab3c776641433e3b1a3388c65b
+          v3.23.3: 741b222f9bb10b7b5e268e5362796061c8862d4f785bb6b9c4f623ea143f4682
       calico_crds_archive_checksums:
-        v3.23.1: a1754ae4bb158e3b46ba3fb326d8038d54cd0dc2c5c8527eadf2b0a6cf8ef2e3
+        v3.23.3: d25f5c9a3adeba63219f3c8425a8475ebfbca485376a78193ec1e4c74e7a6115
       krew_archive_checksums:
         linux:
           arm64:
@@ -246,7 +256,7 @@ data:
   network_plugin:
     - name: calico
       params:
-        calico_version: "v3.23.1"
+        calico_version: "v3.23.3"
     - name: flannel
       params:
         flannel_version: "v0.20.2"
@@ -269,7 +279,7 @@ data:
         downloads:
           - kuboard
       params_default:
-        kuboard_version: 'v3.5.2.0'
+        kuboard_version: 'v3.5.2.2'
         kuboard_port: 80
         kuboard_cluster_name: 'default'
         kuboard_data_dir: '/root/kuboard-data'
