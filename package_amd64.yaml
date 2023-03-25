@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.18.0b-1_k8s-v1.23.16_v1.23-amd64
+  version: spray-v2.18.0b-2_k8s-v1.23.17_v1.24-amd64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.1.0
@@ -7,10 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2023-1-28"
+  issue_date: "2023-3-25"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
+      - spray-v2.18.0b-1_k8s-v1.23.1[0-6]_v[0-9.]*-amd64
       - spray-v2.18.0a-[8-9]_k8s-v1.23.1[0-5]_v[0-9.]*-amd64
       - spray-v2.18.[0-9a-]*_k8s-v1.23.[1-9]_v[0-9.]*-amd64
       - spray-master-8d9ed01_k8s-v1.23.[1-3]_v[0-9.]*-amd64
@@ -22,8 +23,9 @@ metadata:
         - "20.04"
     - distribution: Anolis
       versions:
-        - "8.5" 
         - "8.4" 
+        - "8.5"
+        - "8.6" 
     - distribution: CentOS
       versions:
         - "7.6"
@@ -54,7 +56,7 @@ metadata:
     eviction_hard: true
 
 data:
-  kubespray_version: v2.18.0b-1
+  kubespray_version: v2.18.0b-2
   supported_playbooks:
     install_cluster: pb_cluster.yaml
     remove_node: pb_remove_node.yaml
@@ -75,7 +77,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.23.16"
+    kube_version: "v1.23.17"
     image_arch: amd64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -89,7 +91,7 @@ data:
     - container_manager: "docker"
       params:
         docker_version: "20.10"
-        docker_containerd_version: 1.4.12
+        docker_containerd_version: 1.6.18
 
   vars:
     target:
@@ -97,22 +99,22 @@ data:
       etcd_version: v3.5.6
       calico_version: "v3.21.5"
       flannel_cni_version: "v1.0.1"
-      kuboard_version: "v3.5.2.0"
+      kuboard_version: "v3.5.2.3"
       kubelet_checksums:
         arm64:
-          v1.23.16: b5540d2b67f325ad79af6b86a88bc3d1a8a225453911e7ebb7387788ce355a87
+          v1.23.17: b5540d2b67f325ad79af6b86a88bc3d1a8a225453911e7ebb7387788ce355a87
         amd64:
-          v1.23.16: ab4c64a54c3c6de57108b7b83bdcf03413285f06adccfa2bbc5535d20a684682
+          v1.23.17: 588dde06e2515601380787cb5fcb07ae3d3403130e1a5556b013b7b7fb4ab230
       kubectl_checksums:
         arm64:
-          v1.23.16: f619f8b4811d60edef692f1d888609cc279a7d8223e50e1c0dc959c7b9250e79
+          v1.23.17: f619f8b4811d60edef692f1d888609cc279a7d8223e50e1c0dc959c7b9250e79
         amd64:
-          v1.23.16: 5f914edc9dbfbe1b8b8dc0f5dbbac28720a8dffeb940e3339c371e3612c37e48
+          v1.23.17: f09f7338b5a677f17a9443796c648d2b80feaec9d6a094ab79a77c8a01fde941
       kubeadm_checksums:
         arm64:
-          v1.23.16: 8bb17c69ad71bb1230dbe1e598c6ae07390b57e3ba32928f28e83742105424d0
+          v1.23.17: 8bb17c69ad71bb1230dbe1e598c6ae07390b57e3ba32928f28e83742105424d0
         amd64:
-          v1.23.16: 511b8d915b8e7ab3c0e6aef905c7ac7901c39d2c67fbc099dda28b498a9871d8
+          v1.23.17: 6d3f732fe1eabd91c98ff0ee66c6c8b4fcbdee9e99c2c8606f0fa5ff57b4ea65
       crun_checksums:
         arm64:
           1.4.4: 2ad2c02ec0b1566f1c5e85223b726b704904cc75c2eb4af298e95b98fe5c166d
@@ -277,7 +279,7 @@ data:
         downloads:
           - kuboard
       params_default:
-        kuboard_version: 'v3.5.2.0'
+        kuboard_version: 'v3.5.2.3'
         kuboard_port: 80
         kuboard_cluster_name: 'default'
         kuboard_data_dir: '/root/kuboard-data'
