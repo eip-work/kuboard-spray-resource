@@ -102,17 +102,17 @@ data:
       kuboard_version: "v3.5.2.3"
       kubelet_checksums:
         arm64:
-          v1.23.17: b5540d2b67f325ad79af6b86a88bc3d1a8a225453911e7ebb7387788ce355a87
+          v1.23.17: 95e25ee4d2f34f628ba42685c6ae1ba6efdf86f2e76b5cceb0b48de4d66522a7
         amd64:
           v1.23.17: 588dde06e2515601380787cb5fcb07ae3d3403130e1a5556b013b7b7fb4ab230
       kubectl_checksums:
         arm64:
-          v1.23.17: f619f8b4811d60edef692f1d888609cc279a7d8223e50e1c0dc959c7b9250e79
+          v1.23.17: c4a48fdc6038beacbc5de3e4cf6c23639b643e76656aabe2b7798d3898ec7f05
         amd64:
           v1.23.17: f09f7338b5a677f17a9443796c648d2b80feaec9d6a094ab79a77c8a01fde941
       kubeadm_checksums:
         arm64:
-          v1.23.17: 8bb17c69ad71bb1230dbe1e598c6ae07390b57e3ba32928f28e83742105424d0
+          v1.23.17: cf1bca6b464f30ea078a9cf4d902033fb80527b03c2f39409e19fb8b3886c75e
         amd64:
           v1.23.17: 6d3f732fe1eabd91c98ff0ee66c6c8b4fcbdee9e99c2c8606f0fa5ff57b4ea65
       crun_checksums:
