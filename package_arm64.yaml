@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.20.0b_k8s-v1.25.7_v3.6-arm64
+  version: spray-v2.20.0b_k8s-v1.25.8_v3.7-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -7,11 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2023-3-5"
+  issue_date: "2023-4-1"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.20.0[a-b]_k8s-v1.25.[0-6]_v3.[0-5]-arm64
+      - spray-v2.20.0[a-b]_k8s-v1.25.[0-7]_v3.[0-6]-arm64
       - spray-v2.19.0[a-c]_k8s-v1.24.[0-9]*_v2.[0-9]*-arm64
     exclude:
   can_replace_to:
@@ -87,7 +87,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.25.7"
+    kube_version: "v1.25.8"
     image_arch: arm64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -97,7 +97,7 @@ data:
   container_engine:
     - container_manager: "containerd"
       params:
-        containerd_version: 1.6.15
+        containerd_version: 1.6.20
     # - container_manager: "docker"
     #   params:
     #     docker_version: "20.10"
@@ -105,25 +105,25 @@ data:
 
   vars:
     target:
-      containerd_version: 1.6.15
+      containerd_version: 1.6.20
       etcd_version: v3.5.6
       calico_version: "v3.24.5"
       flannel_cni_version: "v1.2.0"
       kubelet_checksums:
         arm64:
-          v1.25.7: cb9176563c7a75be1e8ea23d8e366ced97becabd4626fde01620ec71d2eb1fc2
+          v1.25.8: 6c995b05b54cc0ce4eb6bf3097565167069b2ce45ba965972430c631c467d239
         amd64:
-          v1.25.7: 2e3216ac291c78d82fb8988c15d9fd4cf14e2ddd9b17ff91e3abf2e5f3e14fd9
+          v1.25.8: 3aa821165da6f1bb9fdb82a91b294b7f4abfc4fdfb21a94fa1e09a9785876516
       kubectl_checksums:
         arm64:
-          v1.25.7: 2c60befa0fefd3bb601e9aa0fc81ae6fb204b514849fe7fa30bea0285449a84b
+          v1.25.8: 28cf5f666cb0c11a8a2b3e5ae4bf93e56b74ab6051720c72bb231887bfc1a7c6
         amd64:
-          v1.25.7: 6cdbaf3fdd1032fc8e560ccc0a75b5bd6fa5b6cb45491e9677872f511131ad3d
+          v1.25.8: 80e70448455f3d19c3cb49bd6ff6fc913677f4f240d368fa2b9f0d400c8cd16e
       kubeadm_checksums:
         arm64:
-          v1.25.7: 64bd532bed1814a28d021e227d18d81cf5b93ac05763a5a5fa6a38b6bb55caee
+          v1.25.8: e7f0c738e48d905eae145631497a9ef59e792300e5247be2a1fbaa0a8907b308
         amd64:
-          v1.25.7: 54e369043d5c7ac320ccbd51757019274dbfefce36c9abee746e387ac8203704
+          v1.25.8: 2ae844776ac48273d868f92a7ed9d54b4a6e9b0e4d05874d77b7c0f4bfa60379
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
@@ -136,9 +136,9 @@ data:
           v1.1.4: db772be63147a4e747b4fe286c7c16a2edc4a8458bd3092ea46aaee77750e8ce
       containerd_archive_checksums:
         arm64:
-          1.6.15: d63e4d27c51e33cd10f8b5621c559f09ece8a65fec66d80551b36cac9e61a07d
+          1.6.20: c3e6a054b18b20fce06c7c3ed53f0989bb4b255c849bede446ebca955f07a9ce
         amd64:
-          1.6.15: 191bb4f6e4afc237efc5c85b5866b6fdfed731bde12cceaa6017a9c7f8aeda02..
+          1.6.20: bb9a9ccd6517e2a54da748a9f60dc9aa9d79d19d4724663f2386812f083968e2
       nerdctl_archive_checksums:
         arm64:
           1.0.0: 27622c9d95efe6d807d5f3770d24ddd71719c6ae18f76b5fc89663a51bcd6208
@@ -189,7 +189,7 @@ data:
           container: true
           file: false
           enabled: "{{ kuboard_enabled | default(false) }}"
-          version: "{{ kuboard_version | default('v3.5.2.2') }}"
+          version: "{{ kuboard_version | default('v3.5.2.3') }}"
           repo: "eipwork/kuboard"
           tag: "{{ kuboard_version }}"
           sha256: ""
@@ -281,7 +281,7 @@ data:
         downloads:
           - kuboard
       params_default:
-        kuboard_version: 'v3.5.2.2'
+        kuboard_version: 'v3.5.2.3'
         kuboard_port: 80
         kuboard_cluster_name: 'default'
         kuboard_data_dir: '/root/kuboard-data'
