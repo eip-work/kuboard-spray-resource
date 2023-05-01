@@ -111,17 +111,17 @@ data:
       flannel_cni_version: "v1.2.0"
       kubelet_checksums:
         arm64:
-          v1.26.4: d360f919c279a05441b27178030c3d17134c1f257c95f4b22bdb28c2290993e7
+          v1.26.4: a925a5d20d29c362f0c4d60cb005f21d44576837510e0bc65c817961969b4e7e
         amd64:
           v1.26.4: 1e29fe7a097066cfbc1c1d2ab37f8b883c8f3fec414bafe8f2c7b960b0fb60fe
       kubectl_checksums:
         arm64:
-          v1.26.4: 0f62cbb6fafa109f235a08348d74499a57bb294c2a2e6ee34be1fa83432fec1d
+          v1.26.4: eea4054825a4c20cc09bc15abcb1354725ad886338e6892141a071caab91d4b6
         amd64:
           v1.26.4: 636ac0eaa467dbceda4b2c4e33662adc9709f5ce40341c9fc1a687fc276ac02d
       kubeadm_checksums:
         arm64:
-          v1.26.4: e9a7dbca77f9576a98af1db8747e9dc13e930e40295eaa259dd99fd6e17a173f
+          v1.26.4: a97052d393e60027c354e97c88493aa14a76c8cfb7418bbdf8425b3711d86e3a
         amd64:
           v1.26.4: aa1a137aa2c3427f199ff652c96b11d6b124358296996eb7b8cbde220607b2fe
       crun_checksums:
