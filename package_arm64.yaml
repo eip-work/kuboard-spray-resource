@@ -1,5 +1,5 @@
 metadata:
-  version: spray-v2.20.0b_k8s-v1.25.8_v3.7-arm64
+  version: spray-v2.20.0b_k8s-v1.25.9_v3.8-arm64
   type: kubernetes-offline-resource
   kuboard_spray_version:
     min: v1.2.0
@@ -7,11 +7,11 @@ metadata:
     - registry.cn-shanghai.aliyuncs.com/kuboard-spray/kuboard-spray-resource
     - swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-spray-resource
     - eipwork/kuboard-spray-resource
-  issue_date: "2023-4-1"
+  issue_date: "2023-5-2"
   owner: "shaohq@foxmail.com"
   can_upgrade_from:
     include:
-      - spray-v2.20.0[a-b]_k8s-v1.25.[0-7]_v3.[0-6]-arm64
+      - spray-v2.20.0[a-b]_k8s-v1.25.[0-8]_v3.[0-7]-arm64
       - spray-v2.19.0[a-c]_k8s-v1.24.[0-9]*_v2.[0-9]*-arm64
     exclude:
   can_replace_to:
@@ -87,7 +87,7 @@ data:
     restore_etcd: pb_restore_etcd.yaml
 
   kubernetes:
-    kube_version: "v1.25.8"
+    kube_version: "v1.25.9"
     image_arch: arm64
     gcr_image_repo: "gcr.io"
     kube_image_repo: "k8s.gcr.io"
@@ -111,19 +111,19 @@ data:
       flannel_cni_version: "v1.2.0"
       kubelet_checksums:
         arm64:
-          v1.25.8: 6c995b05b54cc0ce4eb6bf3097565167069b2ce45ba965972430c631c467d239
+          v1.25.9: 5af11a2948c87076540bb78ee99563b373301c9d8bb694395e2ce7fb14a76344
         amd64:
-          v1.25.8: 3aa821165da6f1bb9fdb82a91b294b7f4abfc4fdfb21a94fa1e09a9785876516
+          v1.25.9: 0eb951237379ef023aa52deedb0df5eae54fa71caeb52bdb30a4660806bed23e
       kubectl_checksums:
         arm64:
-          v1.25.8: 28cf5f666cb0c11a8a2b3e5ae4bf93e56b74ab6051720c72bb231887bfc1a7c6
+          v1.25.9: 741e65b681a22074aaf9459b57dbcef6a9e993472b3019a87f57c191bc68575f
         amd64:
-          v1.25.8: 80e70448455f3d19c3cb49bd6ff6fc913677f4f240d368fa2b9f0d400c8cd16e
+          v1.25.9: aaa5ea3b3630730d2b8a8ef3cccb14b47754602c7207c7b0717158ae83c7cb10
       kubeadm_checksums:
         arm64:
-          v1.25.8: e7f0c738e48d905eae145631497a9ef59e792300e5247be2a1fbaa0a8907b308
+          v1.25.9: cd15d440685f54a2c7a6cf1d96093fa7a55b9dfae8c48448b3ea92a922c07c72
         amd64:
-          v1.25.8: 2ae844776ac48273d868f92a7ed9d54b4a6e9b0e4d05874d77b7c0f4bfa60379
+          v1.25.9: 157be24d998111a51d52db016f9010cd6418506a028f87b5a712f518b392a3f3
       crun_checksums:
         arm64:
           1.4.5: 64a01114060ec12e66b1520c6ee6967410022d1ec73cdc7d14f952343c0769f2
@@ -189,7 +189,7 @@ data:
           container: true
           file: false
           enabled: "{{ kuboard_enabled | default(false) }}"
-          version: "{{ kuboard_version | default('v3.5.2.3') }}"
+          version: "{{ kuboard_version | default('v3.5.2.4') }}"
           repo: "eipwork/kuboard"
           tag: "{{ kuboard_version }}"
           sha256: ""
@@ -281,7 +281,7 @@ data:
         downloads:
           - kuboard
       params_default:
-        kuboard_version: 'v3.5.2.3'
+        kuboard_version: 'v3.5.2.4'
         kuboard_port: 80
         kuboard_cluster_name: 'default'
         kuboard_data_dir: '/root/kuboard-data'
